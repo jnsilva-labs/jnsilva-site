@@ -21,7 +21,7 @@ export default function AboutPage() {
           <div className="relative">
             <div className="aspect-[3/4] bg-[#141414] border border-[#C8C0B4]/10 relative overflow-hidden">
               <Image
-                src="/images/portrait/jnsilva-portrait.jpg"
+                src="/images/portrait/jnsilva-portrait.png"
                 alt="J.N. Silva"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
