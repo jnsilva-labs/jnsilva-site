@@ -28,7 +28,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       lerp: prefersReduced ? 1 : 0.1,
       duration: prefersReduced ? 0 : 1.2,
       smoothWheel: !prefersReduced,
-      touchMultiplier: 1.5,
+      touchMultiplier: 1.2,
     });
 
     lenisRef.current = lenis;

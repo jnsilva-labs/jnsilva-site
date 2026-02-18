@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useCallback, useEffect } from 'react';
+import React, { useRef, useMemo, useState, useCallback, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -149,7 +149,7 @@ const ParticleField: React.FC<{ count?: number }> = ({ count = 250 }) => {
   return <primitive object={particleObj} ref={ref} />;
 };
 
-/* ─── Mouse camera ─── */
+/* ─── Mouse camera (desktop only) ─── */
 
 const CameraRig: React.FC = () => {
   const { camera } = useThree();
@@ -176,8 +176,8 @@ const CameraRig: React.FC = () => {
 
 /* ─── Full scene ─── */
 
-const Scene: React.FC = () => {
-  const flowerPositions = useMemo(() => generateFlowerPositions(2), []);
+const Scene: React.FC<{ isMobile?: boolean }> = ({ isMobile = false }) => {
+  const flowerPositions = useMemo(() => generateFlowerPositions(isMobile ? 1 : 2), [isMobile]);
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame(({ clock }) => {
@@ -188,25 +188,26 @@ const Scene: React.FC = () => {
 
   return (
     <>
-      <CameraRig />
+      {/* Mouse-reactive camera — desktop only (no mouse on touch) */}
+      {!isMobile && <CameraRig />}
       <ambientLight intensity={0.3} />
 
-      {/* Flower of Life */}
+      {/* Flower of Life — fewer circles on mobile */}
       <group ref={groupRef} scale={1.2}>
         {flowerPositions.map(([x, y], i) => (
           <CircleRing key={i} cx={x} cy={y} cz={0} radius={1} delay={i * 0.3} />
         ))}
       </group>
 
-      {/* Metatron overlay */}
-      <MetatronsCube />
+      {/* Metatron overlay — skip on mobile (very subtle at 0.05 opacity, ~78 line draws) */}
+      {!isMobile && <MetatronsCube />}
 
-      {/* Outer rings */}
+      {/* Outer rings — keep 1 on mobile, both on desktop */}
       <CircleRing cx={0} cy={0} cz={-0.1} radius={4} delay={0} />
-      <CircleRing cx={0} cy={0} cz={-0.2} radius={5.5} delay={1} />
+      {!isMobile && <CircleRing cx={0} cy={0} cz={-0.2} radius={5.5} delay={1} />}
 
-      {/* Particles */}
-      <ParticleField count={300} />
+      {/* Particles — 300 desktop, 80 mobile */}
+      <ParticleField count={isMobile ? 80 : 300} />
     </>
   );
 };
@@ -219,15 +220,27 @@ interface SacredGeometryProps {
 }
 
 const SacredGeometry: React.FC<SacredGeometryProps> = ({ style, className }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
+
+  // Skip entire Three.js canvas if user prefers reduced motion
+  if (reducedMotion) return null;
+
   return (
     <div className={className || 'canvas-container'}>
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={isMobile ? [1, 1] : [1, 2]}
+        gl={{ antialias: !isMobile, alpha: true }}
+        onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
         style={style || { position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh' }}
       >
-        <Scene />
+        <Scene isMobile={isMobile} />
       </Canvas>
     </div>
   );

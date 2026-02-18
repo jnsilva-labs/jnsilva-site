@@ -22,7 +22,7 @@ gsap.registerPlugin(ScrollTrigger);
 /* ─── Data ─── */
 
 const selectPhotography = [
-  // Frame 1: BENTO MOSAIC — 8 images, all categories
+  // Frame 1: BENTO MOSAIC — 10 images, all categories
   { src: '/images/hero/DSC05043.JPG', aspect: 'wide' as const },            // A: laser show
   { src: '/images/hero/jnsilva_day1_DSC06940.JPG', aspect: 'tall' as const }, // B: Gesaffelstein
   { src: '/images/nyc/Steam_and_Light.jpg', aspect: 'wide' as const },       // C: NYC steam
@@ -31,6 +31,9 @@ const selectPhotography = [
   { src: '/images/music/Coachella_4_2018_.jpg', aspect: 'wide' as const },   // F: Coachella
   { src: '/images/nyc/Brooklyn_Bridge_Fog.jpg', aspect: 'tall' as const },   // G: Brooklyn fog
   { src: '/images/places/Guatemala_Rays.jpg', aspect: 'wide' as const },     // H: god rays
+  { src: '/images/hero/kesha-everglades.jpg', aspect: 'tall' as const },     // I: Kesha (Vogue)
+  { src: '/images/hero/DSC00050-opt.jpg', aspect: 'tall' as const },         // J: concert performance
+  { src: '/images/hero/DSCFJAPAN249.JPG', aspect: 'wide' as const },        // K: Japan
   // Frame 2: Cinematic letterbox divider (B&W)
   { src: '/images/hero/blackandwhitehero1.jpg', aspect: 'wide' as const },   // B&W concert — disco ball
   // Frame 3: Offset asymmetric
@@ -86,7 +89,7 @@ const nftCollections = [
     platform: 'Nifty Gateway',
     date: 'May 2022',
     description: 'Solo collection exploring infinite recursion, sacred patterns, and fractal imagery.',
-    link: 'https://opensea.io/jnsilva',
+    link: 'https://x.com/JNSilva_/status/1522671827461496832',
     image: '/images/fractals/infinitum/infinitumhero.JPG',
   },
   {
@@ -103,78 +106,141 @@ const socialLinks = [
   { name: 'Instagram', url: 'https://instagram.com/jnsilva', handle: '@jnsilva' },
   { name: 'TikTok', url: 'https://tiktok.com/@jnsilva', handle: '@jnsilva' },
   { name: 'X (Twitter)', url: 'https://x.com/JNSilva_', handle: '@JNSilva_' },
-  { name: 'Substack', url: 'https://jnsilva.substack.com', handle: 'jnsilva' },
+  { name: 'Substack', url: 'https://substack.com/@josensilva', handle: '@josensilva' },
 ];
 
-/* ─── Featured NFT (rotates on each visit) ─── */
+/* ─── NFT Content (featured hero + cards, with deduplication) ─── */
 
-function FeaturedNFT({ collections }: { collections: typeof nftCollections }) {
-  const [featured, setFeatured] = useState<(typeof nftCollections)[number] | null>(null);
+function NFTContent({ collections }: { collections: typeof nftCollections }) {
+  const [featuredTitle, setFeaturedTitle] = useState<string | null>(null);
   const [orientation, setOrientation] = useState<'landscape' | 'portrait' | 'square'>('landscape');
 
   useEffect(() => {
     const withVideo = collections.filter((c) => c.video);
     if (withVideo.length === 0) return;
     const pick = withVideo[Math.floor(Math.random() * withVideo.length)];
-    setFeatured(pick);
+    setFeaturedTitle(pick.title);
   }, [collections]);
 
-  if (!featured || !featured.video) return null;
-
+  const featured = collections.find((c) => c.title === featuredTitle);
+  const cards = collections.filter((c) => c.title !== featuredTitle);
   const isPortrait = orientation === 'portrait';
 
   return (
-    <div data-reveal className="mb-12">
-      <p className="text-[#C9A84C] text-[10px] uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
-        Featured Project
-      </p>
-      <a
-        href={featured.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`group block relative overflow-hidden border border-[#F5F0E8]/[0.04] hover:border-[#C8C0B4]/20 transition-all duration-300 ${isPortrait ? 'max-w-xs mx-auto' : ''}`}
-      >
-        <div className={`relative bg-[#0D0D0D] ${isPortrait ? 'aspect-[3/4]' : orientation === 'square' ? 'aspect-square' : 'aspect-video'}`}>
-          <video
-            src={featured.video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className={`absolute inset-0 w-full h-full ${isPortrait ? 'object-contain' : 'object-cover'}`}
-            onLoadedMetadata={(e) => {
-              const v = e.currentTarget;
-              if (v.videoWidth && v.videoHeight) {
-                const ratio = v.videoWidth / v.videoHeight;
-                if (ratio < 0.9) setOrientation('portrait');
-                else if (ratio > 1.1) setOrientation('landscape');
-                else setOrientation('square');
-              }
-            }}
-          />
-        </div>
-        <div className="flex items-center justify-between p-5 bg-[#141414]">
-          <div>
-            <div className="flex items-center gap-3 mb-1">
-              <span className="text-[#C8C0B4]/60 text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
-                {featured.platform}
-              </span>
-              <span className="text-[#F5F0E8]/10">&middot;</span>
-              <span className="text-[#F5F0E8]/20 text-[10px] font-[family-name:var(--font-mono)]">
-                {featured.date}
-              </span>
+    <>
+      {/* Featured Project — cycles randomly on each visit */}
+      {featured && featured.video && (
+        <div data-reveal className="mb-12">
+          <p className="text-[#C9A84C] text-[11px] md:text-[10px] uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
+            Featured Project
+          </p>
+          <a
+            href={featured.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group block relative overflow-hidden border border-[#F5F0E8]/[0.04] hover:border-[#C8C0B4]/20 transition-all duration-300 ${isPortrait ? 'max-w-xs mx-auto' : ''}`}
+          >
+            <div className={`relative bg-[#0D0D0D] ${isPortrait ? 'aspect-[3/4]' : orientation === 'square' ? 'aspect-square' : 'aspect-video'}`}>
+              <video
+                src={featured.video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className={`absolute inset-0 w-full h-full ${isPortrait ? 'object-contain' : 'object-cover'}`}
+                onLoadedMetadata={(e) => {
+                  const v = e.currentTarget;
+                  if (v.videoWidth && v.videoHeight) {
+                    const ratio = v.videoWidth / v.videoHeight;
+                    if (ratio < 0.9) setOrientation('portrait');
+                    else if (ratio > 1.1) setOrientation('landscape');
+                    else setOrientation('square');
+                  }
+                }}
+              />
             </div>
-            <h3 className="font-[family-name:var(--font-display)] text-2xl text-[#F5F0E8] font-light group-hover:text-[#C8C0B4] transition-colors duration-300">
-              {featured.title}
-            </h3>
-          </div>
-          <div className="flex items-center gap-2 text-[#C8C0B4]/30 group-hover:text-[#C8C0B4]/60 transition-colors duration-300">
-            <span className="text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hidden sm:inline">View</span>
-            <ExternalLink size={12} />
-          </div>
+            <div className="flex items-center justify-between p-5 bg-[#141414]">
+              <div>
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="text-[#C8C0B4]/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+                    {featured.platform}
+                  </span>
+                  <span className="text-[#F5F0E8]/10">&middot;</span>
+                  <span className="text-[#F5F0E8]/20 text-[10px] font-[family-name:var(--font-mono)]">
+                    {featured.date}
+                  </span>
+                </div>
+                <h3 className="font-[family-name:var(--font-display)] text-2xl text-[#F5F0E8] font-light group-hover:text-[#C8C0B4] transition-colors duration-300">
+                  {featured.title}
+                </h3>
+              </div>
+              <div className="flex items-center gap-2 text-[#C8C0B4]/30 group-hover:text-[#C8C0B4]/60 transition-colors duration-300">
+                <span className="text-[11px] md:text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hidden sm:inline">View</span>
+                <ExternalLink size={12} />
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
-    </div>
+      )}
+
+      {/* Collection cards — featured item excluded */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-12">
+        {cards.map((collection) => (
+          <a
+            key={collection.title}
+            href={collection.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-reveal
+            className="group bg-[#141414] border border-[#F5F0E8]/[0.04] hover:border-[#C8C0B4]/20 transition-all duration-300 overflow-hidden"
+          >
+            {collection.video ? (
+              <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
+                <video
+                  src={collection.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
+              </div>
+            ) : 'image' in collection && collection.image ? (
+              <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
+                <Image
+                  src={collection.image as string}
+                  alt={collection.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
+            <div className="p-6">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-[#C8C0B4]/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+                  {collection.platform}
+                </span>
+                <span className="text-[#F5F0E8]/10">&middot;</span>
+                <span className="text-[#F5F0E8]/20 text-[10px] font-[family-name:var(--font-mono)]">
+                  {collection.date}
+                </span>
+              </div>
+              <h3 className="font-[family-name:var(--font-display)] text-xl text-[#F5F0E8] font-light mb-2 group-hover:text-[#C8C0B4] transition-colors duration-300">
+                {collection.title}
+              </h3>
+              <p className="text-[#F5F0E8]/40 text-xs leading-relaxed mb-3">
+                {collection.description}
+              </p>
+              <div className="flex items-center gap-2 text-[#C8C0B4]/30 group-hover:text-[#C8C0B4]/60 transition-colors duration-300">
+                <span className="text-[11px] md:text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)]">View</span>
+                <ExternalLink size={10} />
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -274,11 +340,14 @@ export default function Home() {
     };
   }, []);
 
-  // Hero pin — next section scrolls over it
+  // Hero pin — next section scrolls over it (desktop only)
   useEffect(() => {
-    // Skip pin for reduced motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
+
+    // Only pin on desktop — wastes scroll distance on mobile
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (isMobile) return;
 
     const trigger = ScrollTrigger.create({
       trigger: heroRef.current,
@@ -359,7 +428,7 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <div className="hero-scroll absolute bottom-10 flex flex-col items-center gap-2">
-          <span className="text-[#F5F0E8]/20 text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+          <span className="text-[#F5F0E8]/20 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
             Scroll
           </span>
           <ChevronDown className="w-5 h-5 text-[#C8C0B4]/40 animate-[gentleBounce_2s_ease-in-out_infinite]" />
@@ -396,18 +465,19 @@ export default function Home() {
 
             {/* Bio — tightened declaration */}
             <div>
-              <p data-reveal className="text-[#C8C0B4] text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
+              <p data-reveal className="text-[#C8C0B4] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
                 <span className="opacity-30 mr-3">01</span>About
               </p>
               <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[#F5F0E8] font-light mb-8 leading-tight tracking-tight">
-                At the intersection of storytelling, technology, and modern mysticism.
+                Devoted to the endless pursuit of wisdom, beauty, and truth.
               </h2>
               <div className="space-y-5 text-[#F5F0E8]/50 text-base leading-relaxed max-w-lg">
                 <p data-reveal>
-                  Venezuelan-born photographer, filmmaker, and creative director working
-                  at the intersection of storytelling, technology, and modern mysticism.
-                  Studied Philosophy and English at Rutgers University with a focus on
-                  personal identity, free will, and world religions.
+                  Venezuelan-born photographer, filmmaker, and creative director on a
+                  relentless quest to master every medium that moves him. Studied Philosophy
+                  and English at Rutgers University — a foundation that turned a love of
+                  ancient wisdom, personal identity, and world religions into the lens
+                  through which all his work is made.
                 </p>
                 <p data-reveal>
                   Over the last decade, capturing human truth through street, portrait,
@@ -452,7 +522,7 @@ export default function Home() {
       <section className="relative z-20 bg-[#0A0A0A] section-fade">
         {/* Section header — tight */}
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-4 pb-2">
-          <p className="text-[#C8C0B4] text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
+          <p className="text-[#C8C0B4] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
             <span className="opacity-30 mr-3">02</span>Select Photography
           </p>
         </div>
@@ -462,7 +532,7 @@ export default function Home() {
 
         {/* Frame 1: BENTO MOSAIC — "The Wall" — 8 images, all categories */}
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
-          <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[240px] md:auto-rows-[220px] lg:auto-rows-[280px] gap-2 grid-flow-dense">
+          <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] md:auto-rows-[220px] lg:auto-rows-[280px] gap-2 md:grid-flow-dense">
             {/* A: Laser show — wide, spans 2 cols */}
             <ImageReveal direction="left" delay={0} triggerStart="top 98%" className="col-span-2 row-span-1">
               <div
@@ -570,7 +640,7 @@ export default function Home() {
               </div>
             </ImageReveal>
             {/* G: Brooklyn Bridge Fog — hidden on mobile, tall on desktop */}
-            <ImageReveal direction="up" delay={0.16} triggerStart="top 98%" className="hidden md:block row-span-2">
+            <ImageReveal direction="up" delay={0.16} triggerStart="top 98%" className="hidden md:block md:row-span-2">
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
@@ -603,6 +673,57 @@ export default function Home() {
                 />
               </div>
             </ImageReveal>
+            {/* I: Kesha — Vogue featured, tall portrait */}
+            <ImageReveal direction="up" delay={0.2} triggerStart="top 98%" className="row-span-2">
+              <div
+                className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+                data-cursor="view"
+                onClick={() => setLightboxIndex(8)}
+              >
+                <Image
+                  src={selectPhotography[8].src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  data-colorize
+                />
+              </div>
+            </ImageReveal>
+            {/* J: Concert performance — tall portrait */}
+            <ImageReveal direction="right" delay={0.22} triggerStart="top 98%" className="row-span-2">
+              <div
+                className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+                data-cursor="view"
+                onClick={() => setLightboxIndex(9)}
+              >
+                <Image
+                  src={selectPhotography[9].src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  data-colorize
+                />
+              </div>
+            </ImageReveal>
+            {/* K: Japan — wide, fills gap next to I+J portraits */}
+            <ImageReveal direction="up" delay={0.24} triggerStart="top 98%" className="col-span-2 row-span-2">
+              <div
+                className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+                data-cursor="view"
+                onClick={() => setLightboxIndex(10)}
+              >
+                <Image
+                  src={selectPhotography[10].src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  data-colorize
+                />
+              </div>
+            </ImageReveal>
           </div>
         </div>
 
@@ -610,12 +731,12 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
           <ImageReveal direction="up" triggerStart="top 100%">
             <div
-              className="relative aspect-[21/9] bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative aspect-[16/9] md:aspect-[21/9] bg-[#141414] cursor-pointer group overflow-hidden"
               data-cursor="view"
-              onClick={() => setLightboxIndex(8)}
+              onClick={() => setLightboxIndex(11)}
             >
               <Image
-                src={selectPhotography[8].src}
+                src={selectPhotography[11].src}
                 alt=""
                 fill
                 sizes="(max-width: 1400px) 100vw, 1400px"
@@ -632,10 +753,10 @@ export default function Home() {
               <div
                 className="relative aspect-[2/3] bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
-                onClick={() => setLightboxIndex(9)}
+                onClick={() => setLightboxIndex(12)}
               >
                 <Image
-                  src={selectPhotography[9].src}
+                  src={selectPhotography[12].src}
                   alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -648,10 +769,10 @@ export default function Home() {
               <div
                 className="relative aspect-[3/2] bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
-                onClick={() => setLightboxIndex(10)}
+                onClick={() => setLightboxIndex(13)}
               >
                 <Image
-                  src={selectPhotography[10].src}
+                  src={selectPhotography[13].src}
                   alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 66vw"
@@ -667,9 +788,9 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { src: selectPhotography[11].src, idx: 11 },
-              { src: selectPhotography[12].src, idx: 12 },
-              { src: selectPhotography[13].src, idx: 13 },
+              { src: selectPhotography[14].src, idx: 14 },
+              { src: selectPhotography[15].src, idx: 15 },
+              { src: selectPhotography[16].src, idx: 16 },
             ].map((item, i) => (
               <ImageReveal key={item.src} direction="up" delay={i * 0.12} triggerStart="top 100%">
                 <div
@@ -695,12 +816,12 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
           <ImageReveal direction="up" triggerStart="top 100%">
             <div
-              className="relative aspect-[21/9] bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative aspect-[16/9] md:aspect-[21/9] bg-[#141414] cursor-pointer group overflow-hidden"
               data-cursor="view"
-              onClick={() => setLightboxIndex(14)}
+              onClick={() => setLightboxIndex(17)}
             >
               <Image
-                src={selectPhotography[14].src}
+                src={selectPhotography[17].src}
                 alt=""
                 fill
                 sizes="(max-width: 1400px) 100vw, 1400px"
@@ -716,10 +837,10 @@ export default function Home() {
             <div
               className="relative aspect-[2/3] w-[280px] md:w-[360px] bg-[#141414] cursor-pointer group overflow-hidden"
               data-cursor="view"
-              onClick={() => setLightboxIndex(15)}
+              onClick={() => setLightboxIndex(18)}
             >
               <Image
-                src={selectPhotography[15].src}
+                src={selectPhotography[18].src}
                 alt=""
                 fill
                 sizes="360px"
@@ -747,13 +868,16 @@ export default function Home() {
       <section className="relative z-20 bg-[#0A0A0A] py-20 lg:py-24 section-fade">
         <div ref={clientsRef}>
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-8">
-            <p data-reveal className="text-[#C8C0B4] text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)]">
+            <p data-reveal className="text-[#C8C0B4] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)]">
               <span className="opacity-30 mr-3">03</span>Select Clients
             </p>
           </div>
 
           {/* Horizontal scroll strip */}
-          <div data-reveal className="overflow-x-auto pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
+          <div data-reveal className="relative">
+            {/* Right-edge scroll hint — mobile only */}
+            <div className="pointer-events-none absolute right-0 top-0 bottom-4 w-16 z-10 bg-gradient-to-l from-[#0A0A0A] to-transparent md:hidden" />
+          <div className="overflow-x-auto pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
             <div className="flex gap-3 px-6 md:px-12" style={{ width: 'max-content' }}>
               {featuredClients.map((client) => (
                 <Link
@@ -787,6 +911,7 @@ export default function Home() {
               ))}
             </div>
           </div>
+          </div>
 
           {/* Subtle marquee + CTA */}
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 mt-8">
@@ -795,7 +920,7 @@ export default function Home() {
                 {[...clientNames, ...clientNames].map((name, i) => (
                   <span
                     key={`${name}-${i}`}
-                    className="mx-8 font-[family-name:var(--font-display)] text-2xl text-[#F5F0E8]/[0.12] whitespace-nowrap"
+                    className="mx-8 font-[family-name:var(--font-display)] text-lg md:text-2xl text-[#F5F0E8]/[0.12] whitespace-nowrap"
                   >
                     {name}
                   </span>
@@ -821,13 +946,13 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section className="relative z-20 bg-[#0A0A0A] py-32 lg:py-40 section-fade">
         <div ref={filmRef} className="max-w-[1400px] mx-auto px-6 md:px-12">
-          <p data-reveal className="text-[#C8C0B4] text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
+          <p data-reveal className="text-[#C8C0B4] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
             <span className="opacity-30 mr-3">04</span>Buscando America
           </p>
 
           {/* Buscando America — title + IDIOSINCRASIA documentary */}
           <div data-reveal className="mb-6">
-            <p className="text-[#C8C0B4]/40 text-[10px] uppercase tracking-[0.4em] font-[family-name:var(--font-mono)] mb-4">
+            <p className="text-[#C8C0B4]/40 text-[11px] md:text-[10px] uppercase tracking-[0.4em] font-[family-name:var(--font-mono)] mb-4">
               Looking for America
             </p>
             <h3 className="font-[family-name:var(--font-display)] text-[clamp(2rem,6vw,6rem)] text-[#F5F0E8] font-light tracking-wide leading-none mb-2">
@@ -875,7 +1000,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section className="relative z-20 bg-[#0A0A0A] py-32 lg:py-40 section-fade overflow-hidden">
         <div ref={fractalsRef} className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
-          <p data-reveal className="text-[#C9A84C] text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
+          <p data-reveal className="text-[#C9A84C] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
             <span className="opacity-30 mr-3">05</span>Fractal Art
           </p>
           <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-4xl md:text-6xl text-[#F5F0E8] font-light mb-8 tracking-tight leading-tight">
@@ -920,9 +1045,9 @@ export default function Home() {
           {/* Preview thumbnails — Infinitum, Portrait, Abstract */}
           <div data-reveal className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             {[
-              { src: '/images/fractals/infinitum/jnsilva_infinitum_swingonthespiral.JPG', label: 'Infinitum' },
-              { src: '/images/fractals/fractalportraits1.JPG', label: 'Fractal Portraits' },
-              { src: '/images/fractals/NeonPinkSpirals.jpg', label: 'Abstract' },
+              { src: '/images/fractals/051523_SkiPath3DFlower.jpg', label: 'Infinitum' },
+              { src: '/images/fractals/051623_OrbitTrapCameos.jpg', label: 'Fractal Portraits' },
+              { src: '/images/fractals/SpiralColor3jpg.jpg', label: 'Abstract' },
             ].map((item, i) => (
               <ImageReveal key={item.src} direction="up" delay={i * 0.1}>
                 <Link href="/fractals" className="relative aspect-square bg-[#141414] border border-[#C9A84C]/10 overflow-hidden block group cursor-pointer" data-cursor="view">
@@ -935,7 +1060,7 @@ export default function Home() {
                     data-colorize
                   />
                   <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-[#0A0A0A]/80 to-transparent">
-                    <p className="text-[#C9A84C]/60 text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+                    <p className="text-[#C9A84C]/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
                       {item.label}
                     </p>
                   </div>
@@ -964,7 +1089,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section className="relative z-20 bg-[#0A0A0A] py-32 lg:py-40 section-fade">
         <div ref={digitalArtRef} className="max-w-[1400px] mx-auto px-6 md:px-12">
-          <p data-reveal className="text-[#C8C0B4] text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
+          <p data-reveal className="text-[#C8C0B4] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
             <span className="opacity-30 mr-3">06</span>Digital Art
           </p>
           <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[#F5F0E8] font-light mb-12 tracking-tight">
@@ -985,66 +1110,8 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Featured Project — cycles randomly on each visit */}
-          <FeaturedNFT collections={nftCollections.slice(1)} />
-
-          {/* Collection cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
-            {nftCollections.slice(1).map((collection) => (
-              <a
-                key={collection.title}
-                href={collection.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-reveal
-                className="group bg-[#141414] border border-[#F5F0E8]/[0.04] hover:border-[#C8C0B4]/20 transition-all duration-300 overflow-hidden"
-              >
-                {collection.video ? (
-                  <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
-                    <video
-                      src={collection.video}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="absolute inset-0 w-full h-full object-contain"
-                    />
-                  </div>
-                ) : 'image' in collection && collection.image ? (
-                  <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
-                    <Image
-                      src={collection.image as string}
-                      alt={collection.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      className="object-cover"
-                    />
-                  </div>
-                ) : null}
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-[#C8C0B4]/60 text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
-                      {collection.platform}
-                    </span>
-                    <span className="text-[#F5F0E8]/10">&middot;</span>
-                    <span className="text-[#F5F0E8]/20 text-[10px] font-[family-name:var(--font-mono)]">
-                      {collection.date}
-                    </span>
-                  </div>
-                  <h3 className="font-[family-name:var(--font-display)] text-xl text-[#F5F0E8] font-light mb-2 group-hover:text-[#C8C0B4] transition-colors duration-300">
-                    {collection.title}
-                  </h3>
-                  <p className="text-[#F5F0E8]/40 text-xs leading-relaxed mb-3">
-                    {collection.description}
-                  </p>
-                  <div className="flex items-center gap-2 text-[#C8C0B4]/30 group-hover:text-[#C8C0B4]/60 transition-colors duration-300">
-                    <span className="text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)]">View</span>
-                    <ExternalLink size={10} />
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
+          {/* Featured Project + Collection cards (deduplicated) */}
+          <NFTContent collections={nftCollections.slice(1)} />
 
           {/* Platform links */}
           <div data-reveal className="flex flex-wrap items-center gap-6 mb-12">
@@ -1079,7 +1146,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <section className="relative z-20 bg-[#0A0A0A] py-32 lg:py-40 section-fade min-h-[70vh] flex items-center overflow-hidden">
         <div ref={paradoxRef} className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-          <p data-reveal className="text-[#C9A84C] text-[10px] uppercase tracking-[0.4em] mb-6 font-[family-name:var(--font-mono)]">
+          <p data-reveal className="text-[#C9A84C] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-6 font-[family-name:var(--font-mono)]">
             <span className="opacity-30 mr-3">07</span>New Project
           </p>
           <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-[#F5F0E8] font-light mb-6 leading-tight tracking-tight">
@@ -1119,10 +1186,10 @@ export default function Home() {
 
           <div data-reveal className="mb-12">
             <a
-              href="mailto:studio@jnsilva.com"
+              href="mailto:jns@jnsilva.com"
               className="text-[#C8C0B4] text-lg md:text-xl font-[family-name:var(--font-mono)] hover:text-[#F5F0E8] transition-colors duration-300"
             >
-              studio@jnsilva.com
+              jns@jnsilva.com
             </a>
           </div>
 

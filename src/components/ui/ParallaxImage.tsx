@@ -29,9 +29,10 @@ export default function ParallaxImage({
     const inner = innerRef.current;
     if (!container || !inner) return;
 
-    // Respect reduced motion
+    // Respect reduced motion + disable on touch (scrub causes jank)
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (prefersReduced || isTouch) return;
 
     // Calculate the amount of travel based on speed
     // A higher speed means more movement relative to scroll

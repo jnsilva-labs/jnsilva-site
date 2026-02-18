@@ -51,13 +51,17 @@ export default function ImageReveal({
       return;
     }
 
+    // On mobile, trigger slightly later — images may already be visible on shorter viewports
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const effectiveStart = isMobile && triggerStart === 'top 85%' ? 'top 95%' : triggerStart;
+
     const { from, to } = clipPaths[direction];
 
     gsap.set(el, { clipPath: from, scale });
 
     const trigger = ScrollTrigger.create({
       trigger: el,
-      start: triggerStart,
+      start: effectiveStart,
       once,
       onEnter: () => {
         gsap.to(el, {

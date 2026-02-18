@@ -100,7 +100,7 @@ export default function ClientsPage() {
 
       {/* CTA */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
-        <div className="p-16 bg-[#141414] border border-[#C8C0B4]/10">
+        <div className="p-8 md:p-16 bg-[#141414] border border-[#C8C0B4]/10">
           <h2 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-[#F5F0E8] mb-6">
             Interested in working together?
           </h2>

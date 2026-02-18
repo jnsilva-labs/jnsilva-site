@@ -155,7 +155,7 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
       <button
         ref={closeRef}
         onClick={handleClose}
-        className="absolute top-6 right-6 z-10 p-2 text-[#F5F0E8]/40 hover:text-[#F5F0E8] transition-colors"
+        className="absolute top-4 right-4 z-10 p-3 text-[#F5F0E8]/40 hover:text-[#F5F0E8] transition-colors"
         aria-label="Close"
       >
         <X size={24} />

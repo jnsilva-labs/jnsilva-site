@@ -86,7 +86,7 @@ export default function Footer() {
                 TikTok
               </a>
               <a
-                href="https://jnsilva.substack.com"
+                href="https://substack.com/@josensilva"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#F5F0E8]/50 hover:text-[#F5F0E8] text-sm transition-colors"

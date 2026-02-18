@@ -154,6 +154,8 @@ export default function AwarenessParadoxPage() {
         </div>
 
         {/* Horizontal scroll container */}
+        <div className="relative">
+          <div className="pointer-events-none absolute right-0 top-0 bottom-4 w-16 z-10 bg-gradient-to-l from-[#0A0A0A] to-transparent md:hidden" />
         <div className="overflow-x-auto scrollbar-hide">
           <div className="flex gap-4 px-6 md:px-12 max-w-[1400px] mx-auto pb-4" style={{ minWidth: 'min-content' }}>
             {shorts.map((short) => (
@@ -173,6 +175,7 @@ export default function AwarenessParadoxPage() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
 

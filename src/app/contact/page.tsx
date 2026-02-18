@@ -15,7 +15,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Form submission handler — can be connected to a serverless function
-    const mailtoLink = `mailto:jns@jnsilva.com?subject=${encodeURIComponent(formData.subject || 'Website Inquiry')}&body=${encodeURIComponent(`From: ${formData.name}\nEmail: ${formData.email}\nType: ${formData.type}\n\n${formData.message}`)}`;
+    const mailtoLink = `mailto:info@jnsilva.com?subject=${encodeURIComponent(formData.subject || 'Website Inquiry')}&body=${encodeURIComponent(`From: ${formData.name}\nEmail: ${formData.email}\nType: ${formData.type}\n\n${formData.message}`)}`;
     window.open(mailtoLink);
   };
 
@@ -58,7 +58,7 @@ export default function ContactPage() {
               </h3>
               <p className="flex items-center gap-3 text-[#F5F0E8]/50 text-base">
                 <MapPin size={16} className="text-[#C8C0B4]/60" />
-                New York City
+                New York City & Miami
               </p>
             </div>
 

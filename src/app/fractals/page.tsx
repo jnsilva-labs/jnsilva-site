@@ -229,7 +229,7 @@ export default function FractalsPage() {
           {abstracts.length} works
         </p>
 
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-3 space-y-3">
+        <div className="columns-2 md:columns-2 lg:columns-3 gap-3 space-y-3">
           {abstracts.map((item) => (
             <div
               key={item.src}

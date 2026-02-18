@@ -265,19 +265,19 @@ export const fractalImages: FractalImage[] = [
   {
     src: '/images/fractals/DSC00605.jpg',
     title: 'Fractal Study I',
-    category: 'abstract',
+    category: 'portraits',
     aspect: 'wide',
   },
   {
     src: '/images/fractals/DSC02252.jpg',
     title: 'Fractal Study II',
-    category: 'abstract',
+    category: 'portraits',
     aspect: 'wide',
   },
   {
     src: '/images/fractals/DSC03555.jpg',
     title: 'Fractal Study III',
-    category: 'abstract',
+    category: 'portraits',
     aspect: 'wide',
   },
   {

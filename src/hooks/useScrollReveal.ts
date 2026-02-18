@@ -37,6 +37,10 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
     const triggers: ScrollTrigger[] = [];
     const tweens: gsap.core.Tween[] = [];
 
+    // On mobile, trigger slightly later — elements may already be visible on shorter viewports
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const triggerStart = isMobile ? 'top 95%' : 'top 85%';
+
     // ── Split-text word reveals ──
     const splitTargets = el.querySelectorAll('[data-reveal="split"]');
     splitTargets.forEach((target) => {
@@ -45,7 +49,7 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
 
       const trigger = ScrollTrigger.create({
         trigger: target,
-        start: 'top 85%',
+        start: triggerStart,
         once: true,
         onEnter: () => {
           gsap.to(innerSpans, {
@@ -66,7 +70,7 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
 
       const trigger = ScrollTrigger.create({
         trigger: target,
-        start: 'top 85%',
+        start: triggerStart,
         once: true,
         onEnter: () => {
           gsap.to(target, {
@@ -91,7 +95,7 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
 
       const trigger = ScrollTrigger.create({
         trigger: el,
-        start: 'top 85%',
+        start: triggerStart,
         once: true,
         onEnter: () => {
           gsap.to(allDefault, {
@@ -111,7 +115,7 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
 
       const trigger = ScrollTrigger.create({
         trigger: el,
-        start: 'top 85%',
+        start: triggerStart,
         once: true,
         onEnter: () => {
           gsap.to(el, {
