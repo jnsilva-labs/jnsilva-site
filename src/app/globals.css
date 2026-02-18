@@ -1,0 +1,365 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0A0A0A;
+  --foreground: #F5F0E8;
+  --gold: #C8C0B4;
+  --gold-accent: #C9A84C;
+  --gold-light: #D8D2C8;
+  --gold-dark: #9E9689;
+  --blue: #2563EB;
+  --indigo: #1E1B4B;
+  --surface: #141414;
+  --surface-light: #1A1A1A;
+  --muted: #888888;
+  /* Font variables set by next/font in layout.tsx:
+     --font-display (Cormorant Garamond)
+     --font-body (Space Grotesk)
+     --font-mono (JetBrains Mono)
+  */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-gold: var(--gold);
+  --color-gold-accent: var(--gold-accent);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-blue: var(--blue);
+  --color-indigo: var(--indigo);
+  --color-surface: var(--surface);
+  --color-surface-light: var(--surface-light);
+  --color-muted: var(--muted);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+/* Tailwind v4 preflight handles margin/padding reset.
+   Only keep box-sizing which doesn't conflict with utilities. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ── Lenis Smooth Scroll ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+html {
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--gold);
+  color: var(--background);
+}
+
+/* Hidden scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom cursor — hide default on fine-pointer devices */
+@media (pointer: fine) {
+  body.custom-cursor-active {
+    cursor: none;
+  }
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [data-cursor] {
+    cursor: none;
+  }
+}
+
+/* B&W-to-color scroll: CSS fallback (works without JS) */
+[data-colorize] {
+  filter: grayscale(1) brightness(0.9);
+}
+
+/* Smooth page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Sacred geometry glow effect */
+.sacred-glow {
+  filter: drop-shadow(0 0 8px rgba(200, 192, 180, 0.3));
+}
+
+/* Text gradient — taupe (general UI) */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Text gradient — true gold (special moments: Sotheby's, sacred geometry) */
+.text-gradient-gold-accent {
+  background: linear-gradient(135deg, #D4B85C, var(--gold-accent), #A88B3D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Text hover micro-interaction — subtle letter-spacing expansion */
+.text-hover-expand {
+  transition: letter-spacing 0.3s ease, opacity 0.3s ease;
+}
+
+.text-hover-expand:hover {
+  letter-spacing: 0.45em;
+  opacity: 0.9;
+}
+
+/* Section fade — soft gradient transition replacing hard border */
+.section-fade {
+  position: relative;
+}
+
+.section-fade::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: linear-gradient(to bottom, #0A0A0A, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Scroll progress bar — gold line at top of viewport */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 1px;
+  background: var(--gold-accent);
+  z-index: 9998;
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* Animated underline for nav links */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.5s cubic-bezier(0.625, 0.05, 0, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Canvas container */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+  opacity: 0;
+}
+
+.animation-delay-800 {
+  animation-delay: 0.8s;
+  opacity: 0;
+}
+
+/* Scroll indicator bounce */
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50% { transform: translateY(8px) translateX(-50%); }
+}
+
+.scroll-indicator {
+  animation: gentleBounce 2s ease-in-out infinite;
+}
+
+/* Scrolling marquee */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Image hover effects */
+.portfolio-image {
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease;
+}
+
+.portfolio-image:hover {
+  transform: scale(1.03);
+}
+
+.portfolio-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.7) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.portfolio-card:hover::after {
+  opacity: 1;
+}
+
+/* Scanline texture for cinematic sections */
+.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* Letterbox aspect ratio for film sections */
+.letterbox {
+  aspect-ratio: 2.39 / 1;
+}
+
+/* Gold line sweep */
+@keyframes lineReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0% 0 0); }
+}
+
+/* Hero atmospheric particles */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-particles::before,
+.hero-particles::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.04;
+  filter: blur(80px);
+  animation: particleDrift 20s ease-in-out infinite alternate;
+}
+
+.hero-particles::before {
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+  top: 20%;
+  left: -10%;
+}
+
+.hero-particles::after {
+  width: 30vw;
+  height: 30vw;
+  background: radial-gradient(circle, var(--foreground) 0%, transparent 70%);
+  bottom: 10%;
+  right: -5%;
+  animation-delay: -10s;
+  animation-duration: 25s;
+}
+
+@keyframes particleDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(5vw, -3vh) scale(1.1); }
+  66% { transform: translate(-3vw, 5vh) scale(0.9); }
+  100% { transform: translate(2vw, -2vh) scale(1.05); }
+}
+
+/* SVG line drawing animation */
+.draw-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-particles::before,
+  .hero-particles::after {
+    animation: none !important;
+  }
+}
