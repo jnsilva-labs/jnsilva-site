@@ -18,13 +18,17 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
   const counterRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [isClosing, setIsClosing] = useState(false);
+  const isAnimating = useRef(false);
 
   const goNext = useCallback(() => {
+    if (isAnimating.current) return;
     const container = imageContainerRef.current;
     if (!container) {
       onNavigate((currentIndex + 1) % images.length);
       return;
     }
+    isAnimating.current = true;
+    gsap.killTweensOf(container);
     // Subtle exit left, then enter from right
     gsap.to(container, {
       x: -30,
@@ -35,18 +39,23 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
         onNavigate((currentIndex + 1) % images.length);
         gsap.fromTo(container,
           { x: 30, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.3, ease: 'power2.out' }
+          { x: 0, opacity: 1, duration: 0.3, ease: 'power2.out',
+            onComplete: () => { isAnimating.current = false; }
+          }
         );
       },
     });
   }, [currentIndex, images.length, onNavigate]);
 
   const goPrev = useCallback(() => {
+    if (isAnimating.current) return;
     const container = imageContainerRef.current;
     if (!container) {
       onNavigate((currentIndex - 1 + images.length) % images.length);
       return;
     }
+    isAnimating.current = true;
+    gsap.killTweensOf(container);
     // Subtle exit right, then enter from left
     gsap.to(container, {
       x: 30,
@@ -57,7 +66,9 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
         onNavigate((currentIndex - 1 + images.length) % images.length);
         gsap.fromTo(container,
           { x: -30, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.3, ease: 'power2.out' }
+          { x: 0, opacity: 1, duration: 0.3, ease: 'power2.out',
+            onComplete: () => { isAnimating.current = false; }
+          }
         );
       },
     });
