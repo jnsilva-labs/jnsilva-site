@@ -445,7 +445,7 @@ export default function Home() {
             <ImageReveal direction="left" className="relative aspect-[3/4] bg-[#141414]">
               {!portraitError ? (
                 <Image
-                  src="/images/portrait/JNSilvaProfile.jpg"
+                  src="/images/portrait/jnsilva-portrait.jpg"
                   alt="J.N. Silva"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
