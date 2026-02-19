@@ -92,10 +92,24 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-[#0A0A0A]/98 backdrop-blur-xl transition-all duration-500 lg:hidden ${
+        className={`fixed inset-0 z-[60] bg-[#0A0A0A]/98 backdrop-blur-xl transition-all duration-500 lg:hidden ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
+        {/* Close button inside overlay — always above overlay content */}
+        <div className="absolute top-0 left-0 right-0 z-10 px-6 md:px-12">
+          <div className="flex items-center justify-end h-20">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-[#F5F0E8] hover:text-[#C8C0B4] transition-colors p-2 -mr-2"
+              aria-label="Close menu"
+              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+            >
+              <X size={28} />
+            </button>
+          </div>
+        </div>
+
         {/* Decorative sacred geometry background for mobile menu */}
         <div className="absolute inset-0 opacity-5">
           <svg viewBox="0 0 400 400" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -115,12 +129,12 @@ export default function Navigation() {
               key={item.href}
               href={item.href}
               onClick={() => setIsOpen(false)}
-              className={`text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 ${
+              className={`text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-1 px-4 ${
                 pathname === item.href
                   ? 'text-[#C8C0B4]'
                   : 'text-[#F5F0E8]/60 hover:text-[#F5F0E8]'
               }`}
-              style={{ animationDelay: `${index * 0.05}s` }}
+              style={{ animationDelay: `${index * 0.05}s`, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
             >
               {item.label}
             </Link>
