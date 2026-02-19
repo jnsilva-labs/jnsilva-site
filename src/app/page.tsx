@@ -14,6 +14,7 @@ import ImageReveal from '@/components/ui/ImageReveal';
 import ParallaxImage from '@/components/ui/ParallaxImage';
 import MagneticButton from '@/components/ui/MagneticButton';
 import { getFeaturedClients } from '@/data/clients';
+import { getAbstract } from '@/data/fractals';
 
 const SacredGeometry = dynamic(() => import('@/components/SacredGeometry'), { ssr: false });
 
@@ -57,6 +58,28 @@ const clientNames = [
 ];
 
 const featuredClientNames = ['Nike', 'Sony', 'Spotify', 'Samsung', 'Sephora', 'American Express'];
+
+/* ─── Fractal thumbnail randomization ─── */
+
+const FRACTAL_LABELS = ['Infinitum', 'Fractal Portraits', 'Abstract'] as const;
+
+const DEFAULT_FRACTAL_THUMBS = [
+  '/images/fractals/051523_SkiPath3DFlower.jpg',
+  '/images/fractals/051623_OrbitTrapCameos.jpg',
+  '/images/fractals/SpiralColor3jpg.jpg',
+];
+
+function pickRandom<T>(arr: readonly T[], n: number): T[] {
+  const copy = [...arr];
+  const result: T[] = [];
+  for (let i = 0; i < n && copy.length > 0; i++) {
+    const idx = Math.floor(Math.random() * copy.length);
+    result.push(copy[idx]);
+    copy[idx] = copy[copy.length - 1];
+    copy.pop();
+  }
+  return result;
+}
 
 const nftCollections = [
   {
@@ -268,6 +291,14 @@ export default function Home() {
 
   // Portrait fallback
   const [portraitError, setPortraitError] = useState(false);
+
+  // Randomized fractal thumbnails — different set each visit
+  const [fractalThumbs, setFractalThumbs] = useState(DEFAULT_FRACTAL_THUMBS);
+  useEffect(() => {
+    const pool = getAbstract();
+    const picked = pickRandom(pool, 3);
+    setFractalThumbs(picked.map((f) => f.src));
+  }, []);
 
   // Hero GSAP timeline — per-character reveal (waits for montage to complete)
   useEffect(() => {
@@ -1044,16 +1075,12 @@ export default function Home() {
 
           {/* Preview thumbnails — Infinitum, Portrait, Abstract */}
           <div data-reveal className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-            {[
-              { src: '/images/fractals/051523_SkiPath3DFlower.jpg', label: 'Infinitum' },
-              { src: '/images/fractals/051623_OrbitTrapCameos.jpg', label: 'Fractal Portraits' },
-              { src: '/images/fractals/SpiralColor3jpg.jpg', label: 'Abstract' },
-            ].map((item, i) => (
-              <ImageReveal key={item.src} direction="up" delay={i * 0.1}>
+            {FRACTAL_LABELS.map((label, i) => (
+              <ImageReveal key={label} direction="up" delay={i * 0.1}>
                 <Link href="/fractals" className="relative aspect-square bg-[#141414] border border-[#C9A84C]/10 overflow-hidden block group cursor-pointer" data-cursor="view">
                   <Image
-                    src={item.src}
-                    alt={item.label}
+                    src={fractalThumbs[i]}
+                    alt={label}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -1061,7 +1088,7 @@ export default function Home() {
                   />
                   <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-[#0A0A0A]/80 to-transparent">
                     <p className="text-[#C9A84C]/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
-                      {item.label}
+                      {label}
                     </p>
                   </div>
                 </Link>
