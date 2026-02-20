@@ -4,40 +4,53 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 
 /**
- * HeroMontage — Full-viewport rapid-fire photo montage (landscape only).
+ * HeroMontage — Full-viewport crossfading photo montage.
+ * Desktop: 12 landscape photos, cinematic deceleration (~4.3s).
+ * Mobile: 6 portrait photos, snappier pacing (~2.5s).
  * Only plays once per browser session (sessionStorage flag).
- * Total duration: ~3 seconds max.
  */
 
-// All landscape (width > height) images — no cropping issues at full viewport
-const montageImages = [
-  '/images/hero/DSC05043.JPG',              // Laser concert 1920×1280
-  '/images/hero/DSC08845.JPG',              // Sintra well 1920×1280
-  '/images/hero/DSCFJAPAN249.JPG',          // Japan street 1920×1280
-  '/images/hero/Qatar2025_147.JPG',         // Qatar architecture 1920×1280
-  '/images/hero/DSC00180.JPG',              // Milky Way 1920×1280
-  '/images/music/041019_-_Coachella-1.jpg', // Coachella 1920×1280
-  '/images/places/Kenya_Zebras.jpg',        // Kenya zebras 1920×1280
-  '/images/places/Guatemala_Rays.jpg',      // Guatemala rays 1920×1280
-  '/images/fractals/Kinesthesia.JPG',       // Kinesthesia 1920×823
-  '/images/music/Broey_2.jpg',              // Concert 1920×1280
-  '/images/places/Glacier_National_Park.jpg', // Glacier 1920×1279
-  '/images/people/Film_Noir_4.jpg',         // Film noir 1920×1280
+const desktopImages = [
+  '/images/hero/DSC05043.JPG',              // Laser concert
+  '/images/hero/DSC08845.JPG',              // Sintra well
+  '/images/hero/DSCFJAPAN249.JPG',          // Japan street
+  '/images/hero/Qatar2025_147.JPG',         // Qatar architecture
+  '/images/hero/DSC00180.JPG',              // Milky Way
+  '/images/music/041019_-_Coachella-1.jpg', // Coachella
+  '/images/places/Kenya_Zebras.jpg',        // Kenya zebras
+  '/images/places/Guatemala_Rays.jpg',      // Guatemala rays
+  '/images/fractals/Kinesthesia.JPG',       // Kinesthesia
+  '/images/music/Broey_2.jpg',              // Concert
+  '/images/places/Glacier_National_Park.jpg', // Glacier
+  '/images/people/Film_Noir_4.jpg',         // Film noir
+];
+
+const mobileImages = [
+  '/images/hero/DSC00754.JPG',              // Portrait — high contrast
+  '/images/hero/greecebw-04771.JPG',        // Greece B&W architecture
+  '/images/music/Kendrick_3.jpg',           // Concert performance
+  '/images/places/Solar_Eclipse.jpg',       // Solar eclipse
+  '/images/people/Fashion_Week.jpg',        // Fashion portrait
+  '/images/hero/DSC05341.JPG',              // Portrait variety
 ];
 
 /**
- * Compute frame timings: ~80ms start, decelerate to ~250ms, last holds ~400ms.
- * Total: ~2.5s cycling + 0.5s dissolve = ~3s
+ * Cinematic deceleration curve:
+ * Desktop: ~60ms → ~400ms → 800ms hold (12 frames, ~3.5s)
+ * Mobile:  ~80ms → ~350ms → 500ms hold (6 frames, ~2s)
  */
-function computeFrameTimings(count: number): number[] {
+function computeFrameTimings(count: number, mobile = false): number[] {
   const timings: number[] = [];
+  const startMs = mobile ? 80 : 60;
+  const rangeMs = mobile ? 270 : 340;
+  const holdMs = mobile ? 500 : 800;
   for (let i = 0; i < count; i++) {
     const t = i / (count - 1);
-    const eased = 1 - Math.pow(1 - t, 2.5);
-    const duration = 80 + eased * 170; // 80ms → 250ms
+    const eased = 1 - Math.pow(1 - t, 3); // cubic deceleration
+    const duration = startMs + eased * rangeMs;
     timings.push(duration);
   }
-  timings[count - 1] = 400; // Last frame holds
+  timings[count - 1] = holdMs;
   return timings;
 }
 
@@ -45,13 +58,16 @@ const SESSION_KEY = 'montageShown';
 
 export default function Preloader() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const frontRef = useRef<HTMLImageElement>(null);
+  const backRef = useRef<HTMLImageElement>(null);
+  const counterRef = useRef<HTMLSpanElement>(null);
   const [isHidden, setIsHidden] = useState(false);
   const hasStartedExitRef = useRef(false);
-  const frameTimings = useRef(computeFrameTimings(montageImages.length));
+  const isMobileRef = useRef(false);
+  const imagesRef = useRef(desktopImages);
+  const frameTimingsRef = useRef(computeFrameTimings(desktopImages.length));
 
-  // Exit animation — dissolve to black, then unmount
+  // Exit animation — cinematic dissolve with subtle zoom pull
   const handleExit = useCallback(() => {
     if (hasStartedExitRef.current) return;
     hasStartedExitRef.current = true;
@@ -63,16 +79,33 @@ export default function Preloader() {
       return;
     }
 
-    gsap.to(containerRef.current, {
-      opacity: 0,
-      duration: 0.5,
-      ease: 'power2.inOut',
+    const tl = gsap.timeline({
       onComplete: () => {
         document.body.style.overflow = '';
         setIsHidden(true);
         window.dispatchEvent(new CustomEvent('montageComplete'));
       },
     });
+
+    // Slow dissolve to black
+    tl.to(containerRef.current, {
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.inOut',
+    }, 0);
+
+    // Subtle zoom pull on the visible image during dissolve
+    const visibleImg =
+      frontRef.current && frontRef.current.style.opacity !== '0'
+        ? frontRef.current
+        : backRef.current;
+    if (visibleImg) {
+      tl.to(visibleImg, {
+        scale: 1.08,
+        duration: 0.8,
+        ease: 'power1.in',
+      }, 0);
+    }
   }, []);
 
   // Check session — skip if already shown this session
@@ -80,18 +113,21 @@ export default function Preloader() {
     const alreadyShown = sessionStorage.getItem(SESSION_KEY);
     if (alreadyShown) {
       setIsHidden(true);
-      // Still dispatch so hero name reveals immediately
       window.dispatchEvent(new CustomEvent('montageComplete'));
       return;
     }
 
+    // Detect mobile and set appropriate images + timings
+    const mobile = window.innerWidth < 768;
+    isMobileRef.current = mobile;
+    imagesRef.current = mobile ? mobileImages : desktopImages;
+    frameTimingsRef.current = computeFrameTimings(imagesRef.current.length, mobile);
+
     document.body.style.overflow = 'hidden';
 
-    // Preload images
-    let loadedCount = 0;
-    montageImages.forEach((src) => {
+    // Preload only the relevant image set
+    imagesRef.current.forEach((src) => {
       const img = new window.Image();
-      img.onload = img.onerror = () => { loadedCount++; };
       img.src = src;
     });
 
@@ -100,9 +136,8 @@ export default function Preloader() {
     };
   }, []);
 
-  // Montage sequence
+  // Montage sequence with crossfade transitions
   useEffect(() => {
-    // Skip if already shown this session
     if (sessionStorage.getItem(SESSION_KEY)) return;
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -112,37 +147,86 @@ export default function Preloader() {
       return;
     }
 
+    const images = imagesRef.current;
+    const timings = frameTimingsRef.current;
     let frameIndex = 0;
     let timeoutId: ReturnType<typeof setTimeout>;
-    const timings = frameTimings.current;
+    let isFrontActive = true;
+
+    // Set initial state
+    if (frontRef.current && backRef.current) {
+      frontRef.current.src = images[0];
+      frontRef.current.style.opacity = '1';
+      frontRef.current.style.zIndex = '2';
+      backRef.current.style.opacity = '0';
+      backRef.current.style.zIndex = '1';
+    }
 
     function showNextFrame() {
-      if (frameIndex >= montageImages.length) {
+      if (frameIndex >= images.length) {
         sessionStorage.setItem(SESSION_KEY, 'true');
         handleExit();
         return;
       }
 
-      setCurrentIndex(frameIndex);
+      const front = frontRef.current;
+      const back = backRef.current;
+      if (!front || !back) return;
 
-      // Ken Burns zoom
-      if (imageRef.current) {
-        gsap.fromTo(
-          imageRef.current,
-          { scale: 1 },
-          {
-            scale: 1.05,
-            duration: (timings[frameIndex] || 200) / 1000 + 0.05,
-            ease: 'none',
-          }
-        );
+      const frameDuration = (timings[frameIndex] || 200) / 1000;
+
+      if (frameIndex === 0) {
+        // First frame: just show with Ken Burns
+        gsap.fromTo(front, { scale: 1 }, {
+          scale: 1.05,
+          duration: frameDuration + 0.1,
+          ease: 'none',
+        });
+      } else {
+        // Crossfade to next frame
+        const incoming = isFrontActive ? back : front;
+        const outgoing = isFrontActive ? front : back;
+
+        // Set new image on the hidden layer
+        incoming.src = images[frameIndex];
+        incoming.style.zIndex = '2';
+        outgoing.style.zIndex = '1';
+
+        // Crossfade duration scales with frame timing (faster early, smoother late)
+        const crossDuration = Math.min(frameDuration * 0.5, 0.2);
+
+        gsap.set(incoming, { scale: 1, opacity: 0 });
+        gsap.to(incoming, {
+          opacity: 1,
+          duration: crossDuration,
+          ease: 'power1.inOut',
+        });
+        gsap.to(outgoing, {
+          opacity: 0,
+          duration: crossDuration,
+          ease: 'power1.inOut',
+        });
+
+        // Ken Burns on incoming
+        gsap.fromTo(incoming, { scale: 1 }, {
+          scale: 1.05,
+          duration: frameDuration + 0.1,
+          ease: 'none',
+        });
+
+        isFrontActive = !isFrontActive;
+      }
+
+      // Update film frame counter
+      if (counterRef.current) {
+        counterRef.current.textContent = String(frameIndex + 1).padStart(3, '0');
       }
 
       frameIndex++;
       timeoutId = setTimeout(showNextFrame, timings[frameIndex - 1]);
     }
 
-    const startDelay = setTimeout(showNextFrame, 150);
+    const startDelay = setTimeout(showNextFrame, 200);
 
     return () => {
       clearTimeout(timeoutId);
@@ -163,19 +247,75 @@ export default function Preloader() {
         backgroundColor: '#0A0A0A',
       }}
     >
+      {/* Two image layers for crossfade */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        ref={imageRef}
-        src={montageImages[currentIndex]}
+        ref={backRef}
+        src={desktopImages[0]}
         alt=""
         style={{
+          position: 'absolute',
+          inset: 0,
           width: '100%',
           height: '100%',
           objectFit: 'cover',
           filter: 'grayscale(1)',
-          willChange: 'transform',
+          willChange: 'transform, opacity',
+          opacity: 0,
+          zIndex: 1,
         }}
       />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={frontRef}
+        src={desktopImages[0]}
+        alt=""
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          filter: 'grayscale(1)',
+          willChange: 'transform, opacity',
+          opacity: 1,
+          zIndex: 2,
+        }}
+      />
+
+      {/* Film grain overlay */}
+      <div className="montage-grain" />
+
+      {/* Cinematic vignette */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 10,
+          background:
+            'radial-gradient(ellipse at center, transparent 40%, rgba(10,10,10,0.6) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Film frame counter */}
+      <span
+        ref={counterRef}
+        className="font-[family-name:var(--font-mono)]"
+        style={{
+          position: 'absolute',
+          bottom: 24,
+          right: 24,
+          zIndex: 15,
+          color: '#F5F0E8',
+          opacity: 0.15,
+          fontSize: 11,
+          letterSpacing: '0.1em',
+          fontVariantNumeric: 'tabular-nums',
+        }}
+      >
+        001
+      </span>
     </div>
   );
 }
