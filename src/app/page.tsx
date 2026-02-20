@@ -300,56 +300,53 @@ export default function Home() {
     setFractalThumbs(picked.map((f) => f.src));
   }, []);
 
-  // Hero GSAP timeline — per-character reveal (waits for montage to complete)
+  // Hero GSAP timeline — "Blur to Focus" cinematic rack focus (waits for montage to complete)
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Set initial hidden state (montage covers the hero, so chars start invisible)
+    // Set initial hidden state (montage covers the hero, so elements start invisible)
     if (!prefersReduced) {
-      gsap.set('.hero-char', { y: 60, opacity: 0, rotateX: -90 });
-      gsap.set('.hero-line', { clipPath: 'inset(0 100% 0 0)' });
-      gsap.set('.hero-subtitle-word', { y: 15, opacity: 0 });
+      gsap.set('.hero-name', { opacity: 0, scale: 1.03, filter: 'blur(18px) brightness(1.3)' });
+      gsap.set('.hero-line', { scaleX: 0 });
+      gsap.set('.hero-subtitle-word', { opacity: 0, y: 12 });
       gsap.set('.hero-scroll', { opacity: 0 });
     }
 
     function playReveal() {
       const ctx = gsap.context(() => {
         if (prefersReduced) {
-          gsap.set('.hero-char', { y: 0, opacity: 1, rotateX: 0 });
-          gsap.set('.hero-line', { clipPath: 'inset(0 0% 0 0)' });
-          gsap.set('.hero-subtitle-word', { y: 0, opacity: 1 });
+          gsap.set('.hero-name', { opacity: 1, scale: 1, filter: 'blur(0px) brightness(1)' });
+          gsap.set('.hero-line', { scaleX: 1 });
+          gsap.set('.hero-subtitle-word', { opacity: 1, y: 0 });
           gsap.set('.hero-scroll', { opacity: 1 });
           return;
         }
 
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.2 });
+        const tl = gsap.timeline({ defaults: { ease: 'power2.out' }, delay: 0.3 });
 
-        tl.fromTo(
-          '.hero-char',
-          { y: 60, opacity: 0, rotateX: -90 },
-          { y: 0, opacity: 1, rotateX: 0, duration: 1.0, stagger: 0.04 }
-        );
+        // Phase 1: Soft glow emerges from black
+        tl.to('.hero-name', {
+          opacity: 1, duration: 0.6, ease: 'power2.out',
+        });
 
-        tl.fromTo(
-          '.hero-line',
-          { clipPath: 'inset(0 100% 0 0)' },
-          { clipPath: 'inset(0 0% 0 0)', duration: 0.8 },
-          '-=0.3'
-        );
+        // Phase 2: Rack focus — blur resolves, brightness normalizes, scale settles
+        tl.to('.hero-name', {
+          filter: 'blur(0px) brightness(1)',
+          scale: 1,
+          duration: 1.8,
+          ease: 'power3.out',
+        }, '-=0.3');
 
-        tl.fromTo(
-          '.hero-subtitle-word',
-          { y: 15, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, stagger: 0.06 },
-          '-=0.4'
-        );
-
-        tl.fromTo(
-          '.hero-scroll',
-          { opacity: 0 },
-          { opacity: 1, duration: 0.6 },
-          '-=0.2'
-        );
+        // Phase 3: Gold line expands from center + subtitle stagger + scroll
+        tl.to('.hero-line', {
+          scaleX: 1, duration: 0.8, ease: 'power2.inOut',
+        }, '-=0.3');
+        tl.to('.hero-subtitle-word', {
+          opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out',
+        }, '-=0.4');
+        tl.to('.hero-scroll', {
+          opacity: 1, duration: 0.6,
+        }, '-=0.2');
       }, heroRef);
 
       return ctx;
@@ -426,28 +423,17 @@ export default function Home() {
         <div className="hero-particles" />
 
         <div className="relative z-10 text-center">
-          {/* Name — per-character animation */}
-          <h1 className="font-[family-name:var(--font-display)] text-[clamp(3rem,10vw,10rem)] text-[#F5F0E8] font-light tracking-wide leading-none"
-            style={{ perspective: '600px' }}
+          {/* Name — Blur to Focus cinematic reveal */}
+          <h1
+            className="hero-name font-[family-name:var(--font-display)] text-[clamp(3rem,10vw,10rem)] text-[#F5F0E8] font-light tracking-wide leading-none select-none"
           >
-            {'JN SILVA'.split('').map((char, i) => (
-              <span
-                key={i}
-                className="hero-char inline-block"
-                style={{
-                  transformOrigin: 'bottom center',
-                  ...(char === ' ' ? { width: '0.3em' } : {}),
-                }}
-              >
-                {char === ' ' ? '\u00A0' : char}
-              </span>
-            ))}
+            JN SILVA
           </h1>
 
-          {/* Gold accent line */}
-          <div className="hero-line h-[1px] w-32 sm:w-48 mx-auto mt-4 bg-[#C9A84C]" />
+          {/* Gold accent line — expands from center */}
+          <div className="hero-line h-[1px] w-32 sm:w-48 mx-auto mt-4 bg-[#C9A84C] origin-center" />
 
-          {/* Subtitle — word-by-word stagger */}
+          {/* Subtitle — word-by-word fade in */}
           <p className="mt-6 text-[#C8C0B4] text-xs sm:text-sm uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
             {'Artist. Photographer. Creative Director. Alchemist.'.split(' ').map((word, i) => (
               <span key={i} className="hero-subtitle-word inline-block mr-[0.6em]">
