@@ -92,16 +92,17 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-[60] bg-[#0A0A0A]/98 backdrop-blur-xl transition-all duration-500 lg:hidden ${
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 z-[60] bg-[#0A0A0A] transition-all duration-500 lg:hidden ${
+          isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
+        style={{ WebkitOverflowScrolling: 'touch' }}
       >
         {/* Close button inside overlay — always above overlay content */}
         <div className="absolute top-0 left-0 right-0 z-10 px-6 md:px-12">
           <div className="flex items-center justify-end h-20">
             <button
               onClick={() => setIsOpen(false)}
-              className="text-[#F5F0E8] hover:text-[#C8C0B4] transition-colors p-2 -mr-2"
+              className="text-[#F5F0E8] hover:text-[#C8C0B4] transition-colors p-3 -mr-3"
               aria-label="Close menu"
               style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
             >
@@ -111,7 +112,7 @@ export default function Navigation() {
         </div>
 
         {/* Decorative sacred geometry background for mobile menu */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-5 pointer-events-none">
           <svg viewBox="0 0 400 400" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <circle cx="200" cy="200" r="120" fill="none" stroke="#C8C0B4" strokeWidth="0.5" />
             <circle cx="200" cy="80" r="120" fill="none" stroke="#C8C0B4" strokeWidth="0.5" />
@@ -123,30 +124,31 @@ export default function Navigation() {
           </svg>
         </div>
 
-        <div className="flex flex-col items-center justify-center h-full gap-8">
+        <div className="flex flex-col items-center justify-center min-h-full pt-24 pb-12 px-6 gap-5 overflow-y-auto">
           {navItems.map((item, index) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setIsOpen(false)}
-              className={`text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-1 px-4 ${
+              className={`relative z-10 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-2 px-6 ${
                 pathname === item.href
                   ? 'text-[#C8C0B4]'
-                  : 'text-[#F5F0E8]/60 hover:text-[#F5F0E8]'
+                  : 'text-[#F5F0E8]/60 hover:text-[#F5F0E8] active:text-[#F5F0E8]'
               }`}
-              style={{ animationDelay: `${index * 0.05}s`, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
             >
               {item.label}
             </Link>
           ))}
 
           {/* Social links in mobile menu */}
-          <div className="flex gap-6 mt-8 pt-8 border-t border-[#C8C0B4]/20">
+          <div className="relative z-10 flex gap-6 mt-4 pt-6 border-t border-[#C8C0B4]/20">
             <a
               href="https://instagram.com/jnsilva"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#F5F0E8]/40 hover:text-[#C8C0B4] text-sm uppercase tracking-widest transition-colors"
+              className="text-[#F5F0E8]/40 hover:text-[#C8C0B4] text-sm uppercase tracking-widest transition-colors py-2 px-3"
+              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
             >
               Instagram
             </a>
@@ -154,7 +156,8 @@ export default function Navigation() {
               href="https://x.com/JNSilva_"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#F5F0E8]/40 hover:text-[#C8C0B4] text-sm uppercase tracking-widest transition-colors"
+              className="text-[#F5F0E8]/40 hover:text-[#C8C0B4] text-sm uppercase tracking-widest transition-colors py-2 px-3"
+              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
             >
               X
             </a>
