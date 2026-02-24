@@ -5,8 +5,9 @@ import gsap from 'gsap';
 
 /**
  * HeroMontage — Full-viewport crossfading photo montage.
- * Desktop: 12 landscape photos, cinematic deceleration (~4.3s).
- * Mobile: 6 portrait photos, snappier pacing (~2.5s).
+ * Desktop: 12 landscape photos, cinematic deceleration (~5s).
+ * Mobile: 6 portrait photos, snappier pacing (~3s).
+ * Images are shuffled each visit for variety.
  * Only plays once per browser session (sessionStorage flag).
  */
 
@@ -19,7 +20,7 @@ const desktopImages = [
   '/images/music/041019_-_Coachella-1.jpg', // Coachella
   '/images/places/Kenya_Zebras.jpg',        // Kenya zebras
   '/images/places/Guatemala_Rays.jpg',      // Guatemala rays
-  '/images/fractals/Kinesthesia.JPG',       // Kinesthesia
+  '/images/fractals/kinesthesia.jpg',       // Kinesthesia
   '/images/music/Broey_2.jpg',              // Concert
   '/images/places/Glacier_National_Park.jpg', // Glacier
   '/images/people/Film_Noir_4.jpg',         // Film noir
@@ -34,15 +35,25 @@ const mobileImages = [
   '/images/hero/DSC05341.JPG',              // Portrait variety
 ];
 
+/** Fisher-Yates shuffle — randomizes montage order each visit */
+function shuffleArray<T>(arr: readonly T[]): T[] {
+  const shuffled = [...arr];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 /**
  * Cinematic deceleration curve:
- * Desktop: ~60ms → ~400ms → 800ms hold (12 frames, ~3.5s)
- * Mobile:  ~80ms → ~350ms → 500ms hold (6 frames, ~2s)
+ * Desktop: ~150ms → ~450ms → 800ms hold (12 frames, ~5s)
+ * Mobile:  ~130ms → ~380ms → 500ms hold (6 frames, ~3s)
  */
 function computeFrameTimings(count: number, mobile = false): number[] {
   const timings: number[] = [];
-  const startMs = mobile ? 80 : 60;
-  const rangeMs = mobile ? 270 : 340;
+  const startMs = mobile ? 130 : 150;
+  const rangeMs = mobile ? 250 : 300;
   const holdMs = mobile ? 500 : 800;
   for (let i = 0; i < count; i++) {
     const t = i / (count - 1);
@@ -117,10 +128,10 @@ export default function Preloader() {
       return;
     }
 
-    // Detect mobile and set appropriate images + timings
+    // Detect mobile, shuffle images for variety, set timings
     const mobile = window.innerWidth < 768;
     isMobileRef.current = mobile;
-    imagesRef.current = mobile ? mobileImages : desktopImages;
+    imagesRef.current = shuffleArray(mobile ? mobileImages : desktopImages);
     frameTimingsRef.current = computeFrameTimings(imagesRef.current.length, mobile);
 
     document.body.style.overflow = 'hidden';
@@ -247,11 +258,10 @@ export default function Preloader() {
         backgroundColor: '#0A0A0A',
       }}
     >
-      {/* Two image layers for crossfade */}
+      {/* Two image layers for crossfade — src set dynamically by montage logic */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={backRef}
-        src={desktopImages[0]}
         alt=""
         style={{
           position: 'absolute',
@@ -268,7 +278,6 @@ export default function Preloader() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={frontRef}
-        src={desktopImages[0]}
         alt=""
         style={{
           position: 'absolute',

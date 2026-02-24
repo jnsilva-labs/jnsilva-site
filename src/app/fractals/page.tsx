@@ -25,7 +25,7 @@ export default function FractalsPage() {
         artform: 'NFT',
         description: 'Sacred geometry and fractal mathematics projected onto dancers. Sold at Sotheby\'s for \u00A390,000.',
         url: 'https://jnsilva.com/fractals',
-        image: 'https://jnsilva.com/images/fractals/Kinesthesia.JPG',
+        image: 'https://jnsilva.com/images/fractals/kinesthesia.jpg',
       }} />
       <PageContent />
     </>
