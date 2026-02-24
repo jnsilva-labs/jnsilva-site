@@ -24,30 +24,30 @@ gsap.registerPlugin(ScrollTrigger);
 
 const selectPhotography = [
   // Frame 1: BENTO MOSAIC — 10 images, all categories
-  { src: '/images/hero/DSC05043.JPG', aspect: 'wide' as const },            // A: laser show
-  { src: '/images/hero/jnsilva_day1_DSC06940.JPG', aspect: 'tall' as const }, // B: Gesaffelstein
-  { src: '/images/nyc/Steam_and_Light.jpg', aspect: 'wide' as const },       // C: NYC steam
-  { src: '/images/places/Grand_Prismatic.jpg', aspect: 'tall' as const },    // D: Yellowstone
-  { src: '/images/people/Fashion_Week.jpg', aspect: 'tall' as const },       // E: fashion
-  { src: '/images/music/Coachella_4_2018_.jpg', aspect: 'wide' as const },   // F: Coachella
-  { src: '/images/nyc/Brooklyn_Bridge_Fog.jpg', aspect: 'tall' as const },   // G: Brooklyn fog
-  { src: '/images/places/Guatemala_Rays.jpg', aspect: 'wide' as const },     // H: god rays
-  { src: '/images/hero/kesha-everglades.jpg', aspect: 'tall' as const },     // I: Kesha (Vogue)
-  { src: '/images/hero/DSC00050-opt.jpg', aspect: 'tall' as const },         // J: concert performance
-  { src: '/images/hero/DSCFJAPAN249.JPG', aspect: 'wide' as const },        // K: Japan
+  { src: '/images/hero/DSC05043.JPG', alt: 'Live concert laser show with vivid stage lighting', aspect: 'wide' as const },            // A: laser show
+  { src: '/images/hero/jnsilva_day1_DSC06940.JPG', alt: 'Gesaffelstein performing live with dark atmospheric stage', aspect: 'tall' as const }, // B: Gesaffelstein
+  { src: '/images/nyc/Steam_and_Light.jpg', alt: 'NYC steam vent with dramatic street lighting', aspect: 'wide' as const },       // C: NYC steam
+  { src: '/images/places/Grand_Prismatic.jpg', alt: 'Grand Prismatic Spring aerial view, Yellowstone', aspect: 'tall' as const },    // D: Yellowstone
+  { src: '/images/people/Fashion_Week.jpg', alt: 'New York Fashion Week street style portrait', aspect: 'tall' as const },       // E: fashion
+  { src: '/images/music/Coachella_4_2018_.jpg', alt: 'Coachella 2018 music festival stage and crowd', aspect: 'wide' as const },   // F: Coachella
+  { src: '/images/nyc/Brooklyn_Bridge_Fog.jpg', alt: 'Brooklyn Bridge shrouded in morning fog', aspect: 'tall' as const },   // G: Brooklyn fog
+  { src: '/images/places/Guatemala_Rays.jpg', alt: 'Sun rays streaming through Guatemala jungle canopy', aspect: 'wide' as const },     // H: god rays
+  { src: '/images/hero/kesha-everglades.jpg', alt: 'Kesha portrait in the Everglades for Vogue', aspect: 'tall' as const },     // I: Kesha (Vogue)
+  { src: '/images/hero/DSC00050-opt.jpg', alt: 'Live concert performance with dramatic lighting', aspect: 'tall' as const },         // J: concert performance
+  { src: '/images/hero/DSCFJAPAN249.JPG', alt: 'Japan travel photography with cultural scenery', aspect: 'wide' as const },        // K: Japan
   // Frame 2: Cinematic letterbox divider (B&W)
-  { src: '/images/hero/blackandwhitehero1.jpg', aspect: 'wide' as const },   // B&W concert — disco ball
+  { src: '/images/hero/blackandwhitehero1.jpg', alt: 'Black and white concert photograph with disco ball', aspect: 'wide' as const },   // B&W concert — disco ball
   // Frame 3: Offset asymmetric
-  { src: '/images/people/Film_Noir_2.jpg', aspect: 'tall' as const },        // Film Noir
-  { src: '/images/hero/Qatar2025_147.JPG', aspect: 'wide' as const },        // Qatar
+  { src: '/images/people/Film_Noir_2.jpg', alt: 'Film noir style portrait with dramatic shadows', aspect: 'tall' as const },        // Film Noir
+  { src: '/images/hero/Qatar2025_147.JPG', alt: 'Qatar 2025 travel photography with desert architecture', aspect: 'wide' as const },        // Qatar
   // Frame 4: Staggered triptych
-  { src: '/images/music/Kendrick_3.jpg', aspect: 'tall' as const },          // Kendrick
-  { src: '/images/places/Solar_Eclipse.jpg', aspect: 'tall' as const },      // Solar Eclipse
-  { src: '/images/hero/DSC09866.JPG', aspect: 'tall' as const },             // underwater
+  { src: '/images/music/Kendrick_3.jpg', alt: 'Kendrick Lamar live in concert under stage lights', aspect: 'tall' as const },          // Kendrick
+  { src: '/images/places/Solar_Eclipse.jpg', alt: 'Solar eclipse with corona visible against dark sky', aspect: 'tall' as const },      // Solar Eclipse
+  { src: '/images/hero/DSC09866.JPG', alt: 'Underwater portrait photography with natural light', aspect: 'tall' as const },             // underwater
   // Frame 5: Cinematic letterbox divider (B&W)
-  { src: '/images/hero/blackandwhitehero2.jpg', aspect: 'wide' as const },   // B&W Greek busts
+  { src: '/images/hero/blackandwhitehero2.jpg', alt: 'Black and white photograph of Greek sculptural busts', aspect: 'wide' as const },   // B&W Greek busts
   // Frame 6: Closing single
-  { src: '/images/hero/DSC00056.JPG', aspect: 'tall' as const },             // closing portrait
+  { src: '/images/hero/DSC00056.JPG', alt: 'Cinematic portrait with moody atmospheric lighting', aspect: 'tall' as const },             // closing portrait
 ];
 
 const clientNames = [
@@ -463,7 +463,7 @@ export default function Home() {
               {!portraitError ? (
                 <Image
                   src="/images/portrait/jnsilva-portrait.png"
-                  alt="J.N. Silva"
+                  alt="J.N. Silva portrait — photographer and creative director"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
@@ -559,7 +559,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[0].src}
-                  alt=""
+                  alt={selectPhotography[0].alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
@@ -577,7 +577,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[1].src}
-                  alt=""
+                  alt={selectPhotography[1].alt}
                   fill
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -595,7 +595,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[3].src}
-                  alt=""
+                  alt={selectPhotography[3].alt}
                   fill
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -613,7 +613,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[2].src}
-                  alt=""
+                  alt={selectPhotography[2].alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
@@ -631,7 +631,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[4].src}
-                  alt=""
+                  alt={selectPhotography[4].alt}
                   fill
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -648,7 +648,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[5].src}
-                  alt=""
+                  alt={selectPhotography[5].alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
@@ -665,7 +665,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[6].src}
-                  alt=""
+                  alt={selectPhotography[6].alt}
                   fill
                   sizes="25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -682,7 +682,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[7].src}
-                  alt=""
+                  alt={selectPhotography[7].alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 25vw"
                   className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
@@ -699,7 +699,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[8].src}
-                  alt=""
+                  alt={selectPhotography[8].alt}
                   fill
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -716,7 +716,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[9].src}
-                  alt=""
+                  alt={selectPhotography[9].alt}
                   fill
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -733,7 +733,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[10].src}
-                  alt=""
+                  alt={selectPhotography[10].alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -754,7 +754,7 @@ export default function Home() {
             >
               <Image
                 src={selectPhotography[11].src}
-                alt=""
+                alt={selectPhotography[11].alt}
                 fill
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
@@ -774,7 +774,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[12].src}
-                  alt=""
+                  alt={selectPhotography[12].alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -790,7 +790,7 @@ export default function Home() {
               >
                 <Image
                   src={selectPhotography[13].src}
-                  alt=""
+                  alt={selectPhotography[13].alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 66vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -805,9 +805,9 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { src: selectPhotography[14].src, idx: 14 },
-              { src: selectPhotography[15].src, idx: 15 },
-              { src: selectPhotography[16].src, idx: 16 },
+              { src: selectPhotography[14].src, alt: selectPhotography[14].alt, idx: 14 },
+              { src: selectPhotography[15].src, alt: selectPhotography[15].alt, idx: 15 },
+              { src: selectPhotography[16].src, alt: selectPhotography[16].alt, idx: 16 },
             ].map((item, i) => (
               <ImageReveal key={item.src} direction="up" delay={i * 0.12} triggerStart="top 100%">
                 <div
@@ -817,7 +817,7 @@ export default function Home() {
                 >
                   <Image
                     src={item.src}
-                    alt=""
+                    alt={item.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -839,7 +839,7 @@ export default function Home() {
             >
               <Image
                 src={selectPhotography[17].src}
-                alt=""
+                alt={selectPhotography[17].alt}
                 fill
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
@@ -858,7 +858,7 @@ export default function Home() {
             >
               <Image
                 src={selectPhotography[18].src}
-                alt=""
+                alt={selectPhotography[18].alt}
                 fill
                 sizes="360px"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -1048,7 +1048,7 @@ export default function Home() {
                 <div className="relative aspect-[21/9] bg-[#141414] overflow-hidden border border-[#C9A84C]/10 group-hover:border-[#C9A84C]/30 transition-colors duration-300">
                   <Image
                     src="/images/fractals/kinesthesia.jpg"
-                    alt="Kinesthesia"
+                    alt="Kinesthesia — fractal geometry projected onto dancers, sold at Sotheby's"
                     fill
                     sizes="100vw"
                     className="object-cover"
