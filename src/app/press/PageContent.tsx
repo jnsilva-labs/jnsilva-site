@@ -13,6 +13,41 @@ interface PressItem {
 
 const pressItems: PressItem[] = [
   {
+    publication: 'The Hollywood Reporter',
+    title: 'Macondo Awards 2025 — NEA Nominated for Best National Short Film',
+    year: '2025',
+    type: 'feature',
+    description: 'NEA nominated for Best National Short Film at Colombia\'s Macondo Awards, the country\'s top film prize — the equivalent of the Colombian Oscars.',
+  },
+  {
+    publication: 'Deadline',
+    title: 'NewFilmmakers LA Awards — NEA Wins Best International Short Film',
+    year: '2025',
+    type: 'feature',
+    description: 'NEA wins Best International Short Film (Comedy) at the NewFilmmakers Los Angeles Film Festival.',
+  },
+  {
+    publication: 'NBC New York',
+    title: 'Medellín to NYC: NEA Premieres at Tribeca',
+    year: '2024',
+    type: 'feature',
+    description: 'Coverage of NEA\'s world premiere at the 2024 Tribeca Film Festival, exploring the film\'s blend of Italian Neorealism and Latin American Magical Realism.',
+  },
+  {
+    publication: 'Telemundo 47',
+    title: 'NEA: Un cortometraje colombiano llega a Tribeca',
+    year: '2024',
+    type: 'feature',
+    description: 'Spanish-language coverage of NEA\'s Tribeca premiere, highlighting the Colombian short film\'s journey to one of the world\'s most prestigious festivals.',
+  },
+  {
+    publication: 'The Latinx House',
+    title: 'Magical Neorealism Shaking Up Tribeca',
+    year: '2024',
+    type: 'article',
+    description: 'Feature on NEA\'s "Nearrealismo Mágico" — the film\'s groundbreaking fusion of Italian Neorealism and Latin American Magical Realism at Tribeca 2024.',
+  },
+  {
     publication: 'Sotheby\'s',
     title: 'Kinesthesia — Natively Digital: A Curated NFT Sale',
     year: '2022',

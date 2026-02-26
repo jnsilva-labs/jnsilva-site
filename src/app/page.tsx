@@ -993,7 +993,7 @@ export default function Home() {
           </div>
 
           {/* Info beneath */}
-          <div data-reveal className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-end">
+          <div data-reveal className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-end mb-16">
             <div>
               <p className="text-[#F5F0E8]/40 text-base leading-relaxed max-w-xl">
                 A Web3 ecosystem built by Latino filmmakers. 2,500 NFT photographs documenting
@@ -1008,6 +1008,29 @@ export default function Home() {
               Explore the Universe
               <ArrowRight size={14} />
             </Link>
+          </div>
+
+          {/* NEA — Short Film */}
+          <div data-reveal className="border-t border-[#F5F0E8]/[0.04] pt-12">
+            <div>
+              <h3 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-[#F5F0E8] font-light mb-3">
+                NEA
+              </h3>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[#C8C0B4]/40 text-[10px] uppercase tracking-[0.2em] font-[family-name:var(--font-mono)] mb-4">
+                <span>Short Film</span>
+                <span className="text-[#F5F0E8]/10">|</span>
+                <span>Tribeca 2024</span>
+                <span className="text-[#F5F0E8]/10">|</span>
+                <span>Macondo Nominee</span>
+                <span className="text-[#F5F0E8]/10">|</span>
+                <span>Executive Producer</span>
+              </div>
+              <p className="text-[#F5F0E8]/40 text-sm leading-relaxed max-w-xl">
+                A film proposing &ldquo;Nearrealismo M&aacute;gico&rdquo; &mdash; fusing Italian Neorealism
+                with Latin American Magical Realism. Winner of Best International Short Film
+                at NewFilmmakers LA.
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -25,6 +25,14 @@ const filmProjects: FilmProject[] = [
     link: '/buscando-america',
   },
   {
+    title: 'NEA',
+    type: 'Short Film',
+    year: '2024',
+    description: 'A short film proposing "Nearrealismo Mágico" — a fusion of Italian Neorealism and Latin American Magical Realism. World premiered at Tribeca 2024. Winner of Best International Short Film at NewFilmmakers LA. Nominated for Best National Short Film at Colombia\'s Macondo Awards.',
+    featured: true,
+    link: '/nea',
+  },
+  {
     title: 'Kinesthesia — The Film',
     type: 'Art Film',
     year: '2021',

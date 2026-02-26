@@ -4,11 +4,11 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Press & Media',
-  description: 'Press coverage and features in Sotheby\'s, TIME Magazine, NY Times, Vogue, Yahoo Finance, and Entrepreneur.',
+  description: 'Press coverage and features in Sotheby\'s, TIME Magazine, NY Times, The Hollywood Reporter, NBC, Deadline, and Entrepreneur. NEA premiered at Tribeca 2024.',
   alternates: { canonical: '/press' },
   openGraph: {
     title: 'Press & Media — J.N. Silva',
-    description: 'Press coverage and features in Sotheby\'s, TIME, NY Times, Vogue, and Entrepreneur.',
+    description: 'Press coverage and features in Sotheby\'s, TIME, NY Times, The Hollywood Reporter, NBC, Deadline, and Entrepreneur.',
     url: '/press',
   },
 };
@@ -22,7 +22,7 @@ export default function PressPage() {
         name: 'Press & Media — J.N. Silva',
         description: 'Press coverage and features in major publications.',
         url: 'https://jnsilva.com/press',
-        numberOfItems: 18,
+        numberOfItems: 23,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Adorama — Through The Lens: Back in the USA', url: 'https://www.adorama.com/alc/through-the-lens-back-in-the-usa-photographer-jose-silva-jnsilva/' },
           { '@type': 'ListItem', position: 2, name: 'Sotheby\'s — Kinesthesia: Natively Digital NFT Sale', url: 'https://www.sothebys.com/en/buy/auction/2022/modern-contemporary-art-day-auction/kinesthesia' },
