@@ -1,6 +1,12 @@
 export interface ClientPhoto {
   src: string;
   aspect: 'tall' | 'wide';
+  alt?: string;
+}
+
+export interface ClientVideo {
+  vimeoId: string;
+  title: string;
 }
 
 export interface ClientData {
@@ -9,6 +15,7 @@ export interface ClientData {
   category: string;
   coverImage: string;
   photos: ClientPhoto[];
+  videos?: ClientVideo[];
   featured?: boolean;
 }
 
@@ -332,6 +339,14 @@ export const clients: ClientData[] = [
     coverImage: '/images/clients/Screen_Shot_2019-08-30_at_12_46_29_PM.jpg',
     photos: [
       { src: '/images/clients/mtv/01.jpg', aspect: 'wide' },
+    ],
+    videos: [
+      { vimeoId: '356472206', title: 'MTV — Video 1' },
+      { vimeoId: '356471454', title: 'MTV — Video 2' },
+      { vimeoId: '356471458', title: 'MTV — Video 3' },
+      { vimeoId: '356472212', title: 'MTV — Video 4' },
+      { vimeoId: '356472192', title: 'MTV — Video 5' },
+      { vimeoId: '356551872', title: 'MTV — Video 6' },
     ],
   },
   {

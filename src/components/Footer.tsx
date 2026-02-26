@@ -30,9 +30,12 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-3">
               {[
                 { label: 'Work', href: '/work' },
+                { label: 'Photography', href: '/photography' },
                 { label: 'Film', href: '/film' },
+                { label: 'Fractals', href: '/fractals' },
                 { label: 'Digital Art', href: '/digital-art' },
                 { label: 'Clients', href: '/clients' },
+                { label: 'Buscando America', href: '/buscando-america' },
                 { label: 'About', href: '/about' },
                 { label: 'Press', href: '/press' },
                 { label: 'Contact', href: '/contact' },

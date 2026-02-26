@@ -12,6 +12,7 @@ interface FilmProject {
   youtubeId?: string;
   featured?: boolean;
   link?: string;
+  comingSoon?: boolean;
 }
 
 const filmProjects: FilmProject[] = [
@@ -29,6 +30,7 @@ const filmProjects: FilmProject[] = [
     year: '2021',
     description: 'A transcendent fusion of fractal artwork projected over dancers, merging sacred geometry with human movement. The companion piece to the NFT that sold at Sotheby\'s for £90,000.',
     featured: true,
+    comingSoon: true,
   },
   {
     title: 'Golden Era Future',
@@ -36,6 +38,7 @@ const filmProjects: FilmProject[] = [
     year: '2021',
     description: 'Nine instrumental tracks from DJ Premier paired with accompanying visuals. Directed as part of the Animus Collective collaboration on Nifty Gateway.',
     client: 'DJ Premier × Animus',
+    comingSoon: true,
   },
   {
     title: 'The Venezuelan Diaspora',
@@ -43,12 +46,14 @@ const filmProjects: FilmProject[] = [
     year: '2022',
     description: 'A deeply personal short documentary exploring the stories of Venezuelan immigrants building new lives in America while holding onto their roots.',
     featured: true,
+    comingSoon: true,
   },
   {
     title: 'Sacred Geometry in Motion',
     type: 'Art Film',
     year: '2023',
     description: 'An experimental visual meditation on the patterns underlying reality — combining macro photography, digital fractals, and drone footage.',
+    comingSoon: true,
   },
 ];
 
@@ -140,9 +145,16 @@ export default function FilmPage() {
                     )}
                   </div>
 
-                  <h3 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl text-[#F5F0E8] mb-3 group-hover:text-[#C8C0B4] transition-colors">
-                    {project.title}
-                  </h3>
+                  <div className="flex items-center gap-3">
+                    <h3 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl text-[#F5F0E8] mb-3 group-hover:text-[#C8C0B4] transition-colors">
+                      {project.title}
+                    </h3>
+                    {project.comingSoon && (
+                      <span className="mb-3 text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] text-[#C8C0B4]/50 border border-[#C8C0B4]/20 px-2.5 py-1 rounded-sm">
+                        Coming Soon
+                      </span>
+                    )}
+                  </div>
 
                   <p className="text-[#F5F0E8]/40 text-sm leading-relaxed max-w-2xl">
                     {project.description}

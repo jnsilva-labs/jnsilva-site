@@ -20,7 +20,7 @@ export default function GalleryPage({
   title,
   subtitle,
   images,
-  backHref = '/work',
+  backHref = '/photography',
   backLabel = 'Back to Photography',
 }: GalleryPageProps) {
   const colorizeRef = useScrollColorize<HTMLDivElement>();

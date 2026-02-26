@@ -68,6 +68,31 @@ export default function ClientPortfolio({ client, prevClient, nextClient }: Clie
         </p>
       </div>
 
+      {/* Video embeds (if any) */}
+      {client.videos && client.videos.length > 0 && (
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
+          <p className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-8 font-[family-name:var(--font-mono)]">
+            Video Work
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {client.videos.map((video) => (
+              <div
+                key={video.vimeoId}
+                className="relative aspect-video bg-[#141414] border border-[#C8C0B4]/5 overflow-hidden"
+              >
+                <iframe
+                  src={`https://player.vimeo.com/video/${video.vimeoId}?color=C8C0B4&title=0&byline=0&portrait=0`}
+                  title={video.title}
+                  className="absolute inset-0 w-full h-full"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Masonry photo grid */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
         <div ref={gridRef} className="columns-2 lg:columns-3 gap-4 space-y-4">
@@ -82,7 +107,7 @@ export default function ClientPortfolio({ client, prevClient, nextClient }: Clie
               <div className={`relative ${photo.aspect === 'tall' ? 'aspect-[2/3]' : 'aspect-[3/2]'}`}>
                 <Image
                   src={photo.src}
-                  alt={`${client.name} — ${index + 1}`}
+                  alt={photo.alt || `${client.name} — ${client.category.toLowerCase()} photography by J.N. Silva`}
                   fill
                   sizes="(max-width: 768px) 50vw, 33vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"

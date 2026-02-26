@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react';
 
 const navItems = [
   { label: 'Work', href: '/work' },
+  { label: 'Photography', href: '/photography' },
   { label: 'Film', href: '/film' },
   { label: 'Fractals', href: '/fractals' },
   { label: 'Digital Art', href: '/digital-art' },

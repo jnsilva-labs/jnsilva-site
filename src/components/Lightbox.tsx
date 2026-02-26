@@ -157,6 +157,41 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
     };
   }, [handleClose, goNext, goPrev]);
 
+  // Touch swipe navigation
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    const overlay = overlayRef.current;
+    if (!overlay) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!touchStartRef.current) return;
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - touchStartRef.current.x;
+      const dy = touch.clientY - touchStartRef.current.y;
+      touchStartRef.current = null;
+
+      // Only trigger if horizontal swipe is dominant and exceeds threshold
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        if (dx < 0) goNext();
+        else goPrev();
+      }
+    };
+
+    overlay.addEventListener('touchstart', handleTouchStart, { passive: true });
+    overlay.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      overlay.removeEventListener('touchstart', handleTouchStart);
+      overlay.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [goNext, goPrev]);
+
   return (
     <div
       ref={overlayRef}
