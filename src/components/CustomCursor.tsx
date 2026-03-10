@@ -20,6 +20,11 @@ export default function CustomCursor() {
   const [isTouch, setIsTouch] = useState(true); // default hidden
   const [reducedMotion, setReducedMotion] = useState(false);
 
+  // Resolve --gold from CSS custom properties (avoids hardcoded hex)
+  const goldColor = typeof window !== 'undefined'
+    ? getComputedStyle(document.documentElement).getPropertyValue('--gold').trim()
+    : '#C8C0B4';
+
   // GSAP quickTo refs for smooth lerp
   const dotX = useRef<gsap.QuickToFunc | null>(null);
   const dotY = useRef<gsap.QuickToFunc | null>(null);
@@ -173,9 +178,9 @@ export default function CustomCursor() {
           width: 8,
           height: 8,
           borderRadius: '50%',
-          backgroundColor: '#C8C0B4',
+          backgroundColor: goldColor,
           pointerEvents: 'none',
-          zIndex: 10000,
+          zIndex: 100,
           mixBlendMode: 'difference',
           willChange: 'transform',
         }}
@@ -192,7 +197,7 @@ export default function CustomCursor() {
           borderRadius: '50%',
           border: '1px solid rgba(200, 192, 180, 0.35)',
           pointerEvents: 'none',
-          zIndex: 10000,
+          zIndex: 100,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -205,7 +210,7 @@ export default function CustomCursor() {
           style={{
             fontSize: 9,
             fontFamily: 'var(--font-mono)',
-            color: '#C8C0B4',
+            color: goldColor,
             textTransform: 'uppercase',
             letterSpacing: '0.15em',
             opacity: 0,

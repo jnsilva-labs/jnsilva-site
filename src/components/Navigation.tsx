@@ -115,7 +115,7 @@ export default function Navigation() {
         aria-hidden={!isOpen}
         role="navigation"
         aria-label="Main menu"
-        className={`fixed inset-0 z-[60] bg-[#0A0A0A] transition-all duration-500 lg:hidden ${
+        className={`fixed inset-0 z-55 bg-background transition-all duration-500 lg:hidden ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
         style={{ WebkitOverflowScrolling: 'touch' }}

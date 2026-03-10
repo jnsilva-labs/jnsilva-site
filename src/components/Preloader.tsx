@@ -254,7 +254,7 @@ export default function Preloader() {
       style={{
         position: 'fixed',
         inset: 0,
-        zIndex: 200,
+        zIndex: 80,
         backgroundColor: '#0A0A0A',
       }}
     >

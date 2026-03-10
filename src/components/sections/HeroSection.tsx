@@ -101,7 +101,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative z-10 h-screen flex flex-col items-center justify-center bg-[#0A0A0A]"
+      className="relative z-10 h-screen flex flex-col items-center justify-center bg-background"
     >
       {/* Atmospheric particles */}
       <div className="hero-particles" />
@@ -109,16 +109,16 @@ export default function HeroSection() {
       <div className="relative z-10 text-center">
         {/* Name — Blur to Focus cinematic reveal */}
         <h1
-          className="hero-name font-[family-name:var(--font-display)] text-[clamp(3rem,10vw,10rem)] text-[#F5F0E8] font-light tracking-wide leading-none select-none"
+          className="hero-name font-[family-name:var(--font-display)] text-[clamp(3rem,10vw,10rem)] text-foreground font-light tracking-wide leading-none select-none"
         >
           JN SILVA
         </h1>
 
         {/* Gold accent line — expands from center */}
-        <div className="hero-line h-[1px] w-32 sm:w-48 mx-auto mt-4 bg-[#C9A84C] origin-center" />
+        <div className="hero-line h-[1px] w-32 sm:w-48 mx-auto mt-4 bg-gold-accent origin-center" />
 
         {/* Subtitle — word-by-word fade in */}
-        <p className="mt-6 text-[#C8C0B4] text-xs sm:text-sm uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+        <p className="mt-6 text-gold text-xs sm:text-sm uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
           {'Artist. Photographer. Creative Director. Alchemist.'.split(' ').map((word, i) => (
             <span key={i} className="hero-subtitle-word inline-block mr-[0.6em]">
               {word}
@@ -129,10 +129,10 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <div className="hero-scroll absolute bottom-10 flex flex-col items-center gap-2">
-        <span className="text-[#F5F0E8]/20 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+        <span className="text-foreground/20 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
           Scroll
         </span>
-        <ChevronDown className="w-5 h-5 text-[#C8C0B4]/40 animate-[gentleBounce_2s_ease-in-out_infinite]" />
+        <ChevronDown className="w-5 h-5 text-gold/40 animate-[gentleBounce_2s_ease-in-out_infinite]" />
       </div>
     </section>
   );

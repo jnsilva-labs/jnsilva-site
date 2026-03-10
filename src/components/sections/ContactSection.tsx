@@ -7,16 +7,16 @@ export default function ContactSection() {
   const contactRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
 
   return (
-    <section className="relative z-20 bg-[#0A0A0A] py-32 lg:py-48 section-fade">
+    <section className="relative z-20 bg-background py-32 lg:py-48 section-fade">
       <div ref={contactRef} className="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
-        <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-5xl md:text-7xl lg:text-8xl text-[#F5F0E8] font-light mb-10 leading-tight tracking-tight">
+        <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-5xl md:text-7xl lg:text-8xl text-foreground font-light mb-10 leading-tight tracking-tight">
           Let&apos;s Create Together
         </h2>
 
         <div data-reveal className="mb-12">
           <a
             href="mailto:jns@jnsilva.com"
-            className="text-[#C8C0B4] text-lg md:text-xl font-[family-name:var(--font-mono)] hover:text-[#F5F0E8] transition-colors duration-300"
+            className="text-gold text-lg md:text-xl font-[family-name:var(--font-mono)] hover:text-foreground transition-colors duration-300"
           >
             jns@jnsilva.com
           </a>
@@ -30,7 +30,7 @@ export default function ContactSection() {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#F5F0E8]/30 text-xs uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:text-[#C8C0B4] transition-colors duration-300"
+              className="text-foreground/30 text-xs uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:text-gold transition-colors duration-300"
             >
               {social.name}
             </a>

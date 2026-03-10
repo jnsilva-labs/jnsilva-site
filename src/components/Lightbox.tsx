@@ -239,7 +239,7 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
       role="dialog"
       aria-modal="true"
       aria-label="Image lightbox"
-      className="fixed inset-0 z-[100] bg-[#0A0A0A]/95 backdrop-blur-md"
+      className="fixed inset-0 z-60 bg-background/95 backdrop-blur-md"
     >
       {/* Close button */}
       <button

@@ -11,15 +11,15 @@ export default function AwarenessParadoxSection() {
   const paradoxRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
 
   return (
-    <section className="relative z-20 bg-[#0A0A0A] py-32 lg:py-40 section-fade min-h-[70vh] flex items-center overflow-hidden">
+    <section className="relative z-20 bg-background py-32 lg:py-40 section-fade min-h-[70vh] flex items-center overflow-hidden">
       <div ref={paradoxRef} className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-        <p data-reveal className="text-[#C9A84C] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-6 font-[family-name:var(--font-mono)]">
+        <p data-reveal className="text-gold-accent text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-6 font-[family-name:var(--font-mono)]">
           <span className="opacity-30 mr-3">07</span>New Project
         </p>
-        <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-[#F5F0E8] font-light mb-6 leading-tight tracking-tight">
+        <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-foreground font-light mb-6 leading-tight tracking-tight">
           Awareness Paradox
         </h2>
-        <p data-reveal className="text-[#F5F0E8]/40 text-lg mb-10 leading-relaxed font-[family-name:var(--font-display)] italic">
+        <p data-reveal className="text-foreground/40 text-lg mb-10 leading-relaxed font-[family-name:var(--font-display)] italic">
           Exploring the intersection of contemplative philosophy,
           perception, and the creative act. A new kind of practice.
         </p>
@@ -27,7 +27,7 @@ export default function AwarenessParadoxSection() {
           <MagneticButton
             as="a"
             href="/awareness-paradox"
-            className="inline-flex items-center gap-2 px-10 py-4 border border-[#C9A84C]/40 text-[#C9A84C] text-sm uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:bg-[#C9A84C]/10 hover:border-[#C9A84C] transition-all duration-300"
+            className="inline-flex items-center gap-2 px-10 py-4 border border-gold-accent/40 text-gold-accent text-sm uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:bg-gold-accent/10 hover:border-gold-accent transition-all duration-300"
           >
             Enter the Codex
             <ArrowRight size={14} />

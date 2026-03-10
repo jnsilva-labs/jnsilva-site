@@ -29,14 +29,14 @@ function NFTContent({ collections }: { collections: typeof nftCollections }) {
       {/* Featured Project — cycles randomly on each visit */}
       {featured && featured.video && (
         <div data-reveal className="mb-12">
-          <p className="text-[#C9A84C] text-[11px] md:text-[10px] uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
+          <p className="text-gold-accent text-[11px] md:text-[10px] uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
             Featured Project
           </p>
           <a
             href={featured.link}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group block relative overflow-hidden border border-[#F5F0E8]/[0.04] hover:border-[#C8C0B4]/20 transition-all duration-300 ${isPortrait ? 'max-w-xs mx-auto' : ''}`}
+            className={`group block relative overflow-hidden border border-foreground/[0.04] hover:border-gold/20 transition-all duration-300 ${isPortrait ? 'max-w-xs mx-auto' : ''}`}
           >
             <div className={`relative bg-[#0D0D0D] ${isPortrait ? 'aspect-[3/4]' : orientation === 'square' ? 'aspect-square' : 'aspect-video'}`}>
               <video
@@ -57,22 +57,22 @@ function NFTContent({ collections }: { collections: typeof nftCollections }) {
                 }}
               />
             </div>
-            <div className="flex items-center justify-between p-5 bg-[#141414]">
+            <div className="flex items-center justify-between p-5 bg-surface">
               <div>
                 <div className="flex items-center gap-3 mb-1">
-                  <span className="text-[#C8C0B4]/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+                  <span className="text-gold/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
                     {featured.platform}
                   </span>
-                  <span className="text-[#F5F0E8]/10">&middot;</span>
-                  <span className="text-[#F5F0E8]/20 text-[10px] font-[family-name:var(--font-mono)]">
+                  <span className="text-foreground/10">&middot;</span>
+                  <span className="text-foreground/20 text-[10px] font-[family-name:var(--font-mono)]">
                     {featured.date}
                   </span>
                 </div>
-                <h3 className="font-[family-name:var(--font-display)] text-2xl text-[#F5F0E8] font-light group-hover:text-[#C8C0B4] transition-colors duration-300">
+                <h3 className="font-[family-name:var(--font-display)] text-2xl text-foreground font-light group-hover:text-gold transition-colors duration-300">
                   {featured.title}
                 </h3>
               </div>
-              <div className="flex items-center gap-2 text-[#C8C0B4]/30 group-hover:text-[#C8C0B4]/60 transition-colors duration-300">
+              <div className="flex items-center gap-2 text-gold/30 group-hover:text-gold/60 transition-colors duration-300">
                 <span className="text-[11px] md:text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hidden sm:inline">View</span>
                 <ExternalLink size={12} />
               </div>
@@ -90,7 +90,7 @@ function NFTContent({ collections }: { collections: typeof nftCollections }) {
             target="_blank"
             rel="noopener noreferrer"
             data-reveal
-            className="group bg-[#141414] border border-[#F5F0E8]/[0.04] hover:border-[#C8C0B4]/20 transition-all duration-300 overflow-hidden"
+            className="group bg-surface border border-foreground/[0.04] hover:border-gold/20 transition-all duration-300 overflow-hidden"
           >
             {collection.video ? (
               <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
@@ -116,21 +116,21 @@ function NFTContent({ collections }: { collections: typeof nftCollections }) {
             ) : null}
             <div className="p-6">
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-[#C8C0B4]/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+                <span className="text-gold/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
                   {collection.platform}
                 </span>
-                <span className="text-[#F5F0E8]/10">&middot;</span>
-                <span className="text-[#F5F0E8]/20 text-[10px] font-[family-name:var(--font-mono)]">
+                <span className="text-foreground/10">&middot;</span>
+                <span className="text-foreground/20 text-[10px] font-[family-name:var(--font-mono)]">
                   {collection.date}
                 </span>
               </div>
-              <h3 className="font-[family-name:var(--font-display)] text-xl text-[#F5F0E8] font-light mb-2 group-hover:text-[#C8C0B4] transition-colors duration-300">
+              <h3 className="font-[family-name:var(--font-display)] text-xl text-foreground font-light mb-2 group-hover:text-gold transition-colors duration-300">
                 {collection.title}
               </h3>
-              <p className="text-[#F5F0E8]/40 text-xs leading-relaxed mb-3">
+              <p className="text-foreground/40 text-xs leading-relaxed mb-3">
                 {collection.description}
               </p>
-              <div className="flex items-center gap-2 text-[#C8C0B4]/30 group-hover:text-[#C8C0B4]/60 transition-colors duration-300">
+              <div className="flex items-center gap-2 text-gold/30 group-hover:text-gold/60 transition-colors duration-300">
                 <span className="text-[11px] md:text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)]">View</span>
                 <ExternalLink size={10} />
               </div>
@@ -146,24 +146,24 @@ export default function DigitalArtSection() {
   const digitalArtRef = useScrollReveal<HTMLDivElement>({ stagger: 0.15 });
 
   return (
-    <section className="relative z-20 bg-[#0A0A0A] py-32 lg:py-40 section-fade">
+    <section className="relative z-20 bg-background py-32 lg:py-40 section-fade">
       <div ref={digitalArtRef} className="max-w-[1400px] mx-auto px-6 md:px-12">
-        <p data-reveal className="text-[#C8C0B4] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
+        <p data-reveal className="text-gold text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
           <span className="opacity-30 mr-3">06</span>Digital Art
         </p>
-        <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[#F5F0E8] font-light mb-12 tracking-tight">
+        <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-foreground font-light mb-12 tracking-tight">
           On the Blockchain
         </h2>
 
         {/* Stats bar — gold accent */}
-        <div data-reveal className="flex flex-wrap gap-x-8 gap-y-3 mb-16 py-6 border-t border-b border-[#C9A84C]/10">
+        <div data-reveal className="flex flex-wrap gap-x-8 gap-y-3 mb-16 py-6 border-t border-b border-gold-accent/10">
           {[
             "£90,000 Sotheby's",
             'TIME Genesis',
             '$1.6M+ Volume',
             '800+ Editions',
           ].map((stat) => (
-            <span key={stat} className="text-[#C9A84C] text-sm font-[family-name:var(--font-mono)] tracking-wider">
+            <span key={stat} className="text-gold-accent text-sm font-[family-name:var(--font-mono)] tracking-wider">
               {stat}
             </span>
           ))}
@@ -184,7 +184,7 @@ export default function DigitalArtSection() {
               href={platform.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#F5F0E8]/20 text-xs uppercase tracking-[0.2em] font-[family-name:var(--font-mono)] hover:text-[#C8C0B4] transition-colors duration-300"
+              className="text-foreground/20 text-xs uppercase tracking-[0.2em] font-[family-name:var(--font-mono)] hover:text-gold transition-colors duration-300"
             >
               {platform.name} <ExternalLink size={10} className="inline ml-1 -mt-0.5" />
             </a>
@@ -192,7 +192,7 @@ export default function DigitalArtSection() {
         </div>
 
         <div data-reveal className="text-center">
-          <MagneticButton as="a" href="/digital-art" className="inline-flex items-center gap-2 px-10 py-4 border border-[#C8C0B4]/30 text-[#C8C0B4] text-sm uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:bg-[#C8C0B4] hover:text-[#0A0A0A] hover:border-[#C8C0B4] transition-all duration-300">
+          <MagneticButton as="a" href="/digital-art" className="inline-flex items-center gap-2 px-10 py-4 border border-gold/30 text-gold text-sm uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:bg-gold hover:text-background hover:border-gold transition-all duration-300">
             Explore Digital Art
             <ArrowRight size={14} />
           </MagneticButton>

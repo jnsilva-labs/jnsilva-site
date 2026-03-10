@@ -12,11 +12,11 @@ export default function AboutSection() {
   const [portraitError, setPortraitError] = useState(false);
 
   return (
-    <section className="relative z-20 bg-[#0A0A0A] py-32 lg:py-40">
+    <section className="relative z-20 bg-background py-32 lg:py-40">
       <div ref={aboutRef} className="max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Portrait */}
-          <ImageReveal direction="left" className="relative aspect-[3/4] bg-[#141414]">
+          <ImageReveal direction="left" className="relative aspect-[3/4] bg-surface">
             {!portraitError ? (
               <Image
                 src="/images/portrait/jnsilva-portrait.png"
@@ -30,7 +30,7 @@ export default function AboutSection() {
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-[#C8C0B4]/20 text-xs uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+                <p className="text-gold/20 text-xs uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
                   Portrait
                 </p>
               </div>
@@ -39,13 +39,13 @@ export default function AboutSection() {
 
           {/* Bio — tightened declaration */}
           <div>
-            <p data-reveal className="text-[#C8C0B4] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
+            <p data-reveal className="text-gold text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
               <span className="opacity-30 mr-3">01</span>About
             </p>
-            <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[#F5F0E8] font-light mb-8 leading-tight tracking-tight">
+            <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-foreground font-light mb-8 leading-tight tracking-tight">
               Devoted to the endless pursuit of wisdom, beauty, and truth.
             </h2>
-            <div className="space-y-5 text-[#F5F0E8]/50 text-base leading-relaxed max-w-lg">
+            <div className="space-y-5 text-foreground/50 text-base leading-relaxed max-w-lg">
               <p data-reveal>
                 Venezuelan-born photographer, filmmaker, and creative director on a
                 relentless quest to master every medium that moves him. Studied Philosophy
@@ -70,7 +70,7 @@ export default function AboutSection() {
             {/* Press badges */}
             <div data-reveal className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
               {['TIME', "Sotheby's", 'Vogue', 'NY Times', 'Entrepreneur'].map((badge) => (
-                <span key={badge} className="text-[#F5F0E8]/20 text-[11px] uppercase tracking-[0.2em] font-[family-name:var(--font-mono)]">
+                <span key={badge} className="text-foreground/20 text-[11px] uppercase tracking-[0.2em] font-[family-name:var(--font-mono)]">
                   {badge}
                 </span>
               ))}
@@ -79,7 +79,7 @@ export default function AboutSection() {
             <div data-reveal className="mt-10">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 text-[#C8C0B4] text-sm uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:text-[#F5F0E8] transition-colors duration-300"
+                className="inline-flex items-center gap-2 text-gold text-sm uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:text-foreground transition-colors duration-300"
               >
                 Full Bio
                 <ArrowRight size={14} />

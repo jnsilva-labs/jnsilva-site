@@ -13,10 +13,10 @@ interface PhotographySectionProps {
 
 export default function PhotographySection({ onLightboxOpen }: PhotographySectionProps) {
   return (
-    <section className="relative z-20 bg-[#0A0A0A] section-fade">
+    <section className="relative z-20 bg-background section-fade">
       {/* Section header — tight */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-4 pb-2">
-        <p className="text-[#C8C0B4] text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
+        <p className="text-gold text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-4 font-[family-name:var(--font-mono)] text-hover-expand">
           <span className="opacity-30 mr-3">02</span>Select Photography
         </p>
       </div>
@@ -30,7 +30,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* A: Laser show — wide, spans 2 cols */}
           <ImageReveal direction="left" delay={0} triggerStart="top 98%" className="col-span-2 row-span-1">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -51,7 +51,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* B: Gesaffelstein — tall, spans 2 rows */}
           <ImageReveal direction="up" delay={0.05} triggerStart="top 98%" className="row-span-2">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -72,7 +72,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* D: Grand Prismatic — tall, spans 2 rows */}
           <ImageReveal direction="right" delay={0.1} triggerStart="top 98%" className="row-span-2">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -93,7 +93,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* C: NYC Steam — wide, spans 2 cols */}
           <ImageReveal direction="up" delay={0.08} triggerStart="top 98%" className="col-span-2 row-span-1">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -114,7 +114,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* E: Fashion Week — tall, spans 2 rows */}
           <ImageReveal direction="left" delay={0.12} triggerStart="top 98%" className="row-span-2">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -134,7 +134,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* F: Coachella — wide, spans 2 cols */}
           <ImageReveal direction="up" delay={0.14} triggerStart="top 98%" className="col-span-2 row-span-1">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -154,7 +154,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* G: Brooklyn Bridge Fog — hidden on mobile, tall on desktop */}
           <ImageReveal direction="up" delay={0.16} triggerStart="top 98%" className="hidden md:block md:row-span-2">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -174,7 +174,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* H: Guatemala Rays — fills remaining gap */}
           <ImageReveal direction="right" delay={0.18} triggerStart="top 98%" className="col-span-2 row-span-1">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -194,7 +194,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* I: Kesha — Vogue featured, tall portrait */}
           <ImageReveal direction="up" delay={0.2} triggerStart="top 98%" className="row-span-2">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -214,7 +214,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* J: Concert performance — tall portrait */}
           <ImageReveal direction="right" delay={0.22} triggerStart="top 98%" className="row-span-2">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -234,7 +234,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           {/* K: Japan — wide, fills gap next to I+J portraits */}
           <ImageReveal direction="up" delay={0.24} triggerStart="top 98%" className="col-span-2 row-span-2">
             <div
-              className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative h-full bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -258,7 +258,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
         <ImageReveal direction="up" triggerStart="top 100%">
           <div
-            className="relative aspect-[16/9] md:aspect-[21/9] bg-[#141414] cursor-pointer group overflow-hidden"
+            className="relative aspect-[16/9] md:aspect-[21/9] bg-surface cursor-pointer group overflow-hidden"
             data-cursor="view"
             role="button"
             tabIndex={0}
@@ -281,7 +281,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 items-end">
           <ImageReveal direction="left" delay={0} triggerStart="top 100%">
             <div
-              className="relative aspect-[2/3] bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative aspect-[2/3] bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -300,7 +300,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           </ImageReveal>
           <ImageReveal direction="right" delay={0.15} triggerStart="top 100%">
             <div
-              className="relative aspect-[3/2] bg-[#141414] cursor-pointer group overflow-hidden"
+              className="relative aspect-[3/2] bg-surface cursor-pointer group overflow-hidden"
               data-cursor="view"
               role="button"
               tabIndex={0}
@@ -330,7 +330,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
           ].map((item, i) => (
             <ImageReveal key={item.src} direction="up" delay={i * 0.12} triggerStart="top 100%">
               <div
-                className="relative aspect-[2/3] bg-[#141414] cursor-pointer group overflow-hidden"
+                className="relative aspect-[2/3] bg-surface cursor-pointer group overflow-hidden"
                 data-cursor="view"
                 role="button"
                 tabIndex={0}
@@ -355,7 +355,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
         <ImageReveal direction="up" triggerStart="top 100%">
           <div
-            className="relative aspect-[16/9] md:aspect-[21/9] bg-[#141414] cursor-pointer group overflow-hidden"
+            className="relative aspect-[16/9] md:aspect-[21/9] bg-surface cursor-pointer group overflow-hidden"
             data-cursor="view"
             role="button"
             tabIndex={0}
@@ -377,7 +377,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex justify-center w-full">
         <ImageReveal direction="up" triggerStart="top 100%">
           <div
-            className="relative aspect-[2/3] w-[280px] md:w-[360px] bg-[#141414] cursor-pointer group overflow-hidden"
+            className="relative aspect-[2/3] w-[280px] md:w-[360px] bg-surface cursor-pointer group overflow-hidden"
             data-cursor="view"
             role="button"
             tabIndex={0}
@@ -400,7 +400,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
 
       {/* CTA */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-8 pb-16 text-center">
-        <MagneticButton as="a" href="/work" className="inline-flex items-center gap-2 px-10 py-4 border border-[#C8C0B4]/30 text-[#C8C0B4] text-sm uppercase tracking-[0.15em] hover:bg-[#C8C0B4] hover:text-[#0A0A0A] hover:border-[#C8C0B4] transition-all duration-300 font-[family-name:var(--font-mono)]">
+        <MagneticButton as="a" href="/work" className="inline-flex items-center gap-2 px-10 py-4 border border-gold/30 text-gold text-sm uppercase tracking-[0.15em] hover:bg-gold hover:text-background hover:border-gold transition-all duration-300 font-[family-name:var(--font-mono)]">
           See All Photography
           <ArrowRight size={14} />
         </MagneticButton>
