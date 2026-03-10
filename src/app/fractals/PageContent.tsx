@@ -10,6 +10,7 @@ import Lightbox from '@/components/Lightbox';
 import ImageReveal from '@/components/ui/ImageReveal';
 import ParallaxImage from '@/components/ui/ParallaxImage';
 import MagneticButton from '@/components/ui/MagneticButton';
+import { handleKeyActivate } from '@/utils/a11y';
 import {
   getAllFractals,
   getKinesthesia,
@@ -92,7 +93,10 @@ export default function FractalsPage() {
         <div
           className="relative w-full h-[60vh] overflow-hidden cursor-pointer"
           data-cursor="view"
+          role="button"
+          tabIndex={0}
           onClick={() => setLightboxIndex(getIdx(kinesthesia.src))}
+          onKeyDown={handleKeyActivate(() => setLightboxIndex(getIdx(kinesthesia.src)))}
         >
           <ParallaxImage speed={0.15} className="absolute inset-0">
             <div className="relative w-full h-[110%] -mt-[5%]">
@@ -156,7 +160,10 @@ export default function FractalsPage() {
               <div
                 className="relative aspect-[2/3] bg-[#141414] border border-[#C9A84C]/10 overflow-hidden cursor-pointer group"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(getIdx(item.src))}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(getIdx(item.src)))}
               >
                 <Image
                   src={item.src}
@@ -194,7 +201,10 @@ export default function FractalsPage() {
               <div
                 className={`relative ${item.aspect === 'tall' ? 'aspect-[2/3]' : 'aspect-[3/2]'} bg-[#141414] border border-[#C9A84C]/10 overflow-hidden cursor-pointer group`}
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(getIdx(item.src))}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(getIdx(item.src)))}
               >
                 <Image
                   src={item.src}
@@ -239,7 +249,10 @@ export default function FractalsPage() {
               <div
                 className={`relative ${item.aspect === 'tall' ? 'aspect-[2/3]' : item.aspect === 'square' ? 'aspect-square' : 'aspect-[3/2]'} bg-[#141414] border border-[#C9A84C]/5 overflow-hidden cursor-pointer group`}
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(getIdx(item.src))}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(getIdx(item.src)))}
               >
                 <Image
                   src={item.src}

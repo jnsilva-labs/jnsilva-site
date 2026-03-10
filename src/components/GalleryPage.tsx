@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { useScrollColorize } from '@/hooks/useScrollColorize';
 import Lightbox from '@/components/Lightbox';
+import { handleKeyActivate } from '@/utils/a11y';
 import type { GalleryImage } from '@/data/galleries';
 
 interface GalleryPageProps {
@@ -63,7 +64,10 @@ export default function GalleryPage({
               key={item.src}
               className="group relative overflow-hidden break-inside-avoid bg-[#141414] cursor-pointer"
               data-cursor="view"
+              role="button"
+              tabIndex={0}
               onClick={() => setLightboxIndex(index)}
+              onKeyDown={handleKeyActivate(() => setLightboxIndex(index))}
             >
               <div className={`relative ${item.aspect === 'tall' ? 'aspect-[2/3]' : 'aspect-[3/2]'}`}>
                 <Image

@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import Lightbox from '@/components/Lightbox';
+import { handleKeyActivate } from '@/utils/a11y';
 import { clients } from '@/data/clients';
 
 interface PortfolioItem {
@@ -195,7 +196,10 @@ export default function WorkPage() {
               key={`${item.src}-${activeFilter}`}
               className="group relative overflow-hidden break-inside-avoid bg-[#141414] cursor-pointer"
               style={{ animationDelay: `${index * 40}ms` }}
+              role="button"
+              tabIndex={0}
               onClick={() => setLightboxIndex(index)}
+              onKeyDown={handleKeyActivate(() => setLightboxIndex(index))}
             >
               <div className={`relative ${item.aspect === 'tall' ? 'aspect-[2/3]' : 'aspect-[3/2]'}`}>
                 <Image

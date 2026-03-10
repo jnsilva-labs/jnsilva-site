@@ -15,6 +15,7 @@ import ParallaxImage from '@/components/ui/ParallaxImage';
 import MagneticButton from '@/components/ui/MagneticButton';
 import { getFeaturedClients } from '@/data/clients';
 import { getAbstract } from '@/data/fractals';
+import { handleKeyActivate } from '@/utils/a11y';
 
 const SacredGeometry = dynamic(() => import('@/components/SacredGeometry'), { ssr: false });
 
@@ -555,7 +556,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(0)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(0))}
               >
                 <Image
                   src={selectPhotography[0].src}
@@ -573,7 +577,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(1)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(1))}
               >
                 <Image
                   src={selectPhotography[1].src}
@@ -591,7 +598,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(3)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(3))}
               >
                 <Image
                   src={selectPhotography[3].src}
@@ -609,7 +619,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(2)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(2))}
               >
                 <Image
                   src={selectPhotography[2].src}
@@ -627,7 +640,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(4)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(4))}
               >
                 <Image
                   src={selectPhotography[4].src}
@@ -644,7 +660,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(5)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(5))}
               >
                 <Image
                   src={selectPhotography[5].src}
@@ -661,7 +680,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(6)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(6))}
               >
                 <Image
                   src={selectPhotography[6].src}
@@ -678,7 +700,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(7)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(7))}
               >
                 <Image
                   src={selectPhotography[7].src}
@@ -695,7 +720,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(8)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(8))}
               >
                 <Image
                   src={selectPhotography[8].src}
@@ -712,7 +740,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(9)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(9))}
               >
                 <Image
                   src={selectPhotography[9].src}
@@ -729,7 +760,10 @@ export default function Home() {
               <div
                 className="relative h-full bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(10)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(10))}
               >
                 <Image
                   src={selectPhotography[10].src}
@@ -750,7 +784,10 @@ export default function Home() {
             <div
               className="relative aspect-[16/9] md:aspect-[21/9] bg-[#141414] cursor-pointer group overflow-hidden"
               data-cursor="view"
+              role="button"
+              tabIndex={0}
               onClick={() => setLightboxIndex(11)}
+              onKeyDown={handleKeyActivate(() => setLightboxIndex(11))}
             >
               <Image
                 src={selectPhotography[11].src}
@@ -770,7 +807,10 @@ export default function Home() {
               <div
                 className="relative aspect-[2/3] bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(12)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(12))}
               >
                 <Image
                   src={selectPhotography[12].src}
@@ -786,7 +826,10 @@ export default function Home() {
               <div
                 className="relative aspect-[3/2] bg-[#141414] cursor-pointer group overflow-hidden"
                 data-cursor="view"
+                role="button"
+                tabIndex={0}
                 onClick={() => setLightboxIndex(13)}
+                onKeyDown={handleKeyActivate(() => setLightboxIndex(13))}
               >
                 <Image
                   src={selectPhotography[13].src}
@@ -813,7 +856,10 @@ export default function Home() {
                 <div
                   className="relative aspect-[2/3] bg-[#141414] cursor-pointer group overflow-hidden"
                   data-cursor="view"
+                  role="button"
+                  tabIndex={0}
                   onClick={() => setLightboxIndex(item.idx)}
+                  onKeyDown={handleKeyActivate(() => setLightboxIndex(item.idx))}
                 >
                   <Image
                     src={item.src}
@@ -835,7 +881,10 @@ export default function Home() {
             <div
               className="relative aspect-[16/9] md:aspect-[21/9] bg-[#141414] cursor-pointer group overflow-hidden"
               data-cursor="view"
+              role="button"
+              tabIndex={0}
               onClick={() => setLightboxIndex(17)}
+              onKeyDown={handleKeyActivate(() => setLightboxIndex(17))}
             >
               <Image
                 src={selectPhotography[17].src}
@@ -854,7 +903,10 @@ export default function Home() {
             <div
               className="relative aspect-[2/3] w-[280px] md:w-[360px] bg-[#141414] cursor-pointer group overflow-hidden"
               data-cursor="view"
+              role="button"
+              tabIndex={0}
               onClick={() => setLightboxIndex(18)}
+              onKeyDown={handleKeyActivate(() => setLightboxIndex(18))}
             >
               <Image
                 src={selectPhotography[18].src}

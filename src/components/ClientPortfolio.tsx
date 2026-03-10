@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useScrollColorize } from '@/hooks/useScrollColorize';
 import Lightbox from '@/components/Lightbox';
+import { handleKeyActivate } from '@/utils/a11y';
 import type { ClientData } from '@/data/clients';
 
 interface ClientPortfolioProps {
@@ -102,7 +103,10 @@ export default function ClientPortfolio({ client, prevClient, nextClient }: Clie
               data-reveal
               className="group relative overflow-hidden break-inside-avoid bg-[#141414] cursor-pointer"
               data-cursor="view"
+              role="button"
+              tabIndex={0}
               onClick={() => setLightboxIndex(index)}
+              onKeyDown={handleKeyActivate(() => setLightboxIndex(index))}
             >
               <div className={`relative ${photo.aspect === 'tall' ? 'aspect-[2/3]' : 'aspect-[3/2]'}`}>
                 <Image
