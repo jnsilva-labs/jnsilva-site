@@ -24,12 +24,28 @@ export default function Navigation() {
   const pathname = usePathname();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 50);
+        ticking = false;
+      });
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu on Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -83,7 +99,9 @@ export default function Navigation() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden text-[#F5F0E8] hover:text-[#C8C0B4] transition-colors"
-              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -93,6 +111,10 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay */}
       <div
+        id="mobile-menu"
+        aria-hidden={!isOpen}
+        role="navigation"
+        aria-label="Main menu"
         className={`fixed inset-0 z-[60] bg-[#0A0A0A] transition-all duration-500 lg:hidden ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
