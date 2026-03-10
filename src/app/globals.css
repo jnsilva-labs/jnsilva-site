@@ -4,7 +4,7 @@
   --background: #0A0A0A;
   --foreground: #F5F0E8;
   --gold: #C8C0B4;
-  --gold-accent: #C9A84C;
+  --gold-accent: #D4A843;  /* bumped from #C9A84C for improved contrast */
   --gold-light: #D8D2C8;
   --gold-dark: #9E9689;
   --blue: #2563EB;
@@ -17,6 +17,16 @@
      --font-body (Space Grotesk)
      --font-mono (JetBrains Mono)
   */
+}
+
+/* Accessible focus rings */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 @theme inline {

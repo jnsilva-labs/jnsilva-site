@@ -83,6 +83,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-[var(--gold)] focus:text-[var(--background)] focus:rounded focus:font-[family-name:var(--font-body)] focus:text-sm"
+        >
+          Skip to content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -140,7 +146,7 @@ export default function RootLayout({
         <SmoothScroll>
           <ClientOverlays />
           <Navigation />
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           <Footer />
         </SmoothScroll>
         <Analytics />
