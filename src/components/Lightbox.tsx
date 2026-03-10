@@ -17,8 +17,14 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<Element | null>(null);
   const [isClosing, setIsClosing] = useState(false);
   const isAnimating = useRef(false);
+
+  // Store the element that opened the lightbox so we can return focus on close
+  useEffect(() => {
+    triggerRef.current = document.activeElement;
+  }, []);
 
   const goNext = useCallback(() => {
     if (isAnimating.current) return;
@@ -81,6 +87,10 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
 
     const tl = gsap.timeline({
       onComplete: () => {
+        // Return focus to the element that triggered the lightbox
+        if (triggerRef.current && triggerRef.current instanceof HTMLElement) {
+          triggerRef.current.focus();
+        }
         onClose();
       },
     });
@@ -140,6 +150,37 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Focus trap — move focus to close button and trap Tab within the dialog
+  useEffect(() => {
+    if (images.length === 0 || currentIndex === null) return;
+
+    // Move focus to close button on open
+    const closeBtn = closeRef.current;
+    if (closeBtn) closeBtn.focus();
+
+    const trapFocus = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const focusable = overlayRef.current?.querySelectorAll<HTMLElement>(
+        'button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable || focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', trapFocus);
+    return () => document.removeEventListener('keydown', trapFocus);
+  }, [currentIndex, images.length]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -195,6 +236,9 @@ export default function Lightbox({ images, currentIndex, onClose, onNavigate }: 
   return (
     <div
       ref={overlayRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image lightbox"
       className="fixed inset-0 z-[100] bg-[#0A0A0A]/95 backdrop-blur-md"
     >
       {/* Close button */}
