@@ -28,7 +28,7 @@ const galleries = [
     title: 'People',
     subtitle: 'Portraits & Editorial',
     href: '/photography/people',
-    image: '/images/people/Fashion_Week.jpg',
+    image: '/images/people/Film_Noir_4.jpg',
     count: 25,
   },
   {

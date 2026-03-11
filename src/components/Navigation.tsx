@@ -29,7 +29,7 @@ const navItems: NavItem[] = [
     mega: [
       {
         label: 'Photography',
-        href: '/photography/music',
+        href: '/photography',
         sub: ['Music', 'People', 'Places', 'NYC'],
         image: '/images/hero/DSC07671.JPG',
       },
@@ -37,7 +37,7 @@ const navItems: NavItem[] = [
         label: 'Film',
         href: '/film',
         sub: ['Buscando America', 'NEA'],
-        image: '/images/people/Film_Noir_2.jpg',
+        image: '/images/film/nea-filmstill.jpg',
       },
       {
         label: 'Fractals',

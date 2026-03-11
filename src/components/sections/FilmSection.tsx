@@ -57,28 +57,6 @@ export default function FilmSection() {
           </Link>
         </div>
 
-        {/* NEA — Short Film */}
-        <div data-reveal className="border-t border-foreground/[0.04] pt-12">
-          <div>
-            <h3 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-foreground font-light mb-3">
-              NEA
-            </h3>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-gold/40 text-[10px] uppercase tracking-[0.2em] font-[family-name:var(--font-mono)] mb-4">
-              <span>Short Film</span>
-              <span className="text-foreground/10">|</span>
-              <span>Tribeca 2024</span>
-              <span className="text-foreground/10">|</span>
-              <span>Macondo Nominee</span>
-              <span className="text-foreground/10">|</span>
-              <span>Executive Producer</span>
-            </div>
-            <p className="text-foreground/40 text-sm leading-relaxed max-w-xl">
-              A film proposing &ldquo;Nearrealismo M&aacute;gico&rdquo; &mdash; fusing Italian Neorealism
-              with Latin American Magical Realism. Winner of Best International Short Film
-              at NewFilmmakers LA.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );

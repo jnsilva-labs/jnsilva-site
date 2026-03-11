@@ -257,7 +257,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
 
       {/* Frame 2: FULL-BLEED PARALLAX HERO — White Sands */}
       <div className="relative w-screen -mx-[calc((100vw-100%)/2)] h-[60vh] md:h-[100vh] overflow-hidden">
-        <ParallaxImage speed={0.2}>
+        <ParallaxImage speed={0.2} className="h-full">
           <div className="relative w-full h-full" data-colorize>
             <Image
               src="/images/hero/DSC07671.JPG"
@@ -347,7 +347,7 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
 
       {/* Frame 5: FULL-BLEED PARALLAX HERO — Sintra Well */}
       <div className="relative w-screen -mx-[calc((100vw-100%)/2)] h-[60vh] md:h-[100vh] overflow-hidden">
-        <ParallaxImage speed={0.2}>
+        <ParallaxImage speed={0.2} className="h-full">
           <div className="relative w-full h-full" data-colorize>
             <Image
               src="/images/hero/DSC08845.JPG"
