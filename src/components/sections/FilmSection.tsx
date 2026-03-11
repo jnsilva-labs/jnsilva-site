@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import YouTubeFacade from '@/components/ui/YouTubeFacade';
 
 export default function FilmSection() {
   const filmRef = useScrollReveal<HTMLDivElement>({ stagger: 0.12 });
@@ -28,13 +29,10 @@ export default function FilmSection() {
         </div>
         <div data-reveal className="relative overflow-hidden mb-16 border border-foreground/[0.04]">
           <div className="relative aspect-video bg-[#0D0D0D]" data-cursor="play">
-            <iframe
-              src="https://www.youtube.com/embed/VhJgK1K4fc4?start=34&rel=0&modestbranding=1&color=white"
+            <YouTubeFacade
+              videoId="VhJgK1K4fc4"
               title="IDIOSINCRASIA — A Buscando America Documentary"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full"
-              style={{ border: 'none' }}
+              start={34}
             />
           </div>
         </div>

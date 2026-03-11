@@ -9,6 +9,11 @@ import ImageReveal from '@/components/ui/ImageReveal';
 import { getAbstract } from '@/data/fractals';
 
 const FRACTAL_LABELS = ['Infinitum', 'Fractal Portraits', 'Abstract'] as const;
+const FRACTAL_ALTS = [
+  'Fractal art from the Infinitum collection',
+  'Fractal geometry projected onto portrait photography',
+  'Abstract fractal composition with recursive geometry',
+] as const;
 
 const DEFAULT_FRACTAL_THUMBS = [
   '/images/fractals/051523_SkiPath3DFlower.jpg',
@@ -91,7 +96,7 @@ export default function FractalsSection() {
               <Link href="/fractals" className="relative aspect-square bg-surface border border-gold-accent/10 overflow-hidden block group cursor-pointer" data-cursor="view">
                 <Image
                   src={fractalThumbs[i]}
-                  alt={label}
+                  alt={FRACTAL_ALTS[i]}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"

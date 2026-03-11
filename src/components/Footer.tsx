@@ -24,9 +24,9 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-[#C8C0B4] text-xs uppercase tracking-[0.2em] mb-6">
+            <h3 className="text-[#C8C0B4] text-xs uppercase tracking-[0.2em] mb-6">
               Navigate
-            </h4>
+            </h3>
             <div className="grid grid-cols-2 gap-3">
               {[
                 { label: 'Work', href: '/work' },
@@ -54,9 +54,9 @@ export default function Footer() {
 
           {/* Connect */}
           <div>
-            <h4 className="text-[#C8C0B4] text-xs uppercase tracking-[0.2em] mb-6">
+            <h3 className="text-[#C8C0B4] text-xs uppercase tracking-[0.2em] mb-6">
               Connect
-            </h4>
+            </h3>
             <div className="flex flex-col gap-3">
               <a
                 href="mailto:jns@jnsilva.com"
@@ -113,7 +113,7 @@ export default function Footer() {
           <p className="text-[#888] text-xs tracking-wider">
             &copy; {new Date().getFullYear()} JN Silva Media, Inc. All rights reserved.
           </p>
-          <p className="text-[#888]/40 text-xs font-[family-name:var(--font-mono)]">
+          <p className="text-[#888] text-xs font-[family-name:var(--font-mono)]">
             Built with intention
           </p>
         </div>
