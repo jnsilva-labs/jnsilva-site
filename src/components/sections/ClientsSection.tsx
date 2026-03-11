@@ -30,13 +30,13 @@ export default function ClientsSection() {
         <div data-reveal className="relative">
           {/* Right-edge scroll hint — mobile only */}
           <div className="pointer-events-none absolute right-0 top-0 bottom-4 w-16 z-10 bg-gradient-to-l from-background to-transparent md:hidden" />
-        <div className="overflow-x-auto pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
+        <div className="overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
           <div className="flex gap-3 px-6 md:px-12" style={{ width: 'max-content' }}>
             {featuredClients.map((client) => (
               <Link
                 key={client.slug}
                 href={`/clients/${client.slug}`}
-                className="group relative flex-shrink-0 w-[260px] md:w-[320px] lg:w-[350px] overflow-hidden"
+                className="group relative flex-shrink-0 w-[260px] md:w-[320px] lg:w-[350px] overflow-hidden snap-start"
                 data-cursor="view"
               >
                 <div className="relative aspect-[3/4] bg-surface overflow-hidden">
@@ -64,6 +64,12 @@ export default function ClientsSection() {
             ))}
           </div>
         </div>
+          {/* Dot indicators — mobile only */}
+          <div className="flex gap-2 justify-center mt-4 md:hidden">
+            {featuredClients.map((_, i) => (
+              <div key={i} className="w-1.5 h-1.5 rounded-full bg-gold/20" />
+            ))}
+          </div>
         </div>
 
         {/* Subtle marquee + CTA */}

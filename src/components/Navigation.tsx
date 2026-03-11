@@ -69,6 +69,7 @@ export default function Navigation() {
   const megaPanelRef = useRef<HTMLDivElement>(null);
   const megaTriggerRef = useRef<HTMLButtonElement>(null);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   /* ─── Work item reference ─── */
   const workItem = navItems[0];
@@ -111,6 +112,22 @@ export default function Navigation() {
     return () => {
       document.body.style.overflow = '';
     };
+  }, [isOpen]);
+
+  /* ─── GSAP stagger animation for mobile menu items ─── */
+  useEffect(() => {
+    if (!isOpen) return;
+    // Respect prefers-reduced-motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const items = mobileMenuRef.current?.querySelectorAll('[data-menu-item]');
+    if (!items || items.length === 0) return;
+
+    gsap.fromTo(items,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out' }
+    );
   }, [isOpen]);
 
   /* ─── Close mega-menu on click outside ─── */
@@ -337,11 +354,11 @@ export default function Navigation() {
           </svg>
         </div>
 
-        <div className="flex flex-col items-center justify-center min-h-full pt-24 pb-12 px-6 gap-5 overflow-y-auto">
+        <div ref={mobileMenuRef} className="flex flex-col items-center justify-center min-h-full pt-24 pb-12 px-6 gap-5 overflow-y-auto">
           {navItems.map((item) =>
             item.mega ? (
               /* ─── Work item with mobile accordion ─── */
-              <div key={item.href} className="flex flex-col items-center w-full">
+              <div key={item.href} data-menu-item className="flex flex-col items-center w-full" style={{ opacity: 0 }}>
                 <button
                   onClick={() => setMobileWorkOpen(!mobileWorkOpen)}
                   className={`relative z-10 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-2 px-6 flex items-center gap-2 ${
@@ -392,13 +409,14 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
+                data-menu-item
                 onClick={() => setIsOpen(false)}
                 className={`relative z-10 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-2 px-6 ${
                   isActive(item.href)
                     ? 'text-[#C8C0B4]'
                     : 'text-[#F5F0E8]/60 hover:text-[#F5F0E8] active:text-[#F5F0E8]'
                 }`}
-                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent', opacity: 0 }}
               >
                 {item.label}
               </Link>
@@ -406,7 +424,7 @@ export default function Navigation() {
           )}
 
           {/* Social links in mobile menu */}
-          <div className="relative z-10 flex gap-6 mt-4 pt-6 border-t border-[#C8C0B4]/20">
+          <div data-menu-item className="relative z-10 flex gap-6 mt-4 pt-6 border-t border-[#C8C0B4]/20" style={{ opacity: 0 }}>
             <a
               href="https://instagram.com/jnsilva"
               target="_blank"
