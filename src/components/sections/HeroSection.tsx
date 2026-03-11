@@ -2,8 +2,12 @@
 
 import { useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ErrorBoundary from '@/components/ErrorBoundary';
+
+const HeroParticles3D = dynamic(() => import('@/components/HeroParticles3D'), { ssr: false });
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -104,18 +108,20 @@ export default function HeroSection() {
       className="relative z-10 h-screen flex flex-col items-center justify-center bg-background"
     >
       {/* Atmospheric particles */}
-      <div className="hero-particles" />
+      <ErrorBoundary>
+        <HeroParticles3D />
+      </ErrorBoundary>
 
       <div className="relative z-10 text-center">
         {/* Name — Blur to Focus cinematic reveal */}
         <h1
-          className="hero-name font-[family-name:var(--font-display)] text-[clamp(3rem,10vw,10rem)] text-foreground font-light tracking-wide leading-none select-none"
+          className="hero-name font-[family-name:var(--font-display)] text-[clamp(3rem,10vw,14rem)] text-foreground font-light tracking-wide leading-none select-none"
         >
           JN SILVA
         </h1>
 
         {/* Gold accent line — expands from center */}
-        <div className="hero-line h-[1px] w-32 sm:w-48 mx-auto mt-4 bg-gold-accent origin-center" />
+        <div className="hero-line h-[2px] w-32 sm:w-48 mx-auto mt-4 bg-gold-accent origin-center shadow-[0_0_20px_rgba(200,192,180,0.3)]" />
 
         {/* Subtitle — word-by-word fade in */}
         <p className="mt-6 text-gold text-xs sm:text-sm uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
