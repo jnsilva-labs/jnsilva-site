@@ -3,6 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ExternalLink } from 'lucide-react';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useScrollColorize } from '@/hooks/useScrollColorize';
+import ParallaxImage from '@/components/ui/ParallaxImage';
+import TextReveal from '@/components/ui/TextReveal';
+import ImageReveal from '@/components/ui/ImageReveal';
 
 const skills = [
   { category: 'Photography', items: ['Street & Documentary', 'Portrait & Editorial', 'Live Music & Events', 'Aerial & Drone', 'Fine Art'] },
@@ -12,23 +17,34 @@ const skills = [
 ];
 
 export default function AboutPage() {
+  const colorizeRef = useScrollColorize<HTMLDivElement>();
+  const bioRef = useScrollReveal<HTMLDivElement>({ stagger: 0.08 });
+  const disciplinesRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
+  const quoteRef = useScrollReveal<HTMLDivElement>({ stagger: 0.12 });
+  const ctaRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
+
   return (
     <div className="relative z-10 bg-[#0A0A0A] pt-32 pb-24">
       {/* Hero section */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left — portrait */}
-          <div className="relative">
-            <div className="aspect-[3/4] bg-[#141414] border border-[#C8C0B4]/10 relative overflow-hidden">
-              <Image
-                src="/images/portrait/jnsilva-portrait.png"
-                alt="J.N. Silva"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-                priority
-              />
-            </div>
+          <div ref={colorizeRef} className="relative">
+            <ImageReveal direction="left">
+              <ParallaxImage speed={0.15}>
+                <div className="aspect-[3/4] bg-[#141414] border border-[#C8C0B4]/10 relative overflow-hidden">
+                  <Image
+                    src="/images/portrait/jnsilva-portrait.png"
+                    alt="J.N. Silva"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                    data-colorize
+                    priority
+                  />
+                </div>
+              </ParallaxImage>
+            </ImageReveal>
           </div>
 
           {/* Right — bio */}
@@ -36,19 +52,19 @@ export default function AboutPage() {
             <p className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
               About
             </p>
-            <h1 className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-[#F5F0E8] font-light mb-8">
+            <TextReveal as="h1" mode="words" className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-[#F5F0E8] font-light mb-8">
               J.N. Silva
-            </h1>
+            </TextReveal>
 
-            <div className="space-y-6 text-[#F5F0E8]/50 text-base leading-relaxed">
-              <p>
+            <div ref={bioRef} className="space-y-6 text-[#F5F0E8]/50 text-base leading-relaxed">
+              <p data-reveal>
                 I&apos;m J.N. Silva — a Venezuelan-born photographer, filmmaker, and creative
                 director working at the intersection of storytelling, technology, and
                 modern mysticism. I studied Philosophy and English at Rutgers University
                 with a focus on personal identity, free will, and world religions —
                 questions that continue to shape everything I create.
               </p>
-              <p>
+              <p data-reveal>
                 Over the last decade, I&apos;ve built a career capturing human truth through
                 street, portrait, live music, and aerial photography, while directing
                 cinematic short-form and documentary-style projects for brands and artists.
@@ -56,7 +72,7 @@ export default function AboutPage() {
                 American Express, MTV, Lululemon, and Ducati, with editorial features in
                 TIME, The New York Times, Vogue, and Entrepreneur.
               </p>
-              <p>
+              <p data-reveal>
                 In 2020, I became one of the earliest photographers to embrace blockchain
                 technology and NFTs, founding Animus Collective — a global artist community
                 that has onboarded thousands into the Web3 ecosystem. I was the first
@@ -64,7 +80,7 @@ export default function AboutPage() {
                 Venezuelan NFT artist to exhibit at Sotheby&apos;s, where my piece
                 &ldquo;Kinesthesia&rdquo; sold for &pound;90,000.
               </p>
-              <p>
+              <p data-reveal>
                 After my mother passed away, I stepped into a more reflective chapter. The
                 grief cracked something open — and what came through was the Awareness
                 Paradox: a living body of work weaving together Hermetic philosophy, sacred
@@ -73,7 +89,7 @@ export default function AboutPage() {
                 and immersive experiences designed to turn esoteric wisdom into grounded
                 tools for self-mastery.
               </p>
-              <p>
+              <p data-reveal>
                 Today, I create across three lanes: cinematic storytelling for brands and
                 artists, visual worlds blending sacred symbolism with modern aesthetics,
                 and educational content through the Awareness Paradox. Everything I make
@@ -81,14 +97,15 @@ export default function AboutPage() {
                 sacred in the ordinary, and to build bridges between ancient wisdom and
                 the modern creative experience.
               </p>
-              <p className="text-[#C8C0B4]/70 italic font-[family-name:var(--font-display)] text-lg">
+              <p data-reveal className="text-[#C8C0B4]/70 italic font-[family-name:var(--font-display)] text-lg">
                 If that resonates, let&apos;s work together.
               </p>
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div ref={ctaRef} className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/contact"
+                data-reveal
                 className="group flex items-center gap-2 px-8 py-3 border border-[#C8C0B4]/40 text-[#C8C0B4] text-sm uppercase tracking-[0.15em] hover:bg-[#C8C0B4]/10 hover:border-[#C8C0B4] transition-all duration-300"
               >
                 Get in Touch
@@ -98,6 +115,7 @@ export default function AboutPage() {
                 href="https://instagram.com/jnsilva"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-reveal
                 className="flex items-center gap-2 px-8 py-3 text-[#F5F0E8]/40 text-sm uppercase tracking-[0.15em] hover:text-[#F5F0E8] transition-colors duration-300"
               >
                 Instagram
@@ -109,13 +127,13 @@ export default function AboutPage() {
       </div>
 
       {/* Skills / Disciplines */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
-        <p className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-12 font-[family-name:var(--font-mono)]">
+      <div ref={disciplinesRef} className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
+        <p data-reveal className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-12 font-[family-name:var(--font-mono)]">
           Disciplines
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {skills.map((skill) => (
-            <div key={skill.category} className="p-8 bg-[#141414] border border-[#C8C0B4]/5">
+            <div key={skill.category} data-reveal className="p-8 bg-[#141414] border border-[#C8C0B4]/5">
               <h3 className="font-[family-name:var(--font-display)] text-xl text-[#F5F0E8] mb-6">
                 {skill.category}
               </h3>
@@ -133,8 +151,8 @@ export default function AboutPage() {
       </div>
 
       {/* Philosophy quote */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div className="p-12 md:p-20 bg-[#141414] border border-[#C8C0B4]/10 text-center">
+      <div ref={quoteRef} className="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div data-reveal className="p-12 md:p-20 bg-[#141414] border border-[#C8C0B4]/10 text-center">
           <blockquote className="font-[family-name:var(--font-display)] text-2xl md:text-4xl text-[#F5F0E8]/80 font-light leading-relaxed max-w-3xl mx-auto mb-8">
             &ldquo;Every photograph is a prayer. Every frame is a conversation
             between what is seen and what is felt.&rdquo;
