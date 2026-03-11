@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { error } = await resend.emails.send({
-      from: 'JN Silva Website <onboarding@resend.dev>',
+      from: 'JN Silva Website <noreply@jnsilva.com>',
       to: ['info@jnsilva.com', 'jns@jnsilva.com'],
       replyTo: email,
       subject: subject || `[Website] ${type || 'General'} inquiry from ${name}`,
