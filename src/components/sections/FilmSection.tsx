@@ -27,7 +27,7 @@ export default function FilmSection() {
           </p>
         </div>
         <div data-reveal className="relative overflow-hidden mb-16 border border-foreground/[0.04]">
-          <div className="relative aspect-video bg-[#0D0D0D]">
+          <div className="relative aspect-video bg-[#0D0D0D]" data-cursor="play">
             <iframe
               src="https://www.youtube.com/embed/VhJgK1K4fc4?start=34&rel=0&modestbranding=1&color=white"
               title="IDIOSINCRASIA — A Buscando America Documentary"

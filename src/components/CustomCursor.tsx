@@ -7,8 +7,8 @@ import gsap from 'gsap';
  * CustomCursor — GSAP-powered dot + ring cursor with smooth follow.
  * - Dot: 8px gold circle, GSAP quickTo lerp
  * - Ring: 24px circle outline, GSAP quickTo lerp (slower)
- * - Image hover: ring expands to 60px, "VIEW" text appears
- * - Link hover: ring to 40px
+ * - data-cursor="view|play|explore|read": ring expands to 60px, label text appears
+ * - data-cursor="expand" / interactive elements: ring to 40px
  * - mix-blend-mode: difference
  * - Hidden on touch devices
  * - Respects prefers-reduced-motion
@@ -93,23 +93,48 @@ export default function CustomCursor() {
       const ringText = ringTextRef.current;
       if (!ring || !dot || !ringText) return;
 
-      // Check if hovering over an image with data-cursor="view"
-      const viewTarget = target.closest('[data-cursor="view"]');
-      if (viewTarget) {
+      // Check for data-cursor attribute (supports view, play, explore, read)
+      const cursorEl = target.closest('[data-cursor]') as HTMLElement | null;
+      if (cursorEl) {
+        const cursorType = cursorEl.getAttribute('data-cursor');
+        const labels: Record<string, string> = {
+          view: 'View',
+          play: 'Play',
+          explore: 'Explore',
+          read: 'Read',
+        };
+        const label = labels[cursorType || ''];
+
+        if (label) {
+          // Show ring with label text — same animation as existing "view" state
+          ringText.textContent = label;
+          gsap.to(ring, {
+            width: 60,
+            height: 60,
+            borderColor: 'rgba(200, 192, 180, 0.5)',
+            duration: 0.4,
+            ease: 'power2.out',
+          });
+          gsap.to(ringText, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' });
+          gsap.to(dot, { opacity: 0, scale: 0.5, duration: 0.2 });
+          return;
+        }
+
+        // data-cursor="expand" or unknown — ring grows, no text
         gsap.to(ring, {
-          width: 60,
-          height: 60,
-          borderColor: 'rgba(200, 192, 180, 0.5)',
-          duration: 0.4,
+          width: 40,
+          height: 40,
+          borderColor: 'rgba(200, 192, 180, 0.15)',
+          duration: 0.35,
           ease: 'power2.out',
         });
-        gsap.to(ringText, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' });
-        gsap.to(dot, { opacity: 0, scale: 0.5, duration: 0.2 });
+        gsap.to(ringText, { opacity: 0, scale: 0.8, duration: 0.2 });
+        gsap.to(dot, { opacity: 1, scale: 1.3, duration: 0.25, ease: 'back.out(2)' });
         return;
       }
 
-      // Check if hovering over interactive elements
-      const interactive = target.closest('a, button, [data-cursor="expand"], [role="button"]');
+      // Check if hovering over interactive elements (no data-cursor)
+      const interactive = target.closest('a, button, [role="button"]');
       if (interactive) {
         gsap.to(ring, {
           width: 40,
@@ -217,9 +242,7 @@ export default function CustomCursor() {
             transform: 'scale(0.8)',
             whiteSpace: 'nowrap',
           }}
-        >
-          View
-        </span>
+        />
       </div>
     </>
   );

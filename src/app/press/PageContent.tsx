@@ -209,7 +209,7 @@ export default function PressPage() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
         <div className="bg-[#141414] border border-[#C8C0B4]/5 overflow-hidden">
           {/* Video embed */}
-          <div className="relative aspect-video w-full">
+          <div className="relative aspect-video w-full" data-cursor="play">
             <iframe
               src="https://www.youtube.com/embed/IYEr_0aerSc?rel=0&modestbranding=1&color=white"
               title="Through The Lens | S06E11 - @jnsilva — Adorama"
@@ -267,6 +267,7 @@ export default function PressPage() {
             <div
               key={index}
               className="group p-6 md:p-8 bg-[#141414] hover:bg-[#1A1A1A] transition-all duration-300"
+              {...(item.url ? { 'data-cursor': 'read' } : {})}
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                 <div className="flex-1">

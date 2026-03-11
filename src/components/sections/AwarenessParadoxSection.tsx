@@ -37,12 +37,14 @@ export default function AwarenessParadoxSection() {
       </div>
 
       {/* Three.js Sacred Geometry — interactive background */}
-      <ErrorBoundary>
-        <SacredGeometry
-          className="absolute inset-0 pointer-events-auto"
-          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-        />
-      </ErrorBoundary>
+      <div data-cursor="explore" className="absolute inset-0">
+        <ErrorBoundary>
+          <SacredGeometry
+            className="absolute inset-0 pointer-events-auto"
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+          />
+        </ErrorBoundary>
+      </div>
     </section>
   );
 }

@@ -80,6 +80,7 @@ export default function ClientPortfolio({ client, prevClient, nextClient }: Clie
               <div
                 key={video.vimeoId}
                 className="relative aspect-video bg-[#141414] border border-[#C8C0B4]/5 overflow-hidden"
+                data-cursor="play"
               >
                 <iframe
                   src={`https://player.vimeo.com/video/${video.vimeoId}?color=C8C0B4&title=0&byline=0&portrait=0`}
