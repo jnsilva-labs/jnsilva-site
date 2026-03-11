@@ -1,28 +1,79 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import gsap from 'gsap';
 
-const navItems = [
-  { label: 'Work', href: '/work' },
-  { label: 'Photography', href: '/photography' },
-  { label: 'Film', href: '/film' },
-  { label: 'Fractals', href: '/fractals' },
-  { label: 'Digital Art', href: '/digital-art' },
+/* ─── Mega-menu category type ─── */
+interface MegaCategory {
+  label: string;
+  href: string;
+  sub: string[];
+  image: string;
+}
+
+interface NavItem {
+  label: string;
+  href: string;
+  mega?: MegaCategory[];
+}
+
+/* ─── Nav structure: 5 consolidated items ─── */
+const navItems: NavItem[] = [
+  {
+    label: 'Work',
+    href: '/work',
+    mega: [
+      {
+        label: 'Photography',
+        href: '/photography/music',
+        sub: ['Music', 'People', 'Places', 'NYC'],
+        image: '/images/hero/DSC07671.JPG',
+      },
+      {
+        label: 'Film',
+        href: '/film',
+        sub: ['Buscando America', 'NEA'],
+        image: '/images/people/Film_Noir_2.jpg',
+      },
+      {
+        label: 'Fractals',
+        href: '/fractals',
+        sub: ['Kinesthesia', 'Infinitum', 'Portraits'],
+        image: '/images/fractals/kinesthesia.jpg',
+      },
+      {
+        label: 'Digital Art',
+        href: '/digital-art',
+        sub: ['NFT Collections'],
+        image: '/images/fractals/infinitum/infinitumhero.JPG',
+      },
+    ],
+  },
   { label: 'Clients', href: '/clients' },
-  { label: 'Awareness Paradox', href: '/awareness-paradox' },
   { label: 'About', href: '/about' },
-  { label: 'Press', href: '/press' },
+  { label: 'AP', href: '/awareness-paradox' },
   { label: 'Contact', href: '/contact' },
 ];
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(false);
+  const [mobileWorkOpen, setMobileWorkOpen] = useState(false);
   const pathname = usePathname();
 
+  const megaPanelRef = useRef<HTMLDivElement>(null);
+  const megaTriggerRef = useRef<HTMLButtonElement>(null);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /* ─── Work item reference ─── */
+  const workItem = navItems[0];
+
+  /* ─── RAF-throttled scroll listener ─── */
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -37,17 +88,20 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on Escape key
+  /* ─── Close mobile menu on Escape key ─── */
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen && !megaOpen) return;
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false);
+      if (e.key === 'Escape') {
+        if (megaOpen) setMegaOpen(false);
+        if (isOpen) setIsOpen(false);
+      }
     };
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
+  }, [isOpen, megaOpen]);
 
-  // Lock body scroll when mobile menu is open
+  /* ─── Lock body scroll when mobile menu is open ─── */
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -58,6 +112,75 @@ export default function Navigation() {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  /* ─── Close mega-menu on click outside ─── */
+  useEffect(() => {
+    if (!megaOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (
+        megaPanelRef.current &&
+        !megaPanelRef.current.contains(target) &&
+        megaTriggerRef.current &&
+        !megaTriggerRef.current.contains(target)
+      ) {
+        setMegaOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [megaOpen]);
+
+  /* ─── Close mega-menu on route change ─── */
+  useEffect(() => {
+    setMegaOpen(false);
+    setMobileWorkOpen(false);
+  }, [pathname]);
+
+  /* ─── GSAP animation for mega panel ─── */
+  useEffect(() => {
+    if (!megaPanelRef.current) return;
+    if (megaOpen) {
+      gsap.fromTo(
+        megaPanelRef.current,
+        { opacity: 0, y: -8 },
+        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
+      );
+    }
+  }, [megaOpen]);
+
+  /* ─── Hover handlers with debounce to prevent flicker ─── */
+  const openMega = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setMegaOpen(true);
+  }, []);
+
+  const closeMegaDebounced = useCallback(() => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setMegaOpen(false);
+    }, 150);
+  }, []);
+
+  /* ─── Cleanup hover timeout ─── */
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    };
+  }, []);
+
+  /* ─── Check if a path is active (exact or starts with) ─── */
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
+
+  /* ─── Check if any Work sub-item is active ─── */
+  const isWorkActive =
+    isActive('/work') ||
+    isActive('/photography') ||
+    isActive('/film') ||
+    isActive('/fractals') ||
+    isActive('/digital-art');
 
   return (
     <>
@@ -80,19 +203,48 @@ export default function Navigation() {
 
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`nav-link text-sm tracking-widest uppercase transition-colors duration-300 ${
-                    pathname === item.href
-                      ? 'text-[#C8C0B4]'
-                      : 'text-[#F5F0E8]/70 hover:text-[#F5F0E8]'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navItems.map((item) =>
+                item.mega ? (
+                  /* ─── Work item with mega-menu ─── */
+                  <div
+                    key={item.href}
+                    className="relative"
+                    onMouseEnter={openMega}
+                    onMouseLeave={closeMegaDebounced}
+                  >
+                    <button
+                      ref={megaTriggerRef}
+                      className={`nav-link text-sm tracking-widest uppercase transition-colors duration-300 flex items-center gap-1 ${
+                        isWorkActive
+                          ? 'text-[#C8C0B4]'
+                          : 'text-[#F5F0E8]/70 hover:text-[#F5F0E8]'
+                      }`}
+                      aria-haspopup="true"
+                      aria-expanded={megaOpen}
+                      onClick={() => setMegaOpen(!megaOpen)}
+                    >
+                      {item.label}
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-300 ${megaOpen ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                  </div>
+                ) : (
+                  /* ─── Regular nav items ─── */
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`nav-link text-sm tracking-widest uppercase transition-colors duration-300 ${
+                      isActive(item.href)
+                        ? 'text-[#C8C0B4]'
+                        : 'text-[#F5F0E8]/70 hover:text-[#F5F0E8]'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -107,6 +259,44 @@ export default function Navigation() {
             </button>
           </div>
         </div>
+
+        {/* ─── Mega-menu panel (desktop) ─── */}
+        {megaOpen && (
+          <div
+            ref={megaPanelRef}
+            className="absolute top-full left-0 w-full bg-[#0D0D0D]/95 backdrop-blur-md border-t border-gold/10"
+            role="menu"
+            aria-label="Work categories"
+            onMouseEnter={openMega}
+            onMouseLeave={closeMegaDebounced}
+          >
+            <div className="max-w-[1400px] mx-auto px-12 py-8 grid grid-cols-4 gap-8">
+              {workItem.mega!.map((cat) => (
+                <Link
+                  key={cat.label}
+                  href={cat.href}
+                  role="menuitem"
+                  className="group"
+                  onClick={() => setMegaOpen(false)}
+                >
+                  <div className="aspect-[3/2] relative rounded overflow-hidden mb-3">
+                    <Image
+                      src={cat.image}
+                      alt={cat.label}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="25vw"
+                    />
+                  </div>
+                  <h3 className="font-[family-name:var(--font-display)] text-lg text-foreground">
+                    {cat.label}
+                  </h3>
+                  <p className="text-sm text-gold/50">{cat.sub.join(' / ')}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Mobile Menu Overlay */}
@@ -148,21 +338,72 @@ export default function Navigation() {
         </div>
 
         <div className="flex flex-col items-center justify-center min-h-full pt-24 pb-12 px-6 gap-5 overflow-y-auto">
-          {navItems.map((item, index) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsOpen(false)}
-              className={`relative z-10 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-2 px-6 ${
-                pathname === item.href
-                  ? 'text-[#C8C0B4]'
-                  : 'text-[#F5F0E8]/60 hover:text-[#F5F0E8] active:text-[#F5F0E8]'
-              }`}
-              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.mega ? (
+              /* ─── Work item with mobile accordion ─── */
+              <div key={item.href} className="flex flex-col items-center w-full">
+                <button
+                  onClick={() => setMobileWorkOpen(!mobileWorkOpen)}
+                  className={`relative z-10 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-2 px-6 flex items-center gap-2 ${
+                    isWorkActive
+                      ? 'text-[#C8C0B4]'
+                      : 'text-[#F5F0E8]/60 hover:text-[#F5F0E8] active:text-[#F5F0E8]'
+                  }`}
+                  style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                  aria-expanded={mobileWorkOpen}
+                >
+                  {item.label}
+                  <ChevronDown
+                    size={20}
+                    className={`transition-transform duration-300 ${mobileWorkOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                {/* Accordion sub-links */}
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    mobileWorkOpen ? 'max-h-96 opacity-100 mt-1' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <div className="flex flex-col items-center gap-2 pb-2">
+                    {item.mega!.map((cat) => (
+                      <Link
+                        key={cat.label}
+                        href={cat.href}
+                        onClick={() => {
+                          setIsOpen(false);
+                          setMobileWorkOpen(false);
+                        }}
+                        className={`relative z-10 text-base sm:text-lg font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-1 px-6 ${
+                          isActive(cat.href)
+                            ? 'text-[#C8C0B4]'
+                            : 'text-[#F5F0E8]/40 hover:text-[#F5F0E8] active:text-[#F5F0E8]'
+                        }`}
+                        style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                      >
+                        {cat.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* ─── Regular mobile nav items ─── */
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className={`relative z-10 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-2 px-6 ${
+                  isActive(item.href)
+                    ? 'text-[#C8C0B4]'
+                    : 'text-[#F5F0E8]/60 hover:text-[#F5F0E8] active:text-[#F5F0E8]'
+                }`}
+                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+              >
+                {item.label}
+              </Link>
+            )
+          )}
 
           {/* Social links in mobile menu */}
           <div className="relative z-10 flex gap-6 mt-4 pt-6 border-t border-[#C8C0B4]/20">
