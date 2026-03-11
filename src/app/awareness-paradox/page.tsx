@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PageContent from './PageContent';
+import { fetchSubstackPosts } from '@/lib/substack';
 
 export const metadata: Metadata = {
   title: 'Awareness Paradox',
@@ -12,6 +13,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AwarenessParadoxPage() {
-  return <PageContent />;
+export default async function AwarenessParadoxPage() {
+  const substackPosts = await fetchSubstackPosts('awarenessparadox', 4);
+
+  return <PageContent substackPosts={substackPosts} />;
 }

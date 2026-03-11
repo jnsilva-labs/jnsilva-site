@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { ExternalLink, ArrowRight, Play } from 'lucide-react';
+import type { SubstackPost } from '@/lib/substack';
 
 const templumOutputs = [
   '/images/templum/templum-0e651933.jpg',
@@ -45,7 +46,11 @@ const topics = [
   'Ancient Mystery Schools',
 ];
 
-export default function AwarenessParadoxPage() {
+interface Props {
+  substackPosts: SubstackPost[];
+}
+
+export default function AwarenessParadoxPage({ substackPosts }: Props) {
   return (
     <div className="relative z-10 bg-[#0A0A0A] pt-32 pb-24">
       {/* Hero */}
@@ -178,6 +183,57 @@ export default function AwarenessParadoxPage() {
         </div>
         </div>
       </div>
+
+      {/* Substack — Written Teachings */}
+      {substackPosts.length > 0 && (
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
+                Written Teachings
+              </p>
+              <h2 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-[#F5F0E8] font-light">
+                From the Substack
+              </h2>
+            </div>
+            <a
+              href="https://awarenessparadox.substack.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-[#C8C0B4]/40 hover:text-[#C8C0B4] text-xs uppercase tracking-wider transition-colors pb-1"
+            >
+              Subscribe
+              <ExternalLink size={10} />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {substackPosts.map((post) => (
+              <a
+                key={post.url}
+                href={post.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-8 bg-[#141414] border border-[#C8C0B4]/5 hover:border-[#C8C0B4]/20 transition-all duration-300"
+              >
+                <p className="text-[#C8C0B4]/40 text-xs uppercase tracking-wider font-[family-name:var(--font-mono)] mb-4">
+                  {post.date}
+                </p>
+                <h3 className="font-[family-name:var(--font-display)] text-xl text-[#F5F0E8] mb-4 group-hover:text-[#C8C0B4] transition-colors duration-300 leading-snug">
+                  {post.title}
+                </h3>
+                <p className="text-[#F5F0E8]/40 text-sm leading-relaxed mb-6">
+                  {post.excerpt}
+                </p>
+                <span className="flex items-center gap-2 text-[#C8C0B4]/40 group-hover:text-[#C8C0B4] text-xs uppercase tracking-wider transition-colors">
+                  Read on Substack
+                  <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Templum — Generative Art Collection */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">

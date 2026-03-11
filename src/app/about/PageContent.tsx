@@ -8,6 +8,7 @@ import { useScrollColorize } from '@/hooks/useScrollColorize';
 import ParallaxImage from '@/components/ui/ParallaxImage';
 import TextReveal from '@/components/ui/TextReveal';
 import ImageReveal from '@/components/ui/ImageReveal';
+import type { SubstackPost } from '@/lib/substack';
 
 const skills = [
   { category: 'Photography', items: ['Street & Documentary', 'Portrait & Editorial', 'Live Music & Events', 'Aerial & Drone', 'Fine Art'] },
@@ -16,12 +17,28 @@ const skills = [
   { category: 'Creative Direction', items: ['Brand Strategy', 'Campaign Concepts', 'Art Direction', 'Visual Identity', 'Experiential Design'] },
 ];
 
-export default function AboutPage() {
+// Curated Instagram posts — update images in /public/images/instagram/ and URLs here
+const instagramPosts = [
+  { image: '/images/instagram/ig-1.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
+  { image: '/images/instagram/ig-2.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
+  { image: '/images/instagram/ig-3.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
+  { image: '/images/instagram/ig-4.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
+  { image: '/images/instagram/ig-5.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
+  { image: '/images/instagram/ig-6.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
+];
+
+interface Props {
+  substackPosts: SubstackPost[];
+}
+
+export default function AboutPage({ substackPosts }: Props) {
   const colorizeRef = useScrollColorize<HTMLDivElement>();
   const bioRef = useScrollReveal<HTMLDivElement>({ stagger: 0.08 });
   const disciplinesRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
   const quoteRef = useScrollReveal<HTMLDivElement>({ stagger: 0.12 });
   const ctaRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
+  const igRef = useScrollReveal<HTMLDivElement>({ stagger: 0.08 });
+  const substackRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
 
   return (
     <div className="relative z-10 bg-[#0A0A0A] pt-32 pb-24">
@@ -151,7 +168,7 @@ export default function AboutPage() {
       </div>
 
       {/* Philosophy quote */}
-      <div ref={quoteRef} className="max-w-[1400px] mx-auto px-6 md:px-12">
+      <div ref={quoteRef} className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
         <div data-reveal className="p-12 md:p-20 bg-[#141414] border border-[#C8C0B4]/10 text-center">
           <blockquote className="font-[family-name:var(--font-display)] text-2xl md:text-4xl text-[#F5F0E8]/80 font-light leading-relaxed max-w-3xl mx-auto mb-8">
             &ldquo;Every photograph is a prayer. Every frame is a conversation
@@ -162,6 +179,118 @@ export default function AboutPage() {
           </p>
         </div>
       </div>
+
+      {/* Instagram — Curated Grid */}
+      <div ref={igRef} className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p data-reveal className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
+              Follow the Work
+            </p>
+            <h2 data-reveal className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-[#F5F0E8] font-light">
+              Instagram
+            </h2>
+          </div>
+          <a
+            href="https://instagram.com/jnsilva"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-reveal
+            className="flex items-center gap-2 text-[#C8C0B4]/40 hover:text-[#C8C0B4] text-xs uppercase tracking-wider transition-colors pb-1"
+          >
+            @jnsilva
+            <ExternalLink size={10} />
+          </a>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {instagramPosts.map((post, i) => (
+            <a
+              key={i}
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-reveal
+              className="relative aspect-square bg-[#141414] border border-[#C8C0B4]/5 overflow-hidden group"
+            >
+              <Image
+                src={post.image}
+                alt={post.alt}
+                fill
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-8 h-8 text-white opacity-0 group-hover:opacity-80 transition-opacity duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="5" />
+                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                </svg>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Substack — Latest Writing */}
+      {substackPosts.length > 0 && (
+        <div ref={substackRef} className="max-w-[1400px] mx-auto px-6 md:px-12">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p data-reveal className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
+                Latest Writing
+              </p>
+              <h2 data-reveal className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-[#F5F0E8] font-light">
+                Substack
+              </h2>
+            </div>
+            <a
+              href="https://substack.com/@josensilva"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-reveal
+              className="flex items-center gap-2 text-[#C8C0B4]/40 hover:text-[#C8C0B4] text-xs uppercase tracking-wider transition-colors pb-1"
+            >
+              Subscribe
+              <ExternalLink size={10} />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {substackPosts.map((post) => (
+              <a
+                key={post.url}
+                href={post.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-reveal
+                className="group p-8 bg-[#141414] border border-[#C8C0B4]/5 hover:border-[#C8C0B4]/20 transition-all duration-300"
+              >
+                <p className="text-[#C8C0B4]/40 text-xs uppercase tracking-wider font-[family-name:var(--font-mono)] mb-4">
+                  {post.date}
+                </p>
+                <h3 className="font-[family-name:var(--font-display)] text-xl text-[#F5F0E8] mb-4 group-hover:text-[#C8C0B4] transition-colors duration-300 leading-snug">
+                  {post.title}
+                </h3>
+                <p className="text-[#F5F0E8]/40 text-sm leading-relaxed mb-6">
+                  {post.excerpt}
+                </p>
+                <span className="flex items-center gap-2 text-[#C8C0B4]/40 group-hover:text-[#C8C0B4] text-xs uppercase tracking-wider transition-colors">
+                  Read on Substack
+                  <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

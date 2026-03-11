@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageContent from './PageContent';
 import JsonLd from '@/components/JsonLd';
+import { fetchSubstackPosts } from '@/lib/substack';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -13,7 +14,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const substackPosts = await fetchSubstackPosts('josensilva', 3);
+
   return (
     <>
       <JsonLd data={{
@@ -36,7 +39,7 @@ export default function AboutPage() {
           'https://superrare.com/jnsilva',
         ],
       }} />
-      <PageContent />
+      <PageContent substackPosts={substackPosts} />
     </>
   );
 }
