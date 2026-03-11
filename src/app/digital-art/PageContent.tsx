@@ -244,9 +244,15 @@ export default function DigitalArtPage() {
               className={`group relative p-8 md:p-10 bg-[#141414] border-l-2 ${typeColors[drop.type]} hover:bg-[#1A1A1A] transition-all duration-300`}
             >
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                {drop.image && (
+                {drop.image ? (
                   <div className="relative aspect-[2/3] w-32 md:w-40 flex-shrink-0 overflow-hidden bg-[#0D0D0D] border border-[#C8C0B4]/10">
                     <Image src={drop.image} alt={drop.title} fill className="object-cover" sizes="160px" />
+                  </div>
+                ) : (
+                  <div className="w-32 md:w-40 aspect-[2/3] flex-shrink-0 rounded bg-surface flex items-center justify-center border border-gold/10">
+                    <span className="text-gold/30 text-xs font-[family-name:var(--font-mono)] uppercase tracking-wider text-center px-2">
+                      {drop.platform}
+                    </span>
                   </div>
                 )}
                 <div className="flex-1">

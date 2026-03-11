@@ -158,8 +158,9 @@ export default function FilmPage() {
                       {project.title}
                     </h3>
                     {project.comingSoon && (
-                      <span className="mb-3 text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] text-[#C8C0B4]/50 border border-[#C8C0B4]/20 px-2.5 py-1 rounded-sm">
-                        Coming Soon
+                      <span className="mb-3 flex items-center gap-2 text-xs font-[family-name:var(--font-mono)] tracking-wider text-gold/60 uppercase">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold-accent animate-pulse" />
+                        In Development
                       </span>
                     )}
                   </div>
@@ -184,14 +185,14 @@ export default function FilmPage() {
               <Link
                 key={index}
                 href={project.link}
-                className="group block p-8 md:p-10 bg-[#141414] hover:bg-[#1A1A1A] transition-all duration-300 cursor-pointer"
+                className={`group block p-8 md:p-10 bg-[#141414] hover:bg-[#1A1A1A] transition-all duration-300 cursor-pointer${project.comingSoon ? ' opacity-60 hover:opacity-100 transition-opacity duration-500' : ''}`}
               >
                 {content}
               </Link>
             ) : (
               <div
                 key={index}
-                className="group p-8 md:p-10 bg-[#141414] hover:bg-[#1A1A1A] transition-all duration-300"
+                className={`group p-8 md:p-10 bg-[#141414] hover:bg-[#1A1A1A] transition-all duration-300${project.comingSoon ? ' opacity-60 hover:opacity-100 transition-opacity duration-500' : ''}`}
               >
                 {content}
               </div>
