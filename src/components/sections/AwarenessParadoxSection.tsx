@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import MagneticButton from '@/components/ui/MagneticButton';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 const SacredGeometry = dynamic(() => import('@/components/SacredGeometry'), { ssr: false });
 
@@ -36,10 +37,12 @@ export default function AwarenessParadoxSection() {
       </div>
 
       {/* Three.js Sacred Geometry — interactive background */}
-      <SacredGeometry
-        className="absolute inset-0 pointer-events-auto"
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-      />
+      <ErrorBoundary>
+        <SacredGeometry
+          className="absolute inset-0 pointer-events-auto"
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        />
+      </ErrorBoundary>
     </section>
   );
 }
