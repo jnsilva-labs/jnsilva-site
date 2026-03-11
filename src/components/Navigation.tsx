@@ -423,27 +423,6 @@ export default function Navigation() {
             )
           )}
 
-          {/* Social links in mobile menu */}
-          <div data-menu-item className="relative z-10 flex gap-6 mt-4 pt-6 border-t border-[#C8C0B4]/20" style={{ opacity: 0 }}>
-            <a
-              href="https://instagram.com/jnsilva"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#F5F0E8]/40 hover:text-[#C8C0B4] text-sm uppercase tracking-widest transition-colors py-2 px-3"
-              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-            >
-              Instagram
-            </a>
-            <a
-              href="https://x.com/JNSilva_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#F5F0E8]/40 hover:text-[#C8C0B4] text-sm uppercase tracking-widest transition-colors py-2 px-3"
-              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-            >
-              X
-            </a>
-          </div>
         </div>
       </div>
     </>
