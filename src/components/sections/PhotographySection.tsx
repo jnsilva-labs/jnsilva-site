@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import ImageReveal from '@/components/ui/ImageReveal';
+import ParallaxImage from '@/components/ui/ParallaxImage';
 import MagneticButton from '@/components/ui/MagneticButton';
 import { handleKeyActivate } from '@/utils/a11y';
 import { selectPhotography } from '@/data/photography';
@@ -254,26 +255,19 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
         </div>
       </div>
 
-      {/* Frame 2: CINEMATIC LETTERBOX — B&W Concert */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
-        <ImageReveal direction="up" triggerStart="top 100%">
-          <div
-            className="relative aspect-[16/9] md:aspect-[21/9] bg-surface cursor-pointer group overflow-hidden"
-            data-cursor="view"
-            role="button"
-            tabIndex={0}
-            onClick={() => onLightboxOpen(11)}
-            onKeyDown={handleKeyActivate(() => onLightboxOpen(11))}
-          >
+      {/* Frame 2: FULL-BLEED PARALLAX HERO — White Sands */}
+      <div className="relative w-screen -mx-[calc((100vw-100%)/2)] h-[60vh] md:h-[100vh] overflow-hidden">
+        <ParallaxImage speed={0.2}>
+          <div className="relative w-full h-full" data-colorize>
             <Image
-              src={selectPhotography[11].src}
-              alt={selectPhotography[11].alt}
+              src="/images/hero/DSC07671.JPG"
+              alt="White Sands dunes stretching to the horizon under bright sky"
               fill
-              sizes="(max-width: 1400px) 100vw, 1400px"
-              className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
+              className="object-cover"
+              sizes="100vw"
             />
           </div>
-        </ImageReveal>
+        </ParallaxImage>
       </div>
 
       {/* Frame 3: OFFSET ASYMMETRIC — Film Noir + Qatar */}
@@ -351,26 +345,19 @@ export default function PhotographySection({ onLightboxOpen }: PhotographySectio
         </div>
       </div>
 
-      {/* Frame 5: CINEMATIC LETTERBOX — B&W Greek Busts */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
-        <ImageReveal direction="up" triggerStart="top 100%">
-          <div
-            className="relative aspect-[16/9] md:aspect-[21/9] bg-surface cursor-pointer group overflow-hidden"
-            data-cursor="view"
-            role="button"
-            tabIndex={0}
-            onClick={() => onLightboxOpen(17)}
-            onKeyDown={handleKeyActivate(() => onLightboxOpen(17))}
-          >
+      {/* Frame 5: FULL-BLEED PARALLAX HERO — Sintra Well */}
+      <div className="relative w-screen -mx-[calc((100vw-100%)/2)] h-[60vh] md:h-[100vh] overflow-hidden">
+        <ParallaxImage speed={0.2}>
+          <div className="relative w-full h-full" data-colorize>
             <Image
-              src={selectPhotography[17].src}
-              alt={selectPhotography[17].alt}
+              src="/images/hero/DSC08845.JPG"
+              alt="Sintra Initiation Well spiraling staircase with golden light"
               fill
-              sizes="(max-width: 1400px) 100vw, 1400px"
-              className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
+              className="object-cover"
+              sizes="100vw"
             />
           </div>
-        </ImageReveal>
+        </ParallaxImage>
       </div>
 
       {/* Frame 6: CLOSING SINGLE — Centered portrait */}
