@@ -32,11 +32,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://jnsilva.com'),
   title: {
-    default: 'J.N. Silva — Photographer, Filmmaker & Creative Director',
+    default: 'J.N. Silva — Artist & Creative Technologist',
     template: '%s — J.N. Silva',
   },
   description:
-    'Venezuelan-born photographer, filmmaker, and creative director working at the intersection of storytelling, technology, and modern mysticism. Featured in TIME, Vogue, NY Times, Sotheby\'s.',
+    'Venezuelan-born artist and creative technologist. Photographer, filmmaker, and creative director. Featured in TIME, Vogue, NY Times, Sotheby\'s.',
   keywords: [
     'JN Silva',
     'photographer',
@@ -52,14 +52,14 @@ export const metadata: Metadata = {
     'fine art photography',
   ],
   openGraph: {
-    title: 'J.N. Silva — Photographer, Filmmaker & Creative Director',
+    title: 'J.N. Silva — Artist & Creative Technologist',
     description:
-      'At the intersection of storytelling, technology, and modern mysticism.',
+      'Venezuelan-born artist and creative technologist. Photographer, filmmaker, and creative director.',
     url: 'https://jnsilva.com',
     siteName: 'J.N. Silva',
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'J.N. Silva — Photographer, Filmmaker & Creative Director' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'J.N. Silva — Artist & Creative Technologist' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -102,7 +102,7 @@ export default function RootLayout({
                 image: 'https://jnsilva.com/images/portrait/8x10_IG_JNSILVA.png',
                 jobTitle: ['Photographer', 'Filmmaker', 'Creative Director'],
                 description:
-                  'Venezuelan-born photographer, filmmaker, and creative director working at the intersection of storytelling, technology, and modern mysticism.',
+                  'Venezuelan-born artist and creative technologist. Photographer, filmmaker, and creative director.',
                 birthPlace: { '@type': 'Place', name: 'Venezuela' },
                 workLocation: {
                   '@type': 'Place',

@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'J.N. Silva — Photographer, Filmmaker & Creative Director';
+export const alt = 'J.N. Silva — Artist & Creative Technologist';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -70,7 +70,7 @@ export default async function Image() {
             display: 'flex',
           }}
         >
-          Photographer &bull; Filmmaker &bull; Creative Director
+          Artist &bull; Creative Technologist
         </div>
 
         {/* Credentials */}

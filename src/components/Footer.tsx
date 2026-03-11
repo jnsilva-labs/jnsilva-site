@@ -16,9 +16,9 @@ export default function Footer() {
               J.N. Silva
             </Link>
             <p className="mt-4 text-[#888] text-sm leading-relaxed max-w-xs">
-              Photographer. Filmmaker. Creative Director.
+              Artist &amp; Creative Technologist.
               <br />
-              At the intersection of storytelling, technology, and modern mysticism.
+              Photographer. Filmmaker. Creative Director.
             </p>
           </div>
 

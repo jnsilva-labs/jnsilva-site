@@ -58,9 +58,9 @@ export default function AboutPage() {
 
             <div ref={bioRef} className="space-y-6 text-[#F5F0E8]/50 text-base leading-relaxed">
               <p data-reveal>
-                I&apos;m J.N. Silva — a Venezuelan-born photographer, filmmaker, and creative
-                director working at the intersection of storytelling, technology, and
-                modern mysticism. I studied Philosophy and English at Rutgers University
+                I&apos;m J.N. Silva — a Venezuelan-born artist and creative technologist
+                working across photography, film, and creative direction. I studied
+                Philosophy and English at Rutgers University
                 with a focus on personal identity, free will, and world religions —
                 questions that continue to shape everything I create.
               </p>

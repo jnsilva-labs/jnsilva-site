@@ -201,7 +201,7 @@ export default function PressPage() {
         </h1>
         <p className="text-[#F5F0E8]/50 text-lg max-w-2xl leading-relaxed">
           Selected features, interviews, and media appearances documenting the
-          journey at the intersection of art, technology, and culture.
+          journey across art, technology, and culture.
         </p>
       </div>
 
