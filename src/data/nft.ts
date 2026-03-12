@@ -14,7 +14,7 @@ export const nftCollections = [
     date: 'December 2020',
     description: 'Collaboration with ThankYouX. The first drop on Nifty Gateway to include photography.',
     link: 'https://opensea.io/item/ethereum/0xf2129ea3cf8f356da9dbaa276773fbf8259d6690/3800010192',
-    video: 'https://media.niftygateway.com/video/upload/v1609275397/ThankYouX/AvenueoftheStars_l2pbjb.mp4',
+    video: 'https://media.niftygateway.com/video/upload/w_800,q_auto/v1609275397/ThankYouX/AvenueoftheStars_l2pbjb.mp4',
   },
   {
     title: 'Thank You Miami',
@@ -22,7 +22,7 @@ export const nftCollections = [
     date: 'March 2021',
     description: 'Second collaboration with ThankYouX, celebrating all things Miami.',
     link: 'https://opensea.io/item/ethereum/0xea70a9e62057dd7629e7c9ca7500290544d13e56/14200020029',
-    video: 'https://media.niftygateway.com/video/upload/v1614875643/Ashley/ThankYouxSilva2/Suspension_of_Disbelief_-_ThankYouX_nq75my.mp4',
+    video: 'https://media.niftygateway.com/video/upload/w_800,q_auto/v1614875643/Ashley/ThankYouxSilva2/Suspension_of_Disbelief_-_ThankYouX_nq75my.mp4',
   },
   {
     title: 'Infinitum',

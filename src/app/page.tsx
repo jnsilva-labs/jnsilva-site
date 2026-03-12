@@ -1,21 +1,25 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollColorize } from '@/hooks/useScrollColorize';
 import Lightbox from '@/components/Lightbox';
 import { selectPhotography } from '@/data/photography';
 
+// Static imports — above the fold (fast initial paint)
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import PhotographySection from '@/components/sections/PhotographySection';
 import ClientsSection from '@/components/sections/ClientsSection';
 import FilmSection from '@/components/sections/FilmSection';
-import FractalsSection from '@/components/sections/FractalsSection';
-import DigitalArtSection from '@/components/sections/DigitalArtSection';
-import AwarenessParadoxSection from '@/components/sections/AwarenessParadoxSection';
-import ContactSection from '@/components/sections/ContactSection';
+
+// Dynamic imports — below the fold (code-split)
+const FractalsSection = dynamic(() => import('@/components/sections/FractalsSection'));
+const DigitalArtSection = dynamic(() => import('@/components/sections/DigitalArtSection'));
+const AwarenessParadoxSection = dynamic(() => import('@/components/sections/AwarenessParadoxSection'));
+const ContactSection = dynamic(() => import('@/components/sections/ContactSection'));
 
 gsap.registerPlugin(ScrollTrigger);
 

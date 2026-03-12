@@ -12,6 +12,24 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Movie',
+  name: 'Buscando America',
+  description: 'A Web3 fiction film built by Latino filmmakers. 2,500 NFT photographs documenting Medellín.',
+  url: 'https://jnsilva.com/buscando-america',
+  director: {
+    '@type': 'Person',
+    name: 'J.N. Silva',
+    url: 'https://jnsilva.com',
+  },
+};
+
 export default function BuscandoAmericaPage() {
-  return <PageContent />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <PageContent />
+    </>
+  );
 }

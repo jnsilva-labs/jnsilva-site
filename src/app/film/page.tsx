@@ -12,6 +12,24 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Film & Motion — J.N. Silva',
+  description: 'Cinematic direction and filmmaking — documentaries, music videos, and brand campaigns.',
+  url: 'https://jnsilva.com/film',
+  author: {
+    '@type': 'Person',
+    name: 'J.N. Silva',
+    url: 'https://jnsilva.com',
+  },
+};
+
 export default function FilmPage() {
-  return <PageContent />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <PageContent />
+    </>
+  );
 }

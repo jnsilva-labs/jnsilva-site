@@ -13,8 +13,26 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Awareness Paradox — J.N. Silva',
+  description: 'Exploring Hermetic philosophy, perception, and consciousness through visual storytelling.',
+  url: 'https://jnsilva.com/awareness-paradox',
+  author: {
+    '@type': 'Person',
+    name: 'J.N. Silva',
+    url: 'https://jnsilva.com',
+  },
+};
+
 export default async function AwarenessParadoxPage() {
   const substackPosts = await fetchSubstackPosts('awarenessparadox', 4);
 
-  return <PageContent substackPosts={substackPosts} />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <PageContent substackPosts={substackPosts} />
+    </>
+  );
 }

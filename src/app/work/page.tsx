@@ -12,6 +12,24 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Photography — J.N. Silva',
+  description: 'A decade of photography — music, street, portrait, aerial, and fine art.',
+  url: 'https://jnsilva.com/work',
+  author: {
+    '@type': 'Person',
+    name: 'J.N. Silva',
+    url: 'https://jnsilva.com',
+  },
+};
+
 export default function WorkPage() {
-  return <PageContent />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <PageContent />
+    </>
+  );
 }

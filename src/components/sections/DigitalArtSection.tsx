@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import MagneticButton from '@/components/ui/MagneticButton';
+import LazyVideo from '@/components/ui/LazyVideo';
 import { nftCollections } from '@/data/nft';
 
 /* ─── NFT Content (featured hero + cards, with deduplication) ─── */
@@ -39,15 +40,11 @@ function NFTContent({ collections }: { collections: typeof nftCollections }) {
             className={`group block relative overflow-hidden border border-foreground/[0.04] hover:border-gold/20 transition-all duration-300 ${isPortrait ? 'max-w-xs mx-auto' : ''}`}
           >
             <div className={`relative bg-[#0D0D0D] ${isPortrait ? 'aspect-[3/4]' : orientation === 'square' ? 'aspect-square' : 'aspect-video'}`}>
-              <video
+              <LazyVideo
                 src={featured.video}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className={`absolute inset-0 w-full h-full ${isPortrait ? 'object-contain' : 'object-cover'}`}
+                className="absolute inset-0 w-full h-full"
                 onLoadedMetadata={(e) => {
-                  const v = e.currentTarget;
+                  const v = e.currentTarget as HTMLVideoElement;
                   if (v.videoWidth && v.videoHeight) {
                     const ratio = v.videoWidth / v.videoHeight;
                     if (ratio < 0.9) setOrientation('portrait');
@@ -94,14 +91,7 @@ function NFTContent({ collections }: { collections: typeof nftCollections }) {
           >
             {collection.video ? (
               <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
-                <video
-                  src={collection.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-contain"
-                />
+                <LazyVideo src={collection.video} className="absolute inset-0 w-full h-full" />
               </div>
             ) : 'image' in collection && collection.image ? (
               <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
