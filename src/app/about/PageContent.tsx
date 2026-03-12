@@ -17,16 +17,6 @@ const skills = [
   { category: 'Creative Direction', items: ['Brand Strategy', 'Campaign Concepts', 'Art Direction', 'Visual Identity', 'Experiential Design'] },
 ];
 
-// Curated Instagram posts — update images in /public/images/instagram/ and URLs here
-const instagramPosts = [
-  { image: '/images/instagram/ig-1.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
-  { image: '/images/instagram/ig-2.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
-  { image: '/images/instagram/ig-3.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
-  { image: '/images/instagram/ig-4.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
-  { image: '/images/instagram/ig-5.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
-  { image: '/images/instagram/ig-6.jpg', url: 'https://instagram.com/jnsilva', alt: 'J.N. Silva on Instagram' },
-];
-
 interface Props {
   substackPosts: SubstackPost[];
 }
@@ -37,7 +27,6 @@ export default function AboutPage({ substackPosts }: Props) {
   const disciplinesRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
   const quoteRef = useScrollReveal<HTMLDivElement>({ stagger: 0.12 });
   const ctaRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
-  const igRef = useScrollReveal<HTMLDivElement>({ stagger: 0.08 });
   const substackRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
 
   return (
@@ -177,65 +166,6 @@ export default function AboutPage({ substackPosts }: Props) {
           <p className="text-[#C8C0B4]/60 text-sm uppercase tracking-[0.2em] font-[family-name:var(--font-mono)]">
             J.N. Silva
           </p>
-        </div>
-      </div>
-
-      {/* Instagram — Curated Grid */}
-      <div ref={igRef} className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <p data-reveal className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
-              Follow the Work
-            </p>
-            <h2 data-reveal className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-[#F5F0E8] font-light">
-              Instagram
-            </h2>
-          </div>
-          <a
-            href="https://instagram.com/jnsilva"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-reveal
-            className="flex items-center gap-2 text-[#C8C0B4]/40 hover:text-[#C8C0B4] text-xs uppercase tracking-wider transition-colors pb-1"
-          >
-            @jnsilva
-            <ExternalLink size={10} />
-          </a>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {instagramPosts.map((post, i) => (
-            <a
-              key={i}
-              href={post.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-reveal
-              className="relative aspect-square bg-[#141414] border border-[#C8C0B4]/5 overflow-hidden group"
-            >
-              <Image
-                src={post.image}
-                alt={post.alt}
-                fill
-                sizes="(max-width: 768px) 50vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-8 h-8 text-white opacity-0 group-hover:opacity-80 transition-opacity duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
-                  <circle cx="12" cy="12" r="5" />
-                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
-                </svg>
-              </div>
-            </a>
-          ))}
         </div>
       </div>
 
