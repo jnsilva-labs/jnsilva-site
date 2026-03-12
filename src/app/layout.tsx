@@ -9,7 +9,7 @@ import SmoothScroll from "@/components/layout/SmoothScroll";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
@@ -17,14 +17,14 @@ const cormorant = Cormorant_Garamond({
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500"],
   variable: "--font-body",
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["400"],
   variable: "--font-mono",
   display: "swap",
 });
