@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 interface LazyVideoProps {
   src: string;
@@ -10,8 +10,17 @@ interface LazyVideoProps {
 
 export default function LazyVideo({ src, className, onLoadedMetadata }: LazyVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  // React has a known bug where `muted` prop doesn't get set on the DOM element.
+  // Mobile browsers then block autoplay because they think the video isn't muted.
+  // Fix: use a ref callback to force muted + play on mount.
+  const videoRefCallback = useCallback((node: HTMLVideoElement | null) => {
+    if (node) {
+      node.muted = true;
+      node.play().catch(() => {});
+    }
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -31,24 +40,17 @@ export default function LazyVideo({ src, className, onLoadedMetadata }: LazyVide
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (isVisible && videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay blocked — silent fail is fine for decorative video
-      });
-    }
-  }, [isVisible]);
-
   return (
     <div ref={containerRef} className={className}>
       {isVisible ? (
         <video
-          ref={videoRef}
+          ref={videoRefCallback}
           src={src}
+          autoPlay
           muted
           loop
           playsInline
-          preload="none"
+          preload="auto"
           className="absolute inset-0 w-full h-full object-contain"
           onLoadedMetadata={onLoadedMetadata}
         />
