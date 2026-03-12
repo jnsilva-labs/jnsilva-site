@@ -15,6 +15,7 @@ export const nftCollections = [
     description: 'Collaboration with ThankYouX. The first drop on Nifty Gateway to include photography.',
     link: 'https://opensea.io/item/ethereum/0xf2129ea3cf8f356da9dbaa276773fbf8259d6690/3800010192',
     video: 'https://media.niftygateway.com/video/upload/w_800,q_auto/v1609275397/ThankYouX/AvenueoftheStars_l2pbjb.mp4',
+    image: '/images/nft/thank-you-ny-poster.jpg',
   },
   {
     title: 'Thank You Miami',
@@ -23,6 +24,7 @@ export const nftCollections = [
     description: 'Second collaboration with ThankYouX, celebrating all things Miami.',
     link: 'https://opensea.io/item/ethereum/0xea70a9e62057dd7629e7c9ca7500290544d13e56/14200020029',
     video: 'https://media.niftygateway.com/video/upload/w_800,q_auto/v1614875643/Ashley/ThankYouxSilva2/Suspension_of_Disbelief_-_ThankYouX_nq75my.mp4',
+    image: '/images/nft/thank-you-miami-poster.jpg',
   },
   {
     title: 'Infinitum',
@@ -40,6 +42,13 @@ export const nftCollections = [
     link: 'https://artifex.art/waves/digital-icons/vision-y-razon/vision-y-razon',
     video: 'https://artifex-project.storage.googleapis.com/2021/06/22132652/Wave-2-J.N.-Silva-%40jnsilva_.mp4',
     image: '/images/nft/vision-y-razon-poster.png',
+  },
+  {
+    title: 'Latin GRAMMYs',
+    platform: 'OneOf',
+    date: 'November 2022',
+    description: 'One of five Latin artists selected for the 23rd Annual Latin GRAMMY Awards NFT collection, creatively directed by Carlos Vives.',
+    link: 'https://www.latingrammy.com/en/news/the-latin-recording-academy-and-oneof-announce-carlos-vives-as-creative-director-of-the-23rd-annual-latin-grammy-awards-nft-and-capsule--',
   },
 ];
 
