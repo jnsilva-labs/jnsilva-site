@@ -39,6 +39,7 @@ export const nftCollections = [
     description: 'A 1/1 video NFT — 47 photographs set to an original audio track. Part of the Artifex Digital Icons collection celebrating early NFT movement pioneers.',
     link: 'https://artifex.art/waves/digital-icons/vision-y-razon/vision-y-razon',
     video: 'https://artifex-project.storage.googleapis.com/2021/06/22132652/Wave-2-J.N.-Silva-%40jnsilva_.mp4',
+    image: '/images/nft/vision-y-razon-poster.png',
   },
 ];
 

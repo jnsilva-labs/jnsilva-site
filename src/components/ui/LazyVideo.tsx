@@ -1,27 +1,20 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface LazyVideoProps {
   src: string;
+  poster?: string;
   className?: string;
   onLoadedMetadata?: (e: React.SyntheticEvent<HTMLVideoElement>) => void;
 }
 
-export default function LazyVideo({ src, className, onLoadedMetadata }: LazyVideoProps) {
+export default function LazyVideo({ src, poster, className, onLoadedMetadata }: LazyVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [activeSrc, setActiveSrc] = useState<string | undefined>(undefined);
 
-  // React has a known bug where `muted` prop doesn't get set on the DOM element.
-  // Mobile browsers then block autoplay because they think the video isn't muted.
-  // Fix: use a ref callback to force muted + play on mount.
-  const videoRefCallback = useCallback((node: HTMLVideoElement | null) => {
-    if (node) {
-      node.muted = true;
-      node.play().catch(() => {});
-    }
-  }, []);
-
+  // IntersectionObserver sets the src when the container nears viewport
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -29,7 +22,7 @@ export default function LazyVideo({ src, className, onLoadedMetadata }: LazyVide
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setActiveSrc(src);
           observer.disconnect();
         }
       },
@@ -38,25 +31,34 @@ export default function LazyVideo({ src, className, onLoadedMetadata }: LazyVide
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [src]);
+
+  // When src is set, force muted (React bug workaround) and play
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !activeSrc) return;
+
+    video.muted = true;
+    video.load();
+    video.play().catch(() => {});
+  }, [activeSrc]);
 
   return (
     <div ref={containerRef} className={className}>
-      {isVisible ? (
-        <video
-          ref={videoRefCallback}
-          src={src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-contain"
-          onLoadedMetadata={onLoadedMetadata}
-        />
-      ) : (
-        <div className="absolute inset-0 bg-[#0D0D0D]" />
-      )}
+      {/* Video element is always in the DOM — src toggles on/off for lazy loading.
+          This avoids conditional rendering race conditions with refs on mobile. */}
+      <video
+        ref={videoRef}
+        src={activeSrc}
+        poster={poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload={activeSrc ? 'auto' : 'none'}
+        className="absolute inset-0 w-full h-full object-contain"
+        onLoadedMetadata={onLoadedMetadata}
+      />
     </div>
   );
 }

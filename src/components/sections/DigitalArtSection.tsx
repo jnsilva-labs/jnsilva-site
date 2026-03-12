@@ -42,6 +42,7 @@ function NFTContent({ collections }: { collections: typeof nftCollections }) {
             <div className={`relative bg-[#0D0D0D] ${isPortrait ? 'aspect-[3/4]' : orientation === 'square' ? 'aspect-square' : 'aspect-video'}`}>
               <LazyVideo
                 src={featured.video}
+                poster={'image' in featured ? (featured.image as string) : undefined}
                 className="absolute inset-0 w-full h-full"
                 onLoadedMetadata={(e) => {
                   const v = e.currentTarget as HTMLVideoElement;
@@ -91,7 +92,11 @@ function NFTContent({ collections }: { collections: typeof nftCollections }) {
           >
             {collection.video ? (
               <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
-                <LazyVideo src={collection.video} className="absolute inset-0 w-full h-full" />
+                <LazyVideo
+                  src={collection.video}
+                  poster={'image' in collection ? (collection.image as string) : undefined}
+                  className="absolute inset-0 w-full h-full"
+                />
               </div>
             ) : 'image' in collection && collection.image ? (
               <div className="relative aspect-square overflow-hidden bg-[#0D0D0D]">
