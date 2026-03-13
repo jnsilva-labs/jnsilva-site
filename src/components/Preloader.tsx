@@ -66,6 +66,7 @@ function computeFrameTimings(count: number, mobile = false): number[] {
 }
 
 const SESSION_KEY = 'montageShown';
+const VISITED_KEY = 'jnsilva_visited';
 
 export default function Preloader() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -119,10 +120,15 @@ export default function Preloader() {
     }
   }, []);
 
-  // Check session — skip if already shown this session
+  // Check session/returning visitor — skip if already shown this session or returning visitor
   useEffect(() => {
     const alreadyShown = sessionStorage.getItem(SESSION_KEY);
-    if (alreadyShown) {
+    let returningVisitor = false;
+    try { returningVisitor = !!localStorage.getItem(VISITED_KEY); } catch { /* private browsing */ }
+
+    if (alreadyShown || returningVisitor) {
+      // Still mark session so downstream checks stay consistent
+      try { sessionStorage.setItem(SESSION_KEY, 'true'); } catch { /* noop */ }
       setIsHidden(true);
       window.dispatchEvent(new CustomEvent('montageComplete'));
       return;
@@ -154,6 +160,7 @@ export default function Preloader() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
       sessionStorage.setItem(SESSION_KEY, 'true');
+      try { localStorage.setItem(VISITED_KEY, '1'); } catch { /* noop */ }
       handleExit();
       return;
     }
@@ -176,6 +183,7 @@ export default function Preloader() {
     function showNextFrame() {
       if (frameIndex >= images.length) {
         sessionStorage.setItem(SESSION_KEY, 'true');
+        try { localStorage.setItem(VISITED_KEY, '1'); } catch { /* noop */ }
         handleExit();
         return;
       }

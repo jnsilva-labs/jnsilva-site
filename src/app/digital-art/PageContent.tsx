@@ -26,6 +26,7 @@ const milestones: Drop[] = [
     type: 'collaboration',
     collaborator: 'ThankYouX',
     achievement: 'First Nifty Gateway drop to include photography',
+    image: '/images/nft/thank-you-ny-poster.jpg',
     links: [
       { label: 'Nifty Gateway', url: 'https://www.niftygateway.com/collections/thankyouxsilva/' },
     ],
@@ -38,6 +39,7 @@ const milestones: Drop[] = [
       'Follow-up collaboration celebrating Miami culture and the Venezuelan diaspora. A fusion of Silva\'s photography with ThankYouX\'s geometric aesthetic.',
     type: 'collaboration',
     collaborator: 'ThankYouX',
+    image: '/images/nft/thank-you-miami-poster.jpg',
     links: [
       { label: 'OpenSea', url: 'https://opensea.io/collection/thankyoux-and-jn-silva' },
     ],
@@ -50,6 +52,7 @@ const milestones: Drop[] = [
       'A groundbreaking collaboration between legendary hip-hop producer DJ Premier and Animus Collective. Nine instrumental tracks paired with accompanying visuals.',
     type: 'collaboration',
     collaborator: 'DJ Premier',
+    image: '/images/nft/golden-era-future-poster.jpg',
     links: [
       { label: 'Nifty Gateway', url: 'https://www.niftygateway.com/collections/goldenerafutureopen' },
     ],
@@ -71,6 +74,7 @@ const milestones: Drop[] = [
       'Selected as one of 40 artists for TIME Magazine\'s landmark genesis NFT collection, launching the publication\'s evolution into Web3.',
     type: 'personal',
     achievement: 'Featured in TIME\'s inaugural NFT collection',
+    image: '/images/nft/time-genesis-poster.jpg',
     links: [
       { label: 'TIME Collection', url: 'https://nft.time.com/collection/jn-silva/' },
     ],
@@ -84,6 +88,7 @@ const milestones: Drop[] = [
     type: 'auction',
     achievement: 'First Venezuelan NFT artist to exhibit at Sotheby\'s',
     price: '90,000 GBP (~$119,000 USD)',
+    image: '/images/nft/kinesthesia-poster.jpg',
     links: [
       { label: "Sotheby's Auction", url: 'https://www.sothebys.com/en/buy/auction/2022/modern-contemporary-art-day-auction/kinesthesia' },
       { label: 'Sony Alpha Feature', url: 'https://alphauniverse.com/stories/nft-artist-jn-silvas-kinesthesia-sells-at-sothebys-auction/' },
@@ -116,8 +121,21 @@ const milestones: Drop[] = [
     description:
       'A 2:12 video montage featuring 47 photographs set to an original audio track composed by the artist. Immortalized as part of the Artifex Museum collection celebrating early NFT movement pioneers.',
     type: 'personal',
+    image: '/images/nft/vision-y-razon-poster.png',
     links: [
       { label: 'Artifex', url: 'https://artifex.art/artists/j-n-silva' },
+    ],
+  },
+  {
+    title: 'Tonada De Orgullo',
+    platform: 'OneOf / Latin GRAMMYs',
+    date: 'November 2022',
+    description:
+      'One of five Latin artists selected for the 23rd Annual Latin GRAMMY Awards NFT collection, creatively directed by Carlos Vives. A celebration of Venezuelan musical heritage.',
+    type: 'personal',
+    image: '/images/nft/tonada-de-orgullo-poster.png',
+    links: [
+      { label: 'Latin GRAMMYs', url: 'https://www.latingrammy.com/en/news/the-latin-recording-academy-and-oneof-announce-carlos-vives-as-creative-director-of-the-23rd-annual-latin-grammy-awards-nft-and-capsule--' },
     ],
   },
 ];

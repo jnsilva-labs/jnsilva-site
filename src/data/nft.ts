@@ -43,14 +43,6 @@ export const nftCollections = [
     video: 'https://artifex-project.storage.googleapis.com/2021/06/22132652/Wave-2-J.N.-Silva-%40jnsilva_.mp4',
     image: '/images/nft/vision-y-razon-poster.png',
   },
-  {
-    title: 'Tonada De Orgullo',
-    platform: 'OneOf / Latin GRAMMYs',
-    date: 'November 2022',
-    description: 'One of five Latin artists selected for the 23rd Annual Latin GRAMMY Awards NFT collection, creatively directed by Carlos Vives.',
-    link: 'https://www.latingrammy.com/en/news/the-latin-recording-academy-and-oneof-announce-carlos-vives-as-creative-director-of-the-23rd-annual-latin-grammy-awards-nft-and-capsule--',
-    image: '/images/nft/tonada-de-orgullo-poster.png',
-  },
 ];
 
 export type NftCollection = typeof nftCollections[number];
