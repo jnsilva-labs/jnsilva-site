@@ -77,7 +77,7 @@ export default function Home() {
       {/* 7. DIGITAL ART — On the Blockchain */}
       <DigitalArtSection />
 
-      {/* 8. LAB — Synetica + Creative Technology */}
+      {/* 8. LAB — Cinética + Creative Technology */}
       <LabSection />
 
       {/* 9. AWARENESS PARADOX — Philosophical Close */}

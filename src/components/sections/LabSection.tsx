@@ -44,18 +44,18 @@ export default function LabSection() {
           artwork is written, not shot.
         </p>
 
-        {/* Featured: Synetica */}
+        {/* Featured: Cinética */}
         <div data-reveal className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-16">
           <a
-            href="https://synetica.jnsilva.com"
+            href="https://cinetica.jnsilva.com"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative block overflow-hidden border border-foreground/[0.04] hover:border-gold/20 transition-all duration-300"
           >
             <div className="relative aspect-[2/3] max-h-[640px] w-full bg-[#0D0D0D]">
               <Image
-                src="/images/synetica/syn-hero.jpg"
-                alt="Synetica — generative kinetic artwork in Venezuelan tricolor palette"
+                src="/images/cinetica/syn-hero.jpg"
+                alt="Cinética — generative kinetic artwork in Venezuelan tricolor palette"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover group-hover:scale-[1.02] transition-transform duration-700"
@@ -73,7 +73,7 @@ export default function LabSection() {
               Featured Project
             </p>
             <h3 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-foreground font-light mb-6">
-              Synetica
+              Cinética
             </h3>
             <p className="text-foreground/50 text-base leading-relaxed mb-4">
               A generative art system honoring Venezuela&apos;s kinetic art
@@ -82,20 +82,20 @@ export default function LabSection() {
             </p>
             <p className="text-foreground/40 text-sm leading-relaxed mb-8">
               Every piece is deterministic, browser-rendered, and provably
-              unique: continuous entropy drawn from a token hash means no two
-              works can ever repeat.
+              unique — no two works can ever repeat. Proceeds support
+              Venezuelan earthquake relief.
             </p>
             <div className="grid grid-cols-2 gap-3 mb-10 max-w-sm">
               <Image
-                src="/images/synetica/syn-2.jpg"
-                alt="Synetica output — Cruz-Diez palette study"
+                src="/images/cinetica/syn-2.jpg"
+                alt="Cinética output — Cruz-Diez palette study"
                 width={280}
                 height={420}
                 className="w-full border border-foreground/[0.04]"
               />
               <Image
-                src="/images/synetica/syn-3.jpg"
-                alt="Synetica output — Orquídea palette study"
+                src="/images/cinetica/syn-3.jpg"
+                alt="Cinética output — Orquídea palette study"
                 width={280}
                 height={420}
                 className="w-full border border-foreground/[0.04]"
@@ -103,10 +103,10 @@ export default function LabSection() {
             </div>
             <MagneticButton
               as="a"
-              href="https://synetica.jnsilva.com"
+              href="https://cinetica.jnsilva.com"
               className="inline-flex items-center gap-2 px-10 py-4 border border-gold/30 text-gold text-sm uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:bg-gold hover:text-background hover:border-gold transition-all duration-300"
             >
-              Enter Synetica
+              Enter Cinética
               <ArrowUpRight size={14} />
             </MagneticButton>
           </div>

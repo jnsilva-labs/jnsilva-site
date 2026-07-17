@@ -124,7 +124,7 @@ export default function RootLayout({
                   'https://tiktok.com/@jnsilva',
                   'https://substack.com/@josensilva',
                   'https://superrare.com/jnsilva',
-                  'https://synetica.jnsilva.com',
+                  'https://cinetica.jnsilva.com',
                 ],
                 knowsAbout: [
                   'Photography',

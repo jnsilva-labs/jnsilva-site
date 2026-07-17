@@ -55,7 +55,7 @@ const navItems: NavItem[] = [
     ],
   },
   { label: 'Clients', href: '/clients' },
-  { label: 'Synetica', href: 'https://synetica.jnsilva.com', external: true },
+  { label: 'Cinética', href: 'https://cinetica.jnsilva.com', external: true },
   { label: 'About', href: '/about' },
   { label: 'AP', href: '/awareness-paradox' },
   { label: 'Contact', href: '/contact' },
@@ -250,7 +250,7 @@ export default function Navigation() {
                     </button>
                   </div>
                 ) : item.external ? (
-                  /* ─── External nav items (e.g. Synetica) ─── */
+                  /* ─── External nav items (e.g. Cinética) ─── */
                   <a
                     key={item.href}
                     href={item.href}
