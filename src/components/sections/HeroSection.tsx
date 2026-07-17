@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import { onMontageComplete } from '@/utils/montage';
 
 const HeroParticles3D = dynamic(() => import('@/components/HeroParticles3D'), { ssr: false });
 
@@ -66,20 +67,23 @@ export default function HeroSection() {
       return ctx;
     }
 
-    // Listen for montage completion
-    const handler = () => {
+    // Play once the montage completes — fires immediately if it already has,
+    // which covers returning visitors whose Preloader mounts (and signals)
+    // before this listener would otherwise attach.
+    let played = false;
+    const unsubscribe = onMontageComplete(() => {
+      if (played) return;
+      played = true;
       playReveal();
-    };
-    window.addEventListener('montageComplete', handler);
+    });
 
     // Reduced motion: play immediately (montage is skipped)
-    if (prefersReduced) {
+    if (prefersReduced && !played) {
+      played = true;
       playReveal();
     }
 
-    return () => {
-      window.removeEventListener('montageComplete', handler);
-    };
+    return unsubscribe;
   }, []);
 
   // Hero pin — next section scrolls over it (desktop only)

@@ -13,6 +13,7 @@ export default function LazyVideo({ src, poster, className, onLoadedMetadata }: 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [activeSrc, setActiveSrc] = useState<string | undefined>(undefined);
+  const [failed, setFailed] = useState(false);
 
   // IntersectionObserver sets the src when the container nears viewport
   useEffect(() => {
@@ -43,6 +44,20 @@ export default function LazyVideo({ src, poster, className, onLoadedMetadata }: 
     video.play().catch(() => {});
   }, [activeSrc]);
 
+  // If the video source is dead (e.g. a CDN went offline), fall back to the poster image
+  if (failed && poster) {
+    return (
+      <div ref={containerRef} className={className}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={poster}
+          alt=""
+          className="absolute inset-0 w-full h-full object-contain"
+        />
+      </div>
+    );
+  }
+
   return (
     <div ref={containerRef} className={className}>
       {/* Video element is always in the DOM — src toggles on/off for lazy loading.
@@ -58,6 +73,9 @@ export default function LazyVideo({ src, poster, className, onLoadedMetadata }: 
         preload={activeSrc ? 'auto' : 'none'}
         className="absolute inset-0 w-full h-full object-contain"
         onLoadedMetadata={onLoadedMetadata}
+        onError={() => {
+          if (activeSrc) setFailed(true);
+        }}
       />
     </div>
   );

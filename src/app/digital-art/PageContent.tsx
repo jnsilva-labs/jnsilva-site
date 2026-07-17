@@ -144,7 +144,6 @@ const platforms = [
   { name: 'SuperRare', url: 'https://superrare.com/jnsilva' },
   { name: 'Nifty Gateway', url: 'https://www.niftygateway.com/@jnsilva/collections/' },
   { name: 'OpenSea', url: 'https://opensea.io/jnsilva' },
-  { name: 'Foundation', url: 'https://foundation.app/@jnsilva' },
   { name: '1stDibs', url: 'https://www.1stdibs.com/nft/profile/jnsilva/' },
   { name: 'Artifex', url: 'https://artifex.art/artists/j-n-silva' },
 ];
@@ -341,7 +340,7 @@ export default function DigitalArtPage() {
         <p className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-12 font-[family-name:var(--font-mono)]">
           Collect & View
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {platforms.map((platform) => (
             <a
               key={platform.name}

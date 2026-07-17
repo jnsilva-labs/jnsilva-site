@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
+import { signalMontageComplete } from '@/utils/montage';
 
 /**
  * HeroMontage — Full-viewport crossfading photo montage.
@@ -87,7 +88,7 @@ export default function Preloader() {
     if (!containerRef.current) {
       document.body.style.overflow = '';
       setIsHidden(true);
-      window.dispatchEvent(new CustomEvent('montageComplete'));
+      signalMontageComplete();
       return;
     }
 
@@ -95,7 +96,7 @@ export default function Preloader() {
       onComplete: () => {
         document.body.style.overflow = '';
         setIsHidden(true);
-        window.dispatchEvent(new CustomEvent('montageComplete'));
+        signalMontageComplete();
       },
     });
 
@@ -130,7 +131,7 @@ export default function Preloader() {
       // Still mark session so downstream checks stay consistent
       try { sessionStorage.setItem(SESSION_KEY, 'true'); } catch { /* noop */ }
       setIsHidden(true);
-      window.dispatchEvent(new CustomEvent('montageComplete'));
+      signalMontageComplete();
       return;
     }
 
