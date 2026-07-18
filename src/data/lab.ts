@@ -1,7 +1,7 @@
 export interface LabProject {
   slug: string;
   title: string;
-  category: 'Creative Technology' | 'Products & Tools' | 'Games' | 'Client Work' | 'Causes';
+  category: 'Generative Art' | 'Interactive & Games' | 'Products & Tools' | 'Websites' | 'Pitch Decks';
   description: string;
   tech: string[];
   image: string;
@@ -12,11 +12,11 @@ export interface LabProject {
 }
 
 export const labProjects: LabProject[] = [
-  /* ── Creative Technology ── */
+  /* ── Generative Art ── */
   {
     slug: 'cinetica',
     title: 'Cinética',
-    category: 'Creative Technology',
+    category: 'Generative Art',
     description:
       'A generative homage to Venezuela’s kinetic art masters — Cruz-Diez, Soto, and Gego — arranged by a sacred-geometry composition engine. Every piece is deterministic, browser-rendered, and provably unique. Proceeds support earthquake relief.',
     tech: ['Canvas', 'Generative', 'TypeScript'],
@@ -27,9 +27,9 @@ export const labProjects: LabProject[] = [
   {
     slug: 'arbitrumcity',
     title: 'Arbitrum City',
-    category: 'Creative Technology',
+    category: 'Interactive & Games',
     description:
-      'A living pixel city driven by the Arbitrum blockchain in real time — transaction volume fills the streets, gas price colors the skyline, block time triggers weather. Eleven DeFi districts and a block pulse every 12 seconds. The chain plays itself.',
+      'Hackathon project: a living pixel city driven by the Arbitrum blockchain in real time — transaction volume fills the streets, gas price colors the skyline, block time triggers weather. Eleven DeFi districts and a block pulse every 12 seconds. The chain plays itself.',
     tech: ['JavaScript', 'Alchemy API', 'Pixel Art', 'Web3'],
     image: '/images/lab/arbitrumcity.jpg',
     url: 'https://arbitrumcity.vercel.app',
@@ -39,7 +39,7 @@ export const labProjects: LabProject[] = [
   {
     slug: 'ap-visualizer',
     title: 'Awareness Paradox Visualizer',
-    category: 'Creative Technology',
+    category: 'Interactive & Games',
     description:
       'A metaphysical music visualizer — sacred geometry reacting live to any audio source, from system sound to uploaded tracks. Part of the Awareness Paradox universe.',
     tech: ['WebGL', 'Web Audio API', 'JavaScript'],
@@ -48,9 +48,9 @@ export const labProjects: LabProject[] = [
     repo: 'https://github.com/jnsilva-labs/awarenessparadox-visualizer',
   },
   {
-    slug: 'thegreatwork',
-    title: 'The Great Work',
-    category: 'Creative Technology',
+    slug: 'awarenessparadox',
+    title: 'Awareness Paradox',
+    category: 'Websites',
     description:
       'A ritual interface exploring the seven Hermetic principles through sacred geometry and fractal fields — editorial typography over a living WebGL substrate with cinematic scroll-driven transitions.',
     tech: ['Next.js', 'WebGL', 'GLSL'],
@@ -61,7 +61,7 @@ export const labProjects: LabProject[] = [
   {
     slug: 'thetemple',
     title: 'The Temple — Codex of Resonance',
-    category: 'Creative Technology',
+    category: 'Generative Art',
     description:
       'A generative art system exploring sacred geometry, fractal mysticism, and contemplative minimalism. Each invocation renders a unique sigil from a seed hash.',
     tech: ['TypeScript', 'Canvas', 'Generative'],
@@ -71,7 +71,7 @@ export const labProjects: LabProject[] = [
   {
     slug: 'canserbero',
     title: 'Canserbero — Vida y Muerte',
-    category: 'Creative Technology',
+    category: 'Interactive & Games',
     description:
       'Eight analytical visualizations of the Venezuelan rapper’s double album Vida (2010) and Muerte (2012) — narrative arc, voice matrix, citation network, lexical diptych, and biblical-mythological index.',
     tech: ['Data Viz', 'D3-style SVG', 'Single-file'],
@@ -102,11 +102,11 @@ export const labProjects: LabProject[] = [
     url: 'https://gigradar-chi.vercel.app',
   },
 
-  /* ── Games ── */
+  /* ── Interactive & Games ── */
   {
     slug: 'orbitalparadox',
     title: 'Orbital Paradox',
-    category: 'Games',
+    category: 'Interactive & Games',
     description:
       'A Peggle-inspired game of cosmic transmutation — aim, cast Arcana powers, trigger Fever, and clear alchemical stages with portals, gates, and destructible obstacles. Chapter-based progression with a generated-asset pipeline.',
     tech: ['Phaser 3', 'Matter.js', 'TypeScript'],
@@ -115,11 +115,11 @@ export const labProjects: LabProject[] = [
     repo: 'https://github.com/jnsilva-labs/orbitalparadox',
   },
 
-  /* ── Client Work ── */
+  /* ── Websites ── */
   {
     slug: 'navarretestudio',
     title: 'Navarrete Studio',
-    category: 'Client Work',
+    category: 'Websites',
     description:
       'Portfolio site for a California architecture & design studio — drone video hero, editorial filmstrip project layouts, animated blueprint overlays, and scroll-driven reveals.',
     tech: ['Next.js', 'TypeScript', 'GSAP'],
@@ -128,11 +128,32 @@ export const labProjects: LabProject[] = [
     repo: 'https://github.com/jnsilva-labs/navarretestudio',
   },
 
-  /* ── Causes ── */
+  {
+    slug: 'luvk9',
+    title: 'Luv K9',
+    category: 'Websites',
+    description:
+      'A fun, interactive site for Hoboken’s dog daycare, grooming, and walking company — playful motion, bold type, and booking flows for PlayCare and Luv Kuts.',
+    tech: ['Next.js', 'TypeScript', 'GSAP'],
+    image: '/images/lab/luvk9.jpg',
+    url: 'https://luvhoboken.com',
+    repo: 'https://github.com/jnsilva-labs/luvk9hoboken',
+  },
+  {
+    slug: 'therapyenergy',
+    title: 'Therapy Energy',
+    category: 'Websites',
+    description:
+      'A serene site for holistic healer Adriana Monsalve — sacred geometry motifs over warm, misted fields, with session booking and practice information.',
+    tech: ['Next.js', 'TypeScript'],
+    image: '/images/lab/therapy.jpg',
+    url: 'https://www.theraphyenergy.com',
+    repo: 'https://github.com/jnsilva-labs/theraphyenergy',
+  },
   {
     slug: 'earthquake-relief',
     title: 'Ayuda Venezuela',
-    category: 'Causes',
+    category: 'Websites',
     description:
       'Rapid-response resource hub after the June 24 earthquakes — vetted organizations, donation routes, and verified information for helping Venezuela, built and shipped in days.',
     tech: ['Next.js', 'TypeScript'],
@@ -142,7 +163,7 @@ export const labProjects: LabProject[] = [
   {
     slug: 'hastalafinal',
     title: 'Hasta La Final',
-    category: 'Causes',
+    category: 'Websites',
     description:
       'A tribute to Venezuela’s 2026 World Baseball Classic champions — an interactive celebration of the run to the title. 🇻🇪',
     tech: ['JavaScript', 'CSS'],
@@ -150,14 +171,36 @@ export const labProjects: LabProject[] = [
     url: 'https://hastalafinal.com',
     repo: 'https://github.com/jnsilva-labs/hastalafinal',
   },
+
+  /* ── Pitch Decks ── */
+  {
+    slug: 'buscandoamerica-pitch',
+    title: 'Buscando América',
+    category: 'Pitch Decks',
+    description:
+      'Interactive pitch for a cinematic universe by Códigos Global — an immersive, scroll-driven deck that carries the film’s world instead of a PDF.',
+    tech: ['Next.js', 'TypeScript', 'GSAP'],
+    image: '/images/lab/buscandoamerica.jpg',
+    url: 'https://buscandoamerica.co',
+  },
+  {
+    slug: 'riasuth',
+    title: 'Ria Suth',
+    category: 'Pitch Decks',
+    description:
+      'Story-driven production pitch site — editorial pacing and cinematic imagery presenting the director’s vision as a browsable experience.',
+    tech: ['Next.js', 'TypeScript'],
+    image: '/images/lab/riasuth.jpg',
+    url: 'https://riasuth.vercel.app',
+  },
 ];
 
 export const labCategories = [
-  'Creative Technology',
+  'Generative Art',
+  'Interactive & Games',
   'Products & Tools',
-  'Games',
-  'Client Work',
-  'Causes',
+  'Websites',
+  'Pitch Decks',
 ] as const;
 
 export function getFeaturedLabProjects() {

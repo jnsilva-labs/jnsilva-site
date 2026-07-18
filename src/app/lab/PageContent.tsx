@@ -83,10 +83,13 @@ export default function LabPageContent() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const gridRef = useScrollReveal<HTMLDivElement>({ stagger: 0.08 });
 
+  const byCategory = [...labProjects].sort(
+    (a, b) => labCategories.indexOf(a.category) - labCategories.indexOf(b.category)
+  );
   const filtered =
     activeCategory === 'All'
-      ? labProjects
-      : labProjects.filter((p) => p.category === activeCategory);
+      ? byCategory
+      : byCategory.filter((p) => p.category === activeCategory);
 
   return (
     <div className="relative z-10 bg-[#0A0A0A] pt-32 pb-24">
