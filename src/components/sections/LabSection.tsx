@@ -1,35 +1,85 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import MagneticButton from '@/components/ui/MagneticButton';
-import { labProjects } from '@/data/lab';
+import { labProjects, type LabProject } from '@/data/lab';
 
-/* ─── Featured + supporting lab projects ─── */
+/* ─── Static supporting card ─── */
 
-const supporting = [
-  {
-    title: 'Awareness Paradox',
-    tag: 'Interactive 3D',
-    description:
-      'A meditative Three.js experience — sacred geometry, particles, and a camera that listens to the cursor.',
-    href: '/awareness-paradox',
-    cta: 'Explore',
-  },
-  {
-    title: 'This Site',
-    tag: 'Design + Engineering',
-    description:
-      'Designed and engineered end to end — Next.js, GSAP scroll choreography, and a custom render pipeline for 500+ images.',
-    href: '/contact',
-    cta: 'Work With Me',
-  },
-];
+const apCard = {
+  title: 'Awareness Paradox',
+  tag: 'Interactive 3D',
+  description:
+    'A meditative Three.js experience — sacred geometry, particles, and a camera that listens to the cursor.',
+  href: '/awareness-paradox',
+  cta: 'Explore',
+};
+
+/* ─── Random lab pick — cycles on each visit (client-side to avoid
+       hydration mismatch; excludes projects already shown in section) ─── */
+
+function useRandomLabProject() {
+  const [project, setProject] = useState<LabProject | null>(null);
+
+  useEffect(() => {
+    const pool = labProjects.filter(
+      (p) => p.slug !== 'cinetica' && p.slug !== 'awarenessparadox'
+    );
+    if (pool.length === 0) return;
+    setProject(pool[Math.floor(Math.random() * pool.length)]);
+  }, []);
+
+  return project;
+}
+
+/* ─── Random project card — image-led, cycles per visit ─── */
+
+function RandomLabCard({ project }: { project: LabProject | null }) {
+  return (
+    <div
+      data-reveal
+      className="group relative bg-surface border border-foreground/[0.04] hover:border-gold/20 transition-all duration-300 overflow-hidden min-h-[280px]"
+    >
+      {project && (
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col h-full"
+        >
+          <div className="relative aspect-[16/7] overflow-hidden bg-[#0D0D0D]">
+            <Image
+              src={project.image}
+              alt={`${project.title} — screenshot`}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-700"
+            />
+          </div>
+          <div className="p-8 pt-6 flex flex-col flex-1">
+            <span className="text-gold/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+              From the Lab &middot; {project.category}
+            </span>
+            <h3 className="font-[family-name:var(--font-display)] text-2xl text-foreground font-light mt-3 mb-3 group-hover:text-gold transition-colors duration-300">
+              {project.title}
+            </h3>
+            <span className="inline-flex items-center gap-2 text-gold/30 group-hover:text-gold/60 transition-colors duration-300 text-[11px] md:text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] mt-auto">
+              Visit <ArrowUpRight size={12} />
+            </span>
+          </div>
+        </a>
+      )}
+    </div>
+  );
+}
 
 export default function LabSection() {
   const labRef = useScrollReveal<HTMLDivElement>({ stagger: 0.15 });
+  const randomProject = useRandomLabProject();
 
   return (
     <section className="relative z-20 bg-background py-32 lg:py-40 section-fade">
@@ -113,29 +163,28 @@ export default function LabSection() {
           </div>
         </div>
 
-        {/* Supporting lab projects */}
+        {/* Supporting: Awareness Paradox + a random pick from the Lab */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {supporting.map((project) => (
-            <Link
-              key={project.title}
-              href={project.href}
-              data-reveal
-              className="group bg-surface border border-foreground/[0.04] hover:border-gold/20 transition-all duration-300 p-8"
-            >
-              <span className="text-gold/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
-                {project.tag}
-              </span>
-              <h3 className="font-[family-name:var(--font-display)] text-2xl text-foreground font-light mt-3 mb-3 group-hover:text-gold transition-colors duration-300">
-                {project.title}
-              </h3>
-              <p className="text-foreground/40 text-sm leading-relaxed mb-4">
-                {project.description}
-              </p>
-              <span className="inline-flex items-center gap-2 text-gold/30 group-hover:text-gold/60 transition-colors duration-300 text-[11px] md:text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)]">
-                {project.cta} <ArrowRight size={12} />
-              </span>
-            </Link>
-          ))}
+          <Link
+            href={apCard.href}
+            data-reveal
+            className="group bg-surface border border-foreground/[0.04] hover:border-gold/20 transition-all duration-300 p-8"
+          >
+            <span className="text-gold/60 text-[11px] md:text-[10px] uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
+              {apCard.tag}
+            </span>
+            <h3 className="font-[family-name:var(--font-display)] text-2xl text-foreground font-light mt-3 mb-3 group-hover:text-gold transition-colors duration-300">
+              {apCard.title}
+            </h3>
+            <p className="text-foreground/40 text-sm leading-relaxed mb-4">
+              {apCard.description}
+            </p>
+            <span className="inline-flex items-center gap-2 text-gold/30 group-hover:text-gold/60 transition-colors duration-300 text-[11px] md:text-[10px] uppercase tracking-[0.15em] font-[family-name:var(--font-mono)]">
+              {apCard.cta} <ArrowRight size={12} />
+            </span>
+          </Link>
+
+          <RandomLabCard project={randomProject} />
         </div>
 
         {/* Full lab CTA */}
