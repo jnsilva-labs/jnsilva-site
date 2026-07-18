@@ -55,7 +55,7 @@ const navItems: NavItem[] = [
       {
         label: 'The Lab',
         href: '/lab',
-        sub: ['Generative', 'AI Tools', 'Games'],
+        sub: ['Generative', 'Games', 'Pitch Decks'],
         image: '/images/lab/arbitrumcity.jpg',
       },
     ],

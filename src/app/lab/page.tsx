@@ -5,12 +5,12 @@ import JsonLd from '@/components/JsonLd';
 export const metadata: Metadata = {
   title: 'The Lab',
   description:
-    'Developer work by J.N. Silva — generative art systems, on-chain visualizations, AI tools for creatives, games, and client sites. Code as a medium.',
+    'Developer work by J.N. Silva — generative art systems, on-chain visualizations, games, client sites, and cinematic pitch experiences. Code as a medium.',
   alternates: { canonical: '/lab' },
   openGraph: {
     title: 'The Lab — J.N. Silva',
     description:
-      'Generative art systems, on-chain visualizations, AI tools for creatives, games, and client sites.',
+      'Generative art systems, on-chain visualizations, games, client sites, and cinematic pitch experiences.',
     url: '/lab',
   },
 };
@@ -26,7 +26,7 @@ export default function LabPage() {
           url: 'https://jnsilva.com/lab',
           creator: { '@type': 'Person', name: 'J.N. Silva', url: 'https://jnsilva.com' },
           description:
-            'Generative art systems, on-chain visualizations, AI tools for creatives, games, and client sites.',
+            'Generative art systems, on-chain visualizations, games, client sites, and cinematic pitch experiences.',
         }}
       />
       <PageContent />

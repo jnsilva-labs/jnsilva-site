@@ -1,7 +1,7 @@
 export interface LabProject {
   slug: string;
   title: string;
-  category: 'Generative Art' | 'Interactive & Games' | 'Products & Tools' | 'Websites' | 'Pitch Decks';
+  category: 'Generative Art' | 'Interactive & Games' | 'Websites' | 'Pitch Decks';
   description: string;
   tech: string[];
   image: string;
@@ -68,40 +68,6 @@ export const labProjects: LabProject[] = [
     image: '/images/lab/thetemple.jpg',
     url: 'https://temple.awarenessparadox.com',
   },
-  {
-    slug: 'canserbero',
-    title: 'Canserbero — Vida y Muerte',
-    category: 'Interactive & Games',
-    description:
-      'Eight analytical visualizations of the Venezuelan rapper’s double album Vida (2010) and Muerte (2012) — narrative arc, voice matrix, citation network, lexical diptych, and biblical-mythological index.',
-    tech: ['Data Viz', 'D3-style SVG', 'Single-file'],
-    image: '/images/lab/canserbero.jpg',
-    url: 'https://canserbero-one.vercel.app',
-  },
-
-  /* ── Products & Tools ── */
-  {
-    slug: 'shotmap',
-    title: 'ShotMap',
-    category: 'Products & Tools',
-    description:
-      'AI-powered shot list generator for photographers and filmmakers. Turn any creative brief into a production-ready shot list with lens recommendations, lighting diagrams, camera settings, and gear checklists.',
-    tech: ['Next.js', 'Claude API', 'Supabase'],
-    image: '/images/lab/shotmap.jpg',
-    url: 'https://shotmap.app',
-    featured: true,
-  },
-  {
-    slug: 'gigradar',
-    title: 'GigRadar',
-    category: 'Products & Tools',
-    description:
-      'Job aggregation platform for photographers and videographers — one intelligent feed from every source, filtered, AI-scored, and delivered. Tracking 6+ sources across 20 cities.',
-    tech: ['Next.js', 'TypeScript', 'AI Scoring'],
-    image: '/images/lab/gigradar.jpg',
-    url: 'https://gigradar-chi.vercel.app',
-  },
-
   /* ── Interactive & Games ── */
   {
     slug: 'orbitalparadox',
@@ -193,12 +159,21 @@ export const labProjects: LabProject[] = [
     image: '/images/lab/riasuth.jpg',
     url: 'https://riasuth.vercel.app',
   },
+  {
+    slug: 'meyhem',
+    title: 'Meyhem Lauren — The White Truffle Era',
+    category: 'Pitch Decks',
+    description:
+      'Cinematic pitch for the Queens rapper’s White Truffle era — a cold-open reel treatment with editorial serif typography, film-slate framing, and scroll-driven pacing.',
+    tech: ['Next.js', 'TypeScript', 'GSAP'],
+    image: '/images/lab/meyhem.jpg',
+    url: 'https://meyhem.vercel.app',
+  },
 ];
 
 export const labCategories = [
   'Generative Art',
   'Interactive & Games',
-  'Products & Tools',
   'Websites',
   'Pitch Decks',
 ] as const;

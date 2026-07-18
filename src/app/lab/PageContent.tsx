@@ -103,7 +103,7 @@ export default function LabPageContent() {
         </h1>
         <p className="text-[#F5F0E8]/50 text-lg max-w-2xl leading-relaxed">
           Code as a medium. Generative art systems, on-chain visualizations,
-          AI tools for working creatives, games, and commissioned sites —
+          games, commissioned sites, and cinematic pitch experiences —
           designed and engineered end to end.
         </p>
       </div>
@@ -114,8 +114,8 @@ export default function LabPageContent() {
           {[
             `${labProjects.length} Projects Shipped`,
             'Generative Systems',
-            'AI-Powered Tools',
             'Live On-Chain Data',
+            'Interactive Experiences',
           ].map((stat) => (
             <span
               key={stat}
