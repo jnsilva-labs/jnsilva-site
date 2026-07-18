@@ -20,7 +20,7 @@ export const labProjects: LabProject[] = [
     description:
       'A generative homage to Venezuela’s kinetic art masters — Cruz-Diez, Soto, and Gego — arranged by a sacred-geometry composition engine. Every piece is deterministic, browser-rendered, and provably unique. Proceeds support earthquake relief.',
     tech: ['Canvas', 'Generative', 'TypeScript'],
-    image: '/images/cinetica/syn-hero.jpg',
+    image: '/images/lab/cinetica-wide.jpg',
     url: 'https://cinetica.jnsilva.com',
     featured: true,
   },
