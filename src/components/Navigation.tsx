@@ -52,6 +52,12 @@ const navItems: NavItem[] = [
         sub: ['NFT Collections'],
         image: '/images/fractals/infinitum/infinitumhero.JPG',
       },
+      {
+        label: 'The Lab',
+        href: '/lab',
+        sub: ['Generative', 'AI Tools', 'Games'],
+        image: '/images/lab/arbitrumcity.jpg',
+      },
     ],
   },
   { label: 'Clients', href: '/clients' },
@@ -199,7 +205,8 @@ export default function Navigation() {
     isActive('/photography') ||
     isActive('/film') ||
     isActive('/fractals') ||
-    isActive('/digital-art');
+    isActive('/digital-art') ||
+    isActive('/lab');
 
   return (
     <>
@@ -301,7 +308,7 @@ export default function Navigation() {
             onMouseEnter={openMega}
             onMouseLeave={closeMegaDebounced}
           >
-            <div className="max-w-[1400px] mx-auto px-12 py-8 grid grid-cols-4 gap-8">
+            <div className="max-w-[1400px] mx-auto px-12 py-8 grid grid-cols-5 gap-8">
               {workItem.mega!.map((cat) => (
                 <Link
                   key={cat.label}

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import MagneticButton from '@/components/ui/MagneticButton';
+import { labProjects } from '@/data/lab';
 
 /* ─── Featured + supporting lab projects ─── */
 
@@ -135,6 +136,18 @@ export default function LabSection() {
               </span>
             </Link>
           ))}
+        </div>
+
+        {/* Full lab CTA */}
+        <div data-reveal className="text-center mt-12">
+          <MagneticButton
+            as="a"
+            href="/lab"
+            className="inline-flex items-center gap-2 px-10 py-4 border border-gold/30 text-gold text-sm uppercase tracking-[0.15em] font-[family-name:var(--font-mono)] hover:bg-gold hover:text-background hover:border-gold transition-all duration-300"
+          >
+            Enter the Lab — {labProjects.length} Projects
+            <ArrowRight size={14} />
+          </MagneticButton>
         </div>
       </div>
     </section>
