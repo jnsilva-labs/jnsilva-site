@@ -104,6 +104,14 @@ export default function Footer() {
               >
                 SuperRare
               </a>
+              <a
+                href="https://cinetica.jnsilva.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#F5F0E8]/50 hover:text-[#F5F0E8] text-sm transition-colors"
+              >
+                Cinética
+              </a>
             </div>
           </div>
         </div>

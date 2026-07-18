@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     siteName: 'J.N. Silva',
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'J.N. Silva — Artist & Creative Technologist' }],
+    // Images are served by app/opengraph-image.tsx (file convention)
   },
   twitter: {
     card: 'summary_large_image',
@@ -124,6 +124,7 @@ export default function RootLayout({
                   'https://tiktok.com/@jnsilva',
                   'https://substack.com/@josensilva',
                   'https://superrare.com/jnsilva',
+                  'https://cinetica.jnsilva.com',
                 ],
                 knowsAbout: [
                   'Photography',

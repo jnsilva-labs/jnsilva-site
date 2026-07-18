@@ -18,6 +18,7 @@ import FilmSection from '@/components/sections/FilmSection';
 // Dynamic imports — below the fold (code-split)
 const FractalsSection = dynamic(() => import('@/components/sections/FractalsSection'));
 const DigitalArtSection = dynamic(() => import('@/components/sections/DigitalArtSection'));
+const LabSection = dynamic(() => import('@/components/sections/LabSection'));
 const AwarenessParadoxSection = dynamic(() => import('@/components/sections/AwarenessParadoxSection'));
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection'));
 
@@ -76,7 +77,10 @@ export default function Home() {
       {/* 7. DIGITAL ART — On the Blockchain */}
       <DigitalArtSection />
 
-      {/* 8. AWARENESS PARADOX — Philosophical Close */}
+      {/* 8. LAB — Cinética + Creative Technology */}
+      <LabSection />
+
+      {/* 9. AWARENESS PARADOX — Philosophical Close */}
       <AwarenessParadoxSection />
 
       {/* 9. CONTACT CTA */}

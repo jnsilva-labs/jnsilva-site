@@ -14,7 +14,8 @@ export const nftCollections = [
     date: 'December 2020',
     description: 'Collaboration with ThankYouX. The first drop on Nifty Gateway to include photography.',
     link: 'https://opensea.io/item/ethereum/0xf2129ea3cf8f356da9dbaa276773fbf8259d6690/3800010192',
-    video: 'https://media.niftygateway.com/video/upload/w_800,q_auto/v1609275397/ThankYouX/AvenueoftheStars_l2pbjb.mp4',
+    // Self-hosted: Nifty Gateway CDN went dark when the platform shut down (April 2026)
+    video: '/videos/thank-you-ny.mp4',
     image: '/images/nft/thank-you-ny-poster.jpg',
   },
   {
@@ -23,7 +24,7 @@ export const nftCollections = [
     date: 'March 2021',
     description: 'Second collaboration with ThankYouX, celebrating all things Miami.',
     link: 'https://opensea.io/item/ethereum/0xea70a9e62057dd7629e7c9ca7500290544d13e56/14200020029',
-    video: 'https://media.niftygateway.com/video/upload/w_800,q_auto/v1614875643/Ashley/ThankYouxSilva2/Suspension_of_Disbelief_-_ThankYouX_nq75my.mp4',
+    video: '/videos/thank-you-miami.mp4',
     image: '/images/nft/thank-you-miami-poster.jpg',
   },
   {
@@ -40,7 +41,8 @@ export const nftCollections = [
     date: 'October 2021',
     description: 'A 1/1 video NFT — 47 photographs set to an original audio track. Part of the Artifex Digital Icons collection celebrating early NFT movement pioneers.',
     link: 'https://artifex.art/waves/digital-icons/vision-y-razon/vision-y-razon',
-    video: 'https://artifex-project.storage.googleapis.com/2021/06/22132652/Wave-2-J.N.-Silva-%40jnsilva_.mp4',
+    // 32s preview loop (full 2:12 piece lives on Artifex); source was a 51MB file unusable on mobile
+    video: '/videos/vision-y-razon.mp4',
     image: '/images/nft/vision-y-razon-poster.png',
   },
 ];

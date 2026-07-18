@@ -19,6 +19,7 @@ interface NavItem {
   label: string;
   href: string;
   mega?: MegaCategory[];
+  external?: boolean;
 }
 
 /* ─── Nav structure: 5 consolidated items ─── */
@@ -54,6 +55,7 @@ const navItems: NavItem[] = [
     ],
   },
   { label: 'Clients', href: '/clients' },
+  { label: 'Cinética', href: 'https://cinetica.jnsilva.com', external: true },
   { label: 'About', href: '/about' },
   { label: 'AP', href: '/awareness-paradox' },
   { label: 'Contact', href: '/contact' },
@@ -247,6 +249,18 @@ export default function Navigation() {
                       />
                     </button>
                   </div>
+                ) : item.external ? (
+                  /* ─── External nav items (e.g. Cinética) ─── */
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nav-link text-sm tracking-widest uppercase transition-colors duration-300 text-[#F5F0E8]/70 hover:text-[#F5F0E8] inline-flex items-center gap-1.5"
+                  >
+                    {item.label}
+                    <span className="text-[#C8C0B4]/60 text-[10px] leading-none" aria-hidden="true">↗</span>
+                  </a>
                 ) : (
                   /* ─── Regular nav items ─── */
                   <Link
@@ -404,6 +418,21 @@ export default function Navigation() {
                   </div>
                 </div>
               </div>
+            ) : item.external ? (
+              /* ─── External mobile nav items ─── */
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-menu-item
+                onClick={() => setIsOpen(false)}
+                className="relative z-10 text-xl sm:text-2xl md:text-3xl font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-2 px-6 text-[#F5F0E8]/60 hover:text-[#F5F0E8] active:text-[#F5F0E8] inline-flex items-center gap-2"
+                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent', opacity: 0 }}
+              >
+                {item.label}
+                <span className="text-[#C8C0B4]/60 text-sm leading-none" aria-hidden="true">↗</span>
+              </a>
             ) : (
               /* ─── Regular mobile nav items ─── */
               <Link
