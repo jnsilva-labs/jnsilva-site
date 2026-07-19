@@ -34,6 +34,7 @@ export default function Footer() {
                 { label: 'Film', href: '/film' },
                 { label: 'Fractals', href: '/fractals' },
                 { label: 'Digital Art', href: '/digital-art' },
+                { label: 'The Lab', href: '/lab' },
                 { label: 'Clients', href: '/clients' },
                 { label: 'Buscando America', href: '/buscando-america' },
                 { label: 'About', href: '/about' },
