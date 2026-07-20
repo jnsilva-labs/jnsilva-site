@@ -16,6 +16,9 @@ const clientNames = [
 export default function ClientsSection() {
   const clientsRef = useScrollReveal<HTMLDivElement>({ stagger: 0.1 });
   const featuredClients = getFeaturedClients();
+  // Ticker skips names already shown as featured cards above it
+  const featuredNames = new Set(featuredClients.map((c) => c.name));
+  const tickerNames = clientNames.filter((name) => !featuredNames.has(name));
 
   return (
     <section className="relative z-20 bg-background py-20 lg:py-24 section-fade">
@@ -76,7 +79,7 @@ export default function ClientsSection() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 mt-8">
           <div data-reveal className="overflow-hidden py-4 border-t border-b border-foreground/[0.03] mb-8">
             <div className="flex animate-[scroll_40s_linear_infinite] whitespace-nowrap">
-              {[...clientNames, ...clientNames].map((name, i) => (
+              {[...tickerNames, ...tickerNames].map((name, i) => (
                 <span
                   key={`${name}-${i}`}
                   className="mx-8 font-[family-name:var(--font-display)] text-lg md:text-2xl text-foreground/[0.12] whitespace-nowrap"

@@ -62,7 +62,8 @@ export default function AboutPage({ substackPosts }: Props) {
               J.N. Silva
             </TextReveal>
 
-            <div ref={bioRef} className="space-y-6 text-[#F5F0E8]/50 text-base leading-relaxed">
+            {/* Warm off-white at 60ch — long-form copy needs more contrast than metadata gray */}
+            <div ref={bioRef} className="space-y-6 text-[#C4C0B8] text-base leading-relaxed max-w-[60ch]">
               <p data-reveal>
                 I&apos;m J.N. Silva — a Venezuelan-born artist and creative technologist
                 working across photography, film, and creative direction. I studied

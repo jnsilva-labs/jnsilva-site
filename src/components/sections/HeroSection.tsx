@@ -109,7 +109,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative z-10 h-screen flex flex-col items-center justify-center bg-background"
+      className="relative z-10 h-[80vh] md:h-screen flex flex-col items-center justify-center bg-background"
     >
       {/* Atmospheric particles */}
       <ErrorBoundary>
@@ -129,7 +129,7 @@ export default function HeroSection() {
 
         {/* Subtitle — word-by-word fade in */}
         <p className="mt-6 text-gold text-xs sm:text-sm uppercase tracking-[0.3em] font-[family-name:var(--font-mono)]">
-          {'Artist. Photographer. Creative Director. Alchemist.'.split(' ').map((word, i) => (
+          {'Artist. Photographer. Creative Director. Alchemist.'.split(' ').map((word, i) => (
             <span key={i} className="hero-subtitle-word inline-block mr-[0.6em]">
               {word}
             </span>

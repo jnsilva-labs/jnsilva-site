@@ -96,7 +96,7 @@ export default function LabPageContent() {
       {/* Header */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
         <p className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
-          Creative Technology &middot; Developer Work
+          Creative&nbsp;Technology &middot; Developer&nbsp;Work
         </p>
         <h1 className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-[#F5F0E8] font-light mb-8">
           The Lab
@@ -112,16 +112,18 @@ export default function LabPageContent() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
         <div className="flex flex-wrap gap-x-8 gap-y-3 py-6 border-t border-b border-[#C8C0B4]/10">
           {[
-            `${labProjects.length} Projects Shipped`,
-            'Generative Systems',
-            'Live On-Chain Data',
-            'Interactive Experiences',
+            { label: `${labProjects.length} Projects Shipped`, primary: true },
+            { label: 'Generative Systems' },
+            { label: 'Live On-Chain Data' },
+            { label: 'Interactive Experiences' },
           ].map((stat) => (
             <span
-              key={stat}
-              className="text-[#C8C0B4] text-sm font-[family-name:var(--font-mono)] tracking-wider"
+              key={stat.label}
+              className={`text-[#C8C0B4] text-sm font-[family-name:var(--font-mono)] tracking-wider ${
+                stat.primary ? '' : 'hidden sm:inline'
+              }`}
             >
-              {stat}
+              {stat.label}
             </span>
           ))}
         </div>
