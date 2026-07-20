@@ -15,7 +15,7 @@ export default function AwarenessParadoxSection() {
     <section className="relative z-20 bg-background py-32 lg:py-40 section-fade min-h-[70vh] flex items-center overflow-hidden">
       <div ref={paradoxRef} className="relative z-10 text-center px-6 max-w-3xl mx-auto">
         <p data-reveal className="text-gold-accent text-[11px] md:text-[10px] uppercase tracking-[0.4em] mb-6 font-[family-name:var(--font-mono)]">
-          <span className="opacity-30 mr-3">08</span>New Project
+          <span className="opacity-30 mr-3">06</span>New Project
         </p>
         <h2 data-reveal="split" className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-foreground font-light mb-6 leading-tight tracking-tight">
           Awareness Paradox
