@@ -13,52 +13,13 @@ export function useScrollColorize<T extends HTMLElement>() {
     const el = ref.current;
     if (!el) return;
 
+    // The B&W-to-color scroll treatment is retired — photographs show in
+    // their original color from the start. The hook remains so container
+    // refs and [data-colorize] markers stay valid if the effect returns.
     const targets = el.querySelectorAll('[data-colorize]');
-    if (targets.length === 0) return;
-
-    // Respect reduced motion — show full color immediately
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      targets.forEach((target) => {
-        (target as HTMLElement).style.filter = 'grayscale(0) brightness(1)';
-      });
-      return;
-    }
-
-    const tweens: gsap.core.Tween[] = [];
-
     targets.forEach((target) => {
-      const tween = gsap.fromTo(
-        target,
-        { filter: 'grayscale(1) brightness(0.9)' },
-        {
-          filter: 'grayscale(0) brightness(1)',
-          scrollTrigger: {
-            trigger: target,
-            start: 'top 90%',
-            end: 'top 40%',
-            scrub: 0.6,
-            onEnter: () => {
-              (target as HTMLElement).style.willChange = 'filter';
-            },
-            onLeaveBack: () => {
-              (target as HTMLElement).style.willChange = 'auto';
-            },
-            onLeave: () => {
-              (target as HTMLElement).style.willChange = 'auto';
-            },
-          },
-        }
-      );
-      tweens.push(tween);
+      (target as HTMLElement).style.filter = '';
     });
-
-    return () => {
-      tweens.forEach((tween) => {
-        tween.scrollTrigger?.kill();
-        tween.kill();
-      });
-    };
   }, []);
 
   return ref;

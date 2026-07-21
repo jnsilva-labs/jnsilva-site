@@ -6,10 +6,11 @@ interface LazyVideoProps {
   src: string;
   poster?: string;
   className?: string;
+  fit?: 'contain' | 'cover';
   onLoadedMetadata?: (e: React.SyntheticEvent<HTMLVideoElement>) => void;
 }
 
-export default function LazyVideo({ src, poster, className, onLoadedMetadata }: LazyVideoProps) {
+export default function LazyVideo({ src, poster, className, fit = 'contain', onLoadedMetadata }: LazyVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [activeSrc, setActiveSrc] = useState<string | undefined>(undefined);
@@ -52,7 +53,7 @@ export default function LazyVideo({ src, poster, className, onLoadedMetadata }: 
         <img
           src={poster}
           alt=""
-          className="absolute inset-0 w-full h-full object-contain"
+          className={`absolute inset-0 w-full h-full ${fit === 'cover' ? 'object-cover' : 'object-contain'}`}
         />
       </div>
     );
@@ -71,7 +72,7 @@ export default function LazyVideo({ src, poster, className, onLoadedMetadata }: 
         loop
         playsInline
         preload={activeSrc ? 'auto' : 'none'}
-        className="absolute inset-0 w-full h-full object-contain"
+        className={`absolute inset-0 w-full h-full ${fit === 'cover' ? 'object-cover' : 'object-contain'}`}
         onLoadedMetadata={onLoadedMetadata}
         onError={() => {
           if (activeSrc) setFailed(true);

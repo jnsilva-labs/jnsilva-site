@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
@@ -25,6 +26,9 @@ export default function HeroSection() {
       gsap.set('.hero-line', { scaleX: 0 });
       gsap.set('.hero-subtitle-word', { opacity: 0, y: 12 });
       gsap.set('.hero-scroll', { opacity: 0 });
+      gsap.set('.hero-photo', { opacity: 0, scale: 1.06 });
+    } else {
+      gsap.set('.hero-photo', { opacity: 0.3, scale: 1 });
     }
 
     function playReveal() {
@@ -39,10 +43,15 @@ export default function HeroSection() {
 
         const tl = gsap.timeline({ defaults: { ease: 'power2.out' }, delay: 0.3 });
 
+        // Phase 0: Photograph breathes in slowly beneath everything
+        tl.to('.hero-photo', {
+          opacity: 0.3, scale: 1, duration: 2.6, ease: 'power2.out',
+        }, 0);
+
         // Phase 1: Soft glow emerges from black
         tl.to('.hero-name', {
           opacity: 1, duration: 0.6, ease: 'power2.out',
-        });
+        }, 0.2);
 
         // Phase 2: Rack focus — blur resolves, brightness normalizes, scale settles
         tl.to('.hero-name', {
@@ -111,6 +120,27 @@ export default function HeroSection() {
       ref={heroRef}
       className="relative z-10 h-[80vh] md:h-screen flex flex-col items-center justify-center bg-background"
     >
+      {/* Signature photograph — luminous field behind the wordmark.
+          Starts invisible; the reveal timeline fades it to ~0.3. */}
+      <div className="hero-photo absolute inset-0 overflow-hidden" aria-hidden="true">
+        <Image
+          src="/images/hero/blackandwhitehero1.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        {/* Vignette keeps edges black and the wordmark legible */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, rgba(10,10,10,0.25) 0%, rgba(10,10,10,0.75) 62%, #0A0A0A 100%)',
+          }}
+        />
+      </div>
+
       {/* Atmospheric particles */}
       <ErrorBoundary>
         <HeroParticles3D />
