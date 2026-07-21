@@ -29,7 +29,7 @@ export default function Footer() {
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: 'Work', href: '/work' },
+                { label: 'Catalogue', href: '/work' },
                 { label: 'Photography', href: '/photography' },
                 { label: 'Film', href: '/film' },
                 { label: 'Fractals', href: '/fractals' },

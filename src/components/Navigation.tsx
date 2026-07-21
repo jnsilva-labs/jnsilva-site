@@ -372,7 +372,7 @@ export default function Navigation() {
                   onClick={() => setMegaOpen(false)}
                   className="inline-flex items-center gap-2 text-[#F5F0E8]/50 hover:text-[#F5F0E8] text-xs uppercase tracking-[0.2em] font-[family-name:var(--font-mono)] transition-colors duration-300"
                 >
-                  All Work — Full Archive →
+                  The Catalogue — Every Frame →
                 </Link>
               </div>
             </div>

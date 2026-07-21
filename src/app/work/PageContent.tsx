@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Lightbox from '@/components/Lightbox';
 import { handleKeyActivate } from '@/utils/a11y';
 import { clients } from '@/data/clients';
@@ -156,15 +157,17 @@ export default function WorkPage() {
       {/* Header */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
         <p className="text-[#C8C0B4] text-xs uppercase tracking-[0.3em] mb-4 font-[family-name:var(--font-mono)]">
-          Portfolio
+          The Complete Photographic Record
         </p>
         <h1 className="font-[family-name:var(--font-display)] text-5xl md:text-7xl text-[#F5F0E8] font-light mb-8">
-          Work
+          Catalogue
         </h1>
         <p className="text-[#F5F0E8]/50 text-lg max-w-2xl leading-relaxed">
-          A decade of capturing human truth through street, portrait, live music,
-          and aerial photography. Every frame is a meditation on light, emotion,
-          and the spaces between.
+          Every frame, one wall — a decade of street, portrait, live music,
+          and aerial photography. For the curated sets, start with the{' '}
+          <Link href="/photography" className="text-[#C8C0B4] underline underline-offset-4 decoration-[#C8C0B4]/30 hover:decoration-[#C8C0B4] transition-colors">
+            Collections
+          </Link>.
         </p>
       </div>
 

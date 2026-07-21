@@ -191,21 +191,23 @@ export default function DigitalArtPage() {
         </p>
       </div>
 
-      {/* Key Stats */}
+      {/* Key Stats — inline editorial row (matches /lab) */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="flex flex-wrap gap-x-8 gap-y-3 py-6 border-t border-b border-[#C8C0B4]/10">
           {[
-            { stat: '90K GBP', label: 'Sotheby\'s Sale' },
-            { stat: '1st', label: 'Photographer on Nifty Gateway' },
-            { stat: '40', label: 'Artists in TIME Genesis' },
-            { stat: '6+', label: 'Major Platforms' },
-          ].map((item) => (
-            <div key={item.label} className="p-8 bg-[#141414] border border-[#C8C0B4]/10">
-              <p className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-[#C8C0B4] mb-2">
-                {item.stat}
-              </p>
-              <p className="text-[#F5F0E8]/40 text-sm">{item.label}</p>
-            </div>
+            { label: "£90,000 Sotheby's Sale", primary: true },
+            { label: '1st Photographer on Nifty Gateway' },
+            { label: '40 Artists in TIME Genesis' },
+            { label: '6+ Major Platforms' },
+          ].map((stat) => (
+            <span
+              key={stat.label}
+              className={`text-[#C8C0B4] text-sm font-[family-name:var(--font-mono)] tracking-wider ${
+                stat.primary ? '' : 'hidden sm:inline'
+              }`}
+            >
+              {stat.label}
+            </span>
           ))}
         </div>
       </div>

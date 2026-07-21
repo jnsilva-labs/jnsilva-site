@@ -77,7 +77,10 @@ export default function PhotographyPage() {
           </h1>
           <p className="text-[#F5F0E8]/40 text-lg max-w-2xl leading-relaxed">
             From the mosh pit to the mountaintop — a decade of images across
-            four collections.
+            four collections. Want everything?{' '}
+            <Link href="/work" className="text-[#C8C0B4] underline underline-offset-4 decoration-[#C8C0B4]/30 hover:decoration-[#C8C0B4] transition-colors">
+              Browse the Catalogue
+            </Link>.
           </p>
         </div>
 

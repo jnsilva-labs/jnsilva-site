@@ -39,7 +39,7 @@ export default function ClientsSection() {
               <Link
                 key={client.slug}
                 href={`/clients/${client.slug}`}
-                className="group relative flex-shrink-0 w-[260px] md:w-[320px] lg:w-[350px] overflow-hidden snap-start"
+                className="group relative flex-shrink-0 w-[260px] md:w-[290px] lg:w-[308px] overflow-hidden snap-start"
                 data-cursor="view"
               >
                 <div className="relative aspect-[3/4] bg-surface overflow-hidden">

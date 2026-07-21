@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import PageContent from './PageContent';
 
 export const metadata: Metadata = {
-  title: 'Photography',
-  description: 'A decade of photography — music, street, portrait, aerial, and fine art. From Coachella to the streets of NYC.',
+  title: 'Catalogue',
+  description: 'The complete photographic record — a decade of music, street, portrait, aerial, and fine art photography. From Coachella to the streets of NYC.',
   alternates: { canonical: '/work' },
   openGraph: {
-    title: 'Photography — J.N. Silva',
-    description: 'A decade of photography — music, street, portrait, aerial, and fine art.',
+    title: 'Catalogue — J.N. Silva',
+    description: 'The complete photographic record — music, street, portrait, aerial, and fine art.',
     url: '/work',
   },
 };
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Photography — J.N. Silva',
-  description: 'A decade of photography — music, street, portrait, aerial, and fine art.',
+  name: 'Catalogue — J.N. Silva',
+  description: 'The complete photographic record — music, street, portrait, aerial, and fine art.',
   url: 'https://jnsilva.com/work',
   author: {
     '@type': 'Person',
