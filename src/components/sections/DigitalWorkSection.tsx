@@ -63,6 +63,24 @@ function useRandomLabProject() {
   return project;
 }
 
+/* Cinética is infinite by design — the card proves it by drawing a
+   different palette render each visit (tricolor stays the SSR default) */
+const cineticaRenders = [
+  '/images/lab/cinetica-wide.jpg',      // Tricolor
+  '/images/lab/cinetica-cruzdiez.jpg',
+  '/images/lab/cinetica-canaima.jpg',
+  '/images/lab/cinetica-caribe.jpg',
+  '/images/lab/cinetica-tinta.jpg',
+];
+
+function useRandomCineticaRender() {
+  const [src, setSrc] = useState(cineticaRenders[0]);
+  useEffect(() => {
+    setSrc(cineticaRenders[Math.floor(Math.random() * cineticaRenders.length)]);
+  }, []);
+  return src;
+}
+
 function CardMedia({ card }: { card: DigitalCard }) {
   if (card.video) {
     return (
@@ -123,6 +141,7 @@ function CardBody({ card }: { card: DigitalCard }) {
 export default function DigitalWorkSection() {
   const sectionRef = useScrollReveal<HTMLDivElement>({ stagger: 0.12 });
   const labPick = useRandomLabProject();
+  const cineticaSrc = useRandomCineticaRender();
 
   const labCard: DigitalCard = {
     eyebrow: labPick ? `The Lab · ${labPick.category}` : 'The Lab',
@@ -135,7 +154,9 @@ export default function DigitalWorkSection() {
     image: labPick ? labPick.image : '/images/lab/arbitrumcity.jpg',
   };
 
-  const cards = [...staticCards, labCard];
+  const cards = [...staticCards, labCard].map((card) =>
+    card.title === 'Cinética' ? { ...card, image: cineticaSrc } : card
+  );
 
   return (
     <section className="relative z-20 bg-background py-28 lg:py-32 section-fade">

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { ArrowUpRight, Github } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import LiveArbitrumBlock from '@/components/ui/LiveArbitrumBlock';
 import { labProjects, labCategories, type LabProject } from '@/data/lab';
 
 function ProjectCard({ project }: { project: LabProject }) {
@@ -29,10 +30,12 @@ function ProjectCard({ project }: { project: LabProject }) {
       </a>
 
       <div className="p-6 flex flex-col flex-1">
-        <div className="flex items-center gap-3 mb-3">
+        <div className="flex items-center justify-between gap-3 mb-3">
           <span className="text-[#C8C0B4]/60 text-[10px] uppercase tracking-[0.25em] font-[family-name:var(--font-mono)]">
             {project.category}
           </span>
+          {/* The city runs on the real chain — show its heartbeat */}
+          {project.slug === 'arbitrumcity' && <LiveArbitrumBlock />}
         </div>
 
         <h3 className="font-[family-name:var(--font-display)] text-2xl text-[#F5F0E8] font-light mb-3 group-hover:text-[#C8C0B4] transition-colors duration-300">
