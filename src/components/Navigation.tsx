@@ -13,6 +13,7 @@ interface MegaCategory {
   href: string;
   sub: string[];
   image: string;
+  external?: boolean;
 }
 
 interface NavItem {
@@ -53,17 +54,23 @@ const navItems: NavItem[] = [
         image: '/images/fractals/infinitum/infinitumhero.JPG',
       },
       {
-        label: 'The Lab',
-        href: '/lab',
-        sub: ['Generative', 'Games', 'Pitch Decks'],
-        image: '/images/lab/arbitrumcity.jpg',
+        label: 'Awareness Paradox',
+        href: '/awareness-paradox',
+        sub: ['Interactive 3D', 'Philosophy'],
+        image: '/images/lab/thegreatwork.jpg',
+      },
+      {
+        label: 'Cinética',
+        href: 'https://cinetica.jnsilva.com',
+        sub: ['Generative Art'],
+        image: '/images/lab/cinetica-wide.jpg',
+        external: true,
       },
     ],
   },
+  { label: 'Lab', href: '/lab' },
   { label: 'Clients', href: '/clients' },
-  { label: 'Cinética', href: 'https://cinetica.jnsilva.com', external: true },
   { label: 'About', href: '/about' },
-  { label: 'AP', href: '/awareness-paradox' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -206,7 +213,7 @@ export default function Navigation() {
     isActive('/film') ||
     isActive('/fractals') ||
     isActive('/digital-art') ||
-    isActive('/lab');
+    isActive('/awareness-paradox');
 
   return (
     <>
@@ -308,30 +315,66 @@ export default function Navigation() {
             onMouseEnter={openMega}
             onMouseLeave={closeMegaDebounced}
           >
-            <div className="max-w-[1400px] mx-auto px-12 py-8 grid grid-cols-5 gap-8">
-              {workItem.mega!.map((cat) => (
+            <div className="max-w-[1400px] mx-auto px-12 py-8">
+              <div className="grid grid-cols-6 gap-6">
+                {workItem.mega!.map((cat) => {
+                  const inner = (
+                    <>
+                      <div className="aspect-[3/2] relative rounded overflow-hidden mb-3">
+                        <Image
+                          src={cat.image}
+                          alt={cat.label}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="17vw"
+                        />
+                      </div>
+                      <h3 className="font-[family-name:var(--font-display)] text-lg text-foreground">
+                        {cat.label}
+                        {cat.external && (
+                          <span className="text-[#C8C0B4]/60 text-xs ml-1.5 align-top" aria-hidden="true">↗</span>
+                        )}
+                      </h3>
+                      <p className="text-sm text-gold/50">{cat.sub.join(' / ')}</p>
+                    </>
+                  );
+                  return cat.external ? (
+                    <a
+                      key={cat.label}
+                      href={cat.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      role="menuitem"
+                      className="group"
+                      onClick={() => setMegaOpen(false)}
+                    >
+                      {inner}
+                    </a>
+                  ) : (
+                    <Link
+                      key={cat.label}
+                      href={cat.href}
+                      role="menuitem"
+                      className="group"
+                      onClick={() => setMegaOpen(false)}
+                    >
+                      {inner}
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Archive row */}
+              <div className="mt-6 pt-5 border-t border-gold/10">
                 <Link
-                  key={cat.label}
-                  href={cat.href}
+                  href="/work"
                   role="menuitem"
-                  className="group"
                   onClick={() => setMegaOpen(false)}
+                  className="inline-flex items-center gap-2 text-[#F5F0E8]/50 hover:text-[#F5F0E8] text-xs uppercase tracking-[0.2em] font-[family-name:var(--font-mono)] transition-colors duration-300"
                 >
-                  <div className="aspect-[3/2] relative rounded overflow-hidden mb-3">
-                    <Image
-                      src={cat.image}
-                      alt={cat.label}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="25vw"
-                    />
-                  </div>
-                  <h3 className="font-[family-name:var(--font-display)] text-lg text-foreground">
-                    {cat.label}
-                  </h3>
-                  <p className="text-sm text-gold/50">{cat.sub.join(' / ')}</p>
+                  All Work — Full Archive →
                 </Link>
-              ))}
+              </div>
             </div>
           </div>
         )}
@@ -404,24 +447,42 @@ export default function Navigation() {
                   }`}
                 >
                   <div className="flex flex-col items-center gap-2 pb-2">
-                    {item.mega!.map((cat) => (
-                      <Link
-                        key={cat.label}
-                        href={cat.href}
-                        onClick={() => {
-                          setIsOpen(false);
-                          setMobileWorkOpen(false);
-                        }}
-                        className={`relative z-10 text-base sm:text-lg font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-1 px-6 ${
-                          isActive(cat.href)
-                            ? 'text-[#C8C0B4]'
-                            : 'text-[#F5F0E8]/40 hover:text-[#F5F0E8] active:text-[#F5F0E8]'
-                        }`}
-                        style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-                      >
-                        {cat.label}
-                      </Link>
-                    ))}
+                    {item.mega!.map((cat) =>
+                      cat.external ? (
+                        <a
+                          key={cat.label}
+                          href={cat.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => {
+                            setIsOpen(false);
+                            setMobileWorkOpen(false);
+                          }}
+                          className="relative z-10 text-base sm:text-lg font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-1 px-6 text-[#F5F0E8]/40 hover:text-[#F5F0E8] active:text-[#F5F0E8] inline-flex items-center gap-1.5"
+                          style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                        >
+                          {cat.label}
+                          <span className="text-[#C8C0B4]/60 text-xs leading-none" aria-hidden="true">↗</span>
+                        </a>
+                      ) : (
+                        <Link
+                          key={cat.label}
+                          href={cat.href}
+                          onClick={() => {
+                            setIsOpen(false);
+                            setMobileWorkOpen(false);
+                          }}
+                          className={`relative z-10 text-base sm:text-lg font-[family-name:var(--font-display)] tracking-wider transition-all duration-300 py-1 px-6 ${
+                            isActive(cat.href)
+                              ? 'text-[#C8C0B4]'
+                              : 'text-[#F5F0E8]/40 hover:text-[#F5F0E8] active:text-[#F5F0E8]'
+                          }`}
+                          style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                        >
+                          {cat.label}
+                        </Link>
+                      )
+                    )}
                   </div>
                 </div>
               </div>

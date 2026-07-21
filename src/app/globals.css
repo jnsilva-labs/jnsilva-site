@@ -173,13 +173,15 @@ body {
   z-index: 1;
 }
 
-/* Scroll progress bar — gold line at top of viewport */
+/* Scroll progress bar — soft gold line at top of viewport.
+   60% opacity so a partial width reads as a line, not a glitch. */
 .scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
-  height: 1px;
+  height: 2px;
   background: var(--gold-accent);
+  opacity: 0.6;
   z-index: 9998;
   transform-origin: left;
   will-change: transform;
