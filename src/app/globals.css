@@ -108,10 +108,8 @@ body {
   }
 }
 
-/* B&W-to-color scroll: CSS fallback (works without JS) */
-[data-colorize] {
-  filter: grayscale(1) brightness(0.9);
-}
+/* Images render in their original color — the B&W-to-color scroll
+   treatment was retired (JN prefers photographs unfiltered). */
 
 /* Smooth page transitions */
 .page-transition-enter {
