@@ -124,7 +124,7 @@ export default function HeroSection() {
           Starts invisible; the reveal timeline fades it to ~0.3. */}
       <div className="hero-photo absolute inset-0 overflow-hidden" aria-hidden="true">
         <Image
-          src="/images/hero/blackandwhitehero1.jpg"
+          src="/images/hero/greecebw-04771.JPG"
           alt=""
           fill
           priority
