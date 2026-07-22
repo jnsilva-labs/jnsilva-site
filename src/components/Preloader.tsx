@@ -29,7 +29,6 @@ const desktopImages = [
 
 const mobileImages = [
   '/images/hero/DSC00754.JPG',              // Portrait — high contrast
-  '/images/hero/greecebw-04771.JPG',        // Greece B&W architecture
   '/images/music/Kendrick_3.jpg',           // Concert performance
   '/images/places/Solar_Eclipse.jpg',       // Solar eclipse
   '/images/people/Fashion_Week.jpg',        // Fashion portrait
